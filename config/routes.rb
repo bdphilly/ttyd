@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
-  get 'products/index'
+  namespace :api, defaults: { format: :json} do
+    resources :products, only: [:index]
+    resources :orders, only: [:show]
+  end
+  
+  resources :orders, only: [:show]
+  resources :order_items, only: [:create, :update, :destroy]
+  root to: "products#index"
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

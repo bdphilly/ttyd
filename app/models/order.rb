@@ -20,6 +20,19 @@ class Order < ActiveRecord::Base
 
   before_create :set_order_status
 
+  def add_product(product_args)
+    current_item = order_items.find_by(product_id: product_args[:product_id])
+
+    if current_item
+      current_item.quantity += product_args[:quantity].total_price
+      current_item.save
+    else
+      current_item = order_items.build(product_args)
+    end
+
+      current_item
+  end
+
   private
 
     def set_order_status
