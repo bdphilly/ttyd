@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: items
+# Table name: products
 #
 #  id            :integer          not null, primary key
 #  name          :string           not null
@@ -11,8 +11,12 @@
 #  price         :float
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  active        :boolean          not null
 #
 
-class Item < ActiveRecord::Base
+class Product < ActiveRecord::Base
   validates :name, presence: true
+  validates :active, presence: true
+
+  default_scope { where(active: true) }
 end
