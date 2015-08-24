@@ -1,11 +1,12 @@
 class OrderItemsController < ApplicationController
   def create
     @order = current_order
-    # @order_item = @order.order_items.new(order_item_params)
-    # @order.save
-
-    @order.add_product(params)
-    @order.save    
+    @order_item = @order.order_items.new(order_item_params) 
+    puts "order item"
+    puts @order_item   
+    @order.save
+    # @order.add_product(params)
+    # @order.save    
     
     session[:order_id] = @order.id
   end

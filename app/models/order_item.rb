@@ -12,13 +12,8 @@
 #
 
 class OrderItem < ActiveRecord::Base
-  belongs_to :product,
-    class_name: "Product",
-    foreign_key: :product_id
-
-  belongs_to :order,
-    class_name: "Order",
-    foreign_key: :order_id
+  belongs_to :product
+  belongs_to :order
 
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validate :product_present
@@ -27,6 +22,7 @@ class OrderItem < ActiveRecord::Base
   # before_save :finalize
 
   private
+
     def product_present
       if product.nil?
         errors.add(:product, "is not vaild or is not active.")
@@ -38,6 +34,4 @@ class OrderItem < ActiveRecord::Base
         errors.add(:order, "is not a valid order.")
       end
     end
-
-
 end

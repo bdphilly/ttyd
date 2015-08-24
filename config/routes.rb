@@ -4,7 +4,8 @@ Rails.application.routes.draw do
     resources :orders, only: [:show]
   end
   
-  resources :orders, only: [:show]
+  resources :products, only: [:index]
+  resource :order, only: [:show]
   resources :order_items, only: [:create, :update, :destroy]
   root to: "products#index"
 

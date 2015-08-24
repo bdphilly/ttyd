@@ -9,7 +9,5 @@
 #
 
 class OrderStatus < ActiveRecord::Base
-  has_many :orders,
-    class_name: "Order",
-    foreign_key: :order_status_id
+  has_many :orders
 end
