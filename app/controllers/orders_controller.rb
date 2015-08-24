@@ -5,8 +5,8 @@ class OrdersController < ApplicationController
 
   private
   
-    # def order_params
-    #   params.require(:order).permit(:total, :order_status_id)
-    # end
+    def order_params
+      params.require(:order).permit(:total, :order_status_id)
+    end
 
 end
