@@ -7,6 +7,7 @@
     <div class="col-xs-4">
       
       <%= form_for order_item, remote: true do |f| %>
+        <%= order_item %>
         <div class="row">
           <div class="col-xs-8">
             <%= f.number_field :quantity, value: order_item.quantity.to_i, class: "form-control", min: 1 %>

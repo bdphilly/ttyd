@@ -21,7 +21,7 @@ class Order < ActiveRecord::Base
       current_item.quantity += order_item_params[:quantity].to_i
       current_item.save
     else
-      current_item = order_items.build(product_args)
+      current_item = order_items.build(order_item_params)
     end
 
       current_item

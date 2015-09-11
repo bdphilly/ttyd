@@ -22,6 +22,11 @@ class OrderItemsController < ApplicationController
     @order_item = @order.order_items.find(params[:id])
     @order_item.destroy
     @order_items = @order.order_items
+
+    # redirect_to 'OrdersController/show', status: 303
+    render :action => :show, :controller=>"orders", status: 303   
+    # redirect_to :action=> 'show', :controller=> "OrderController"
+    # render root_path
   end
 
   private

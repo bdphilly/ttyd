@@ -59,3 +59,5 @@ gem 'draper'
 gem 'pundit'
 
 gem 'annotate'
+
+gem 'react-rails'

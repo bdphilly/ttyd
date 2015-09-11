@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   
   resources :products, only: [:index]
   resource :order, only: [:show]
-  resources :order_items, only: [:create, :update, :destroy]
-  root to: "products#index"
+  resources :order_items, only: [:create, :update, :destroy, :delete]
+  root "products#index"
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
