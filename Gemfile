@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
 # Use postgresql as the database for Active Record
@@ -60,4 +59,5 @@ gem 'pundit'
 
 gem 'annotate'
 
-gem 'react-rails'
+gem 'browserify-rails'
+gem 'react-rails', '~> 1.0'
