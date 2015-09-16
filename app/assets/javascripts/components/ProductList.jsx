@@ -5,16 +5,7 @@ var React = require('react'),
     Product = require('./Product.jsx');
 
 var ProductList = React.createClass({
-  // mixins: [Reflux.connect(ProductStore, 'products')],
-  mixins: [
-    Reflux.listenTo(ProductStore, "onFetchAllProducts")
-  ],
-  onFetchAllProducts: function(products) {
-    console.log('im in the function')
-    // this.setState({
-    //   productList: products
-    // })
-  },
+  mixins: [Reflux.connect(ProductStore, 'products')],
   getInitialState: function () { 
     return {
       products: []
