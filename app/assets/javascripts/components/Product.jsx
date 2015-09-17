@@ -1,11 +1,13 @@
 var React = require('react');
 var CartActions = require('../actions/CartActions');
 var Radium = require('radium');
-var Modal = require('react-modal');
 var Dialog = require('material-ui/lib/dialog');
 var Toggle = require('material-ui/lib/toggle');
+var FlatButton = require('material-ui/lib/flat-button');
 var ThemeManager = require('material-ui/lib/styles/theme-manager')();
-// var RaisedButton = require('material-ui/lib/raised-button');
+var injectTapEventPlugin = require("react-tap-event-plugin");
+
+injectTapEventPlugin();
 
 var styles = {
   container: {
@@ -23,31 +25,21 @@ var styles = {
   },
 };
 
-
-
-var appElement = document.getElementById('product');
-console.log('appElement,', appElement)
-Modal.setAppElement(appElement);
-// Modal.injectCSS();
-
 var Product = React.createClass({
   getInitialState: function() {
     return { modalIsOpen: false };
   },
-
-  openModal: function() {
-    // this.setState({modalIsOpen: true});
-    
-    // Dialog.show();
-  },
-
-  closeModal: function() {
-    // this.setState({modalIsOpen: false});
-    // Dialog.dismiss();
-  },
   _handleDialogTouchTap: function() {
-    console.log('handling the tao')
-    this.refs.modal.show();
+    console.log('handling the tap')
+    this.refs.dialog.show();
+  },
+
+  _handleCustomDialogCancel: function() {
+    this.refs.dialog.dismiss();
+  },
+
+  _handleCustomDialogSubmit: function() {
+    this.refs.dialog.dismiss();
   },
 
   addToCart: function(event) {
@@ -77,26 +69,29 @@ var Product = React.createClass({
   },
 
   render: function() {
-      console.log('props props', this.props);
-
-      var standardActions = [
-        { text: 'Cancel' },
-        { text: 'Submit', onTouchTap: this._onDialogSubmit, ref: 'submit' }
-      ];
+      var customActions = [
+        <FlatButton
+          label="Cancel"
+          secondary={true}
+          onTouchTap={this._handleCustomDialogCancel} />,
+        <FlatButton
+          label="Submit"
+          primary={true}
+          onTouchTap={this._handleCustomDialogSubmit} />
+      ];      
 
       return (
         <div className="product" style={styles.container}>
           <img src={'https://upload.wikimedia.org/wikipedia/commons/2/29/PerfectStrawberry.jpg'}
-            style={styles.image}
-          />
+            style={styles.image}/>
           <button label="This be a label" onClick={this._handleDialogTouchTap}></button>
           <div className="product-detail-wrapper">
             <h2 className="product-name">{this.props.name}</h2>
             <p className="product-details">{this.props.details}</p>
           </div>
-          <Dialog ref="modal" 
+          <Dialog ref="dialog" 
                   title="test title" 
-                  actions={standardActions}
+                  actions={customActions}
                   modal={true}>
             The internals of the dialog!
           </Dialog>        

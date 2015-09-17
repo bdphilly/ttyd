@@ -5,7 +5,7 @@
     "browserify-incremental": "^3.0.1",
     "radium": "^0.14.1",
     "react": "^0.13.3",
-    "react-modal": "^0.3.0",
+    "react-tap-event-plugin": "^0.1.7",
     "reactify": "^1.1.1",
     "reflux": "^0.2.12"
   },
