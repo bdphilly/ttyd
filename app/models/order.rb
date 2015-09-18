@@ -16,6 +16,7 @@ class Order < ActiveRecord::Base
   before_create :set_order_status
 
   def add_product(order_item_params)
+    # initiate_order()
     current_item = order_items.find_by(product_id: order_item_params[:product_id])
     if current_item
       current_item.quantity += order_item_params[:quantity].to_i

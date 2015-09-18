@@ -1,1 +1,1 @@
-<%= link_to "#{current_order.order_items.collect(&:quantity).inject{ |sum, el| sum += el }} Items in Cart", order_path, class: "btn btn-link" %>
+<%= link_to "#{current_order.order_items.collect(&:quantity).inject{ |sum, el| sum += el }} Items in Cart", orders_path, class: "btn btn-link" %>

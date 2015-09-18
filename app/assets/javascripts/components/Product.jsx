@@ -29,8 +29,8 @@ var Product = React.createClass({
   getInitialState: function() {
     return { modalIsOpen: false };
   },
+  
   _handleDialogTouchTap: function() {
-    console.log('handling the tap')
     this.refs.dialog.show();
   },
 
@@ -90,7 +90,7 @@ var Product = React.createClass({
             <p className="product-details">{this.props.details}</p>
           </div>
           <Dialog ref="dialog" 
-                  title="test title" 
+                  title={this.props.name} 
                   actions={customActions}
                   modal={true}>
             The internals of the dialog!
