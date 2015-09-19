@@ -97,6 +97,20 @@ class API::OrderItemsController < ApplicationController
   end
 
   def destroy
+    @order_item = OrderItem.find_by_id(params[:id])
+    
+    if @order_item
+      @order_item.destroy
+      render json: {
+        :status => :ok,
+        :message => "Successfully Destroyed!"
+      }
+    else
+      render :status => 400, json: {
+        :status => :error,
+        :message => "Couldn't find!"
+      }
+    end
     #when user brings quantity to 0 or removes it, just destroy it!
   end
 
