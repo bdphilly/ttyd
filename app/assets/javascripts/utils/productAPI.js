@@ -16,3 +16,13 @@ module.exports = {
     })
   }
 }
+
+// product row:
+
+// <div class="row">
+//   <div class="col-xs-6 col-xs-offset-3">
+//     <% @products.each do |product| %>
+//       <%= render "product_row", product: product, order_item: @order_item %>
+//     <% end %>
+//   </div>
+// </div>

@@ -8,9 +8,10 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_order
 
-  def current_order(local_storage_order_id)   
+  def current_order(local_storage_order_id = nil)   
    # using localStorage from client to determine, for now...
-    if Order.find_by_id(local_storage_order_id) 
+   # debugger
+    if local_storage_order_id && Order.find_by_id(local_storage_order_id) 
       return Order.find_by_id(local_storage_order_id) 
     else
       Order.new

@@ -19,6 +19,8 @@ class OrderItem < ActiveRecord::Base
   validate :product_present
   validate :order_present
 
+  validates_uniqueness_of :product_id, scope: [:order_id]
+
   # before_save :finalize
 
   private

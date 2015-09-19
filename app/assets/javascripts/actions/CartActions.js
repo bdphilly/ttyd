@@ -1,11 +1,10 @@
 var Reflux = require('reflux');
+var CartAPI = require('../utils/cartAPI');
 
-module.exports = Reflux.createActions([
-  "itemAdded",
-  "itemRemoved",
-  "cartVisible",
-  "setSelected",
-  "receiveData",
-  "increaseItem",
-  "decreaseItem"
-]);
+var CartActions = Reflux.createActions({
+  "itemAdded": {children: ["completed", "failed"]}
+});
+
+CartActions.itemAdded.listenAndPromise(CartAPI.addToCart);
+
+module.exports = CartActions;

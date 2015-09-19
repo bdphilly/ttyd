@@ -10,42 +10,94 @@ class API::OrderItemsController < ApplicationController
   end
 
   def create
-    @order = current_order(params[:local_storage_order_id])
-    @order_item = @order.add_product(order_item_params)
-    @order.save
+    @current_order = current_order(params[:order_item][:local_storage_order_id])
+    # @current_order = current_order(params[:order_item][:local_storage_order_id])
+    @order_item = @current_order.order_items.build(order_item_params)
+    # @order_item = OrderItem.new(order_item_params)
+    # @order_item.order_id = @current_order.id
 
-    render json: {
-      :status => :ok,
-      :message => "Success!",
-      :data => {
-        order: {
-          id: @order.id,
-          order_total: @order.total,
-          created_at: @order.created_at,
-          updated_at: @order.updated_at
-        },
-        order_item: {
-          id: @order_item.id,
-          product_id: @order_item.product_id,
-          quantity: @order_item.quantity,
-          total_price: @order_item.total_price,
-          created_at: @order_item.created_at,
-          updated_at: @order_item.updated_at
+    if @order_item.save
+      render json: {
+        :status => :ok,
+        :message => "Success!",
+        :data => {
+          currentOrder: @current_order,
+          updatedOrderItem: @order_item,
+          currentCart: @current_order.order_items.map do |order_item|
+            order_item
+          end
         }
       }
-    }
+    else
+      render json: {
+        errors: @order_item.errors.full_messages
+      }
+    end
+    # @order_item = @order.add_product(order_item_params)
+    # @order.save
+
+    # render json: {
+    #   :status => :ok,
+    #   :message => "Success!",
+    #   :data => {
+    #     order: @order,
+    #     updatedOrderItem: @order_item,
+    #     currentCart: @order.order_items.map do |order_item|
+    #       order_item
+    #     end
+    #   }
+    # }
+
+
+    # @current_order = current_order(params[:order_item][:local_storage_order_id])
+    # @order_item = @current_order.order_item
+    # @order_item = @order.add_product(order_item_params)
+    # @order.save
+
+    # render json: {
+    #   :status => :ok,
+    #   :message => "Success!",
+    #   :data => {
+    #     order: @order,
+    #     updatedOrderItem: @order_item,
+    #     currentCart: @order.order_items.map do |order_item|
+    #       order_item
+    #     end
+    #   }
+    # }
+
   end
 
   def update
-    @order = current_order    
-    @order_item = @order.order_items.find(params[:id])
-    @order_item.update_attributes(order_item_params)
-    @order_items = @order.order_items
+    @current_order = current_order(params[:order_item][:local_storage_order_id])
+    puts "========================================"
+    puts @current_order.order_items.inspect
+    @order_item = @current_order.order_items.find(params[:id])
 
-    render json: {
-      :status => :ok,
-      :message => "Success!"
-    }
+
+    if @order_item.update_attributes(order_item_params)
+      #build this in the model instead!!
+      render json: {
+        :status => :ok,
+        :message => "Success!",
+        :data => {
+          currentOrder: @current_order.as_json.merge(:message => 'it works'),
+          updatedOrderItem: @order_item,
+          currentCart: @current_order.order_items.map do |order_item|
+            order_item
+          end
+        }
+      }
+    else
+      render json: {
+        errors: @order_item.errors.full_messages
+      }
+    end
+    
+  end
+
+  def destroy
+    #when user brings quantity to 0 or removes it, just destroy it!
   end
 
   private

@@ -38,8 +38,9 @@ var Product = React.createClass({
     this.refs.dialog.dismiss();
   },
 
-  _handleCustomDialogSubmit: function() {
-    this.refs.dialog.dismiss();
+  _handleCustomDialogSubmit: function(event) {
+    CartActions.itemAdded();
+    // this.refs.dialog.dismiss();
   },
 
   addToCart: function(event) {
