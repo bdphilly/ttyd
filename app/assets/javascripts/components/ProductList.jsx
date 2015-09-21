@@ -1,6 +1,6 @@
 var React = require('react'),
     Reflux = require('reflux'),
-    ProductActions = require('../actions/ProductActions'),
+    AppActions = require('../actions/AppActions'),
     ProductStore = require('../stores/ProductStore'),
     Product = require('./Product.jsx');
 
@@ -12,7 +12,7 @@ var ProductList = React.createClass({
     }
   },  
   componentWillMount: function() {
-    ProductActions.fetchAllProducts();
+    AppActions.fetchAllProducts();
   },  
   componentDidMount: function() {
     this._unsubscribe = ProductStore.listen(this._updateState);
@@ -31,7 +31,7 @@ var ProductList = React.createClass({
     var productNodes = this.state.products.map(function (product, index) {
       console.log('prod', product)
       return (
-        <Product name={product.name} details={product.details} key={index} />
+        <Product product={product} key={index} />
       );
     });
 
@@ -42,14 +42,5 @@ var ProductList = React.createClass({
     );
   }
 });
-
-var ready = function () {
-  React.render(
-    <ProductList/>,
-      document.getElementById('products')
-  );
-};
-
-$(document).ready(ready);
 
 module.exports = ProductList;

@@ -1,9 +1,10 @@
 var Reflux = require('reflux'),
-    ProductActions = require('../actions/ProductActions'),
-    ProductAPI = require('../utils/productAPI');
+    AppActions = require('../actions/AppActions'),
+    ProductAPI = require('../utils/productAPI'),
+    CartAPI = require('../utils/cartAPI');
 
 var ProductStore = Reflux.createStore({  
-  listenables: [ProductActions],  
+  listenables: [AppActions],  
 
   init: function () {
     this.state = {

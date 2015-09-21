@@ -1,16 +1,32 @@
-// var React = require('react');
-// var CartStore = require('../stores/CartStore');
-// var ProductStore = require('../stores/ProductStore');
-// var Product = require('./Product.react');
-// var Cart = require('./Cart.react');
+var React = require('react');
+var CartStore = require('../stores/CartStore');
+var ProductStore = require('../stores/ProductStore');
+var ProductList = require('./ProductList.jsx');
+var Cart = require('./Cart.jsx');
 
-// var CartApp = React.createClass({
-//   mixins: [Reflux.connect(cartStore)];
 
-//   render: function() {
-//     return (
-//       <div className="flux-cart-app">
-//         <Product product={this.state.product} cart
-//     )
-//   }
-// })
+function getCartState() {
+  return {
+    cartItems: CartStore.getCartItems(),
+    cartVisible: CartStore.getCartVisible()
+  };
+}
+
+var CartApp = React.createClass({
+
+  getInitialState: function() {
+    return getCartState();
+  },
+
+  render: function() {
+    return (
+      <div className="ttyd-app">
+        <Cart products={this.state.cartItems} visible={this.state.cartVisible} />
+        <div>brekbetweencartandproductlist</div>
+        <ProductList products={this.state.products} />
+      </div>
+    );
+  },
+})
+
+module.exports = CartApp;

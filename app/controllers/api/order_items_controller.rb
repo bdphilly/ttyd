@@ -1,7 +1,7 @@
 class API::OrderItemsController < ApplicationController
   def index
     @order_items = OrderItem.all
-    render json: @order_items
+    render json: @order_items.to_json(:include => :product)
   end
 
   def show
@@ -22,15 +22,19 @@ class API::OrderItemsController < ApplicationController
         :message => "Success!",
         :data => {
           currentOrder: @current_order,
-          updatedOrderItem: @order_item,
+          updatedOrderItem: {
+            orderItem: @order_item,
+            product: @order_item.product
+            },
           currentCart: @current_order.order_items.map do |order_item|
             order_item
           end
         }
       }
     else
-      render json: {
-        errors: @order_item.errors.full_messages
+      render :status => 400, json: {
+        :status => :error,
+        :errors => @order_item.errors.full_messages
       }
     end
     # @order_item = @order.add_product(order_item_params)
@@ -103,7 +107,8 @@ class API::OrderItemsController < ApplicationController
       @order_item.destroy
       render json: {
         :status => :ok,
-        :message => "Successfully Destroyed!"
+        :message => "Successfully Destroyed!",
+        :product => params[:id]
       }
     else
       render :status => 400, json: {
