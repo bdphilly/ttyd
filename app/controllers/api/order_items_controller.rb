@@ -1,6 +1,9 @@
 class API::OrderItemsController < ApplicationController
+  # before_action :authenticate_user!
+
   def index
-    @order_items = OrderItem.all
+    @current_order = current_order
+    @order_items = @current_order.order_items    
     render json: @order_items.to_json(:include => :product)
   end
 
@@ -10,25 +13,20 @@ class API::OrderItemsController < ApplicationController
   end
 
   def create
-    @current_order = current_order(params[:order_item][:local_storage_order_id])
-    # @current_order = current_order(params[:order_item][:local_storage_order_id])
+    @current_order = current_order
+    
     @order_item = @current_order.order_items.build(order_item_params)
-    # @order_item = OrderItem.new(order_item_params)
-    # @order_item.order_id = @current_order.id
 
     if @order_item.save
       render json: {
         :status => :ok,
         :message => "Success!",
         :data => {
-          currentOrder: @current_order,
           updatedOrderItem: {
             orderItem: @order_item,
             product: @order_item.product
             },
-          currentCart: @current_order.order_items.map do |order_item|
-            order_item
-          end
+          currentCart: @current_order.order_items
         }
       }
     else
