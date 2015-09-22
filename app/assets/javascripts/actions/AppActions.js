@@ -3,10 +3,14 @@ var ProductAPI = require('../utils/productAPI');
 var CartAPI = require('../utils/cartAPI');
 
 var AppActions = Reflux.createActions([
-  {"fetchAllProducts": {
+  {"fetchProducts": {
       children: ["completed", "failed"]
     }
   },
+  {"fetchCart": {
+      children: ["completed", "failed"]
+    }
+  },  
   {"addToCart": {
       children: ["completed", "failed"]
     }
@@ -20,7 +24,8 @@ var AppActions = Reflux.createActions([
   "getCartVisible"
 ]);
 
-AppActions.fetchAllProducts.listenAndPromise(ProductAPI.fetchProducts);
+AppActions.fetchProducts.listenAndPromise(ProductAPI.fetchProducts);
+AppActions.fetchCart.listenAndPromise(CartAPI.fetchCart);
 AppActions.addToCart.listenAndPromise(CartAPI.addToCart);
 AppActions.removeFromCart.listenAndPromise(CartAPI.removeFromCart);
 

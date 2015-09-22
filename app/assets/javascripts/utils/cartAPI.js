@@ -15,8 +15,7 @@ module.exports = {
       dataType: 'json',
       data: orderItem,
       success: function (result) {
-        console.log('result from ajax', result);
-        return result;
+        return result.data;
       }.bind(this),
       error: function (xhr, status, err) {
         console.error(xhr, status, err.toString());
@@ -25,27 +24,36 @@ module.exports = {
     })
   },
 
-  removeFromCart: function(product) {
-    //need to change, just copied and pasted for now!
-    var sourceURL = 'api/order_items/' + product.id;
-
-    var orderItem = {"order_item":{ 
-      local_storage_order_id: product.order_id
-    }};
+  removeFromCart: function(id) {
+    var sourceURL = 'api/order_items/' + id;
 
     return $.ajax({
       url: sourceURL,
       type: 'DELETE',
       dataType: 'json',
-      data: orderItem,
       success: function (result) {
-        console.log('result from ajax', result);
-        return {result, product};
+        return result.data;
       }.bind(this),
       error: function (xhr, status, err) {
         console.error(xhr, status, err.toString());
         return err;
       }
+    })
+  },
+
+  fetchCart: function() {
+    var sourceURL =  '/api/order_items';
+
+    return $.ajax({
+      url: sourceURL,
+      type: 'GET',
+      dataType: 'json',
+      success: function (result) {
+        return result.data;
+      },
+      error: function (xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
     })
   }    
 

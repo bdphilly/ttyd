@@ -3,8 +3,20 @@ class API::OrderItemsController < ApplicationController
 
   def index
     @current_order = current_order
-    @order_items = @current_order.order_items    
-    render json: @order_items.to_json(:include => :product)
+    @order_items = @current_order.order_items
+
+      render json: {
+        :status => :ok,
+        :message => "Success!",
+        :data => {          
+          orderItems: @current_order.order_items.map do |order_item| 
+            {
+              orderItem: order_item,
+              product: order_item.product
+            }
+          end
+        }
+      }        
   end
 
   def show
@@ -25,7 +37,7 @@ class API::OrderItemsController < ApplicationController
           updatedOrderItem: {
             orderItem: @order_item,
             product: @order_item.product
-            },
+          },
           currentCart: @current_order.order_items
         }
       }
@@ -106,7 +118,9 @@ class API::OrderItemsController < ApplicationController
       render json: {
         :status => :ok,
         :message => "Successfully Destroyed!",
-        :product => params[:id]
+        :data => {
+          orderItemId: params[:id]
+        }
       }
     else
       render :status => 400, json: {

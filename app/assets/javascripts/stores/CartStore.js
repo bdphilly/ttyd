@@ -13,9 +13,15 @@ var Store = Reflux.createStore({
       visible: false
     }
   },
-  
-  getInitialState: function () { 
-    console.debug("initial state cart store");
+
+  onFetchCartCompleted: function(results) {
+    this.state.orderItems = results.data.orderItems;
+    
+    this.trigger(this.state.orderItems);
+  },
+
+  onFetchCartFailed: function() {
+    console.log('in the get cart items failedfailed!');    
   },
 
   onAddToCartCompleted: function(result) {
@@ -31,9 +37,13 @@ var Store = Reflux.createStore({
     console.log('fail', err);
   },
 
-  onRemoveFromCartCompleted: function(result, product) {
-    console.log('successfully deleted!', result, product);    
-    _.remove(this.state.orderItems, function(el) { return el.orderItem.id == result.product });
+  onRemoveFromCart: function(params) {
+  },
+
+  onRemoveFromCartCompleted: function(result) {
+    _.remove(this.state.orderItems, function(product) { 
+      return product.orderItem.id == result.data.orderItemId
+    });
     this.trigger(this.state.orderItems);
   },
 
@@ -41,23 +51,22 @@ var Store = Reflux.createStore({
     console.log('not deleted!', result);
   },
 
-  onGetCartItems: function() {
-    console.log('in the get cart items!');
-  },
-
   getCartItems: function() {
-    return 'test';
-  },
-
-  onGetCartVisible: function() {
-    console.log('in the get cart visible!');
-
-    return this.state.visible;
+    // debugger
+    // return {
+    //   orderItems: []
+    // };
+    return this.state;    
   },
 
   getCartVisible: function() {
     console.log('in the get cart visible!12341234');
 
+    return this.state.visible;
+  },
+
+  onGetCartVisible: function() {
+    console.log('in the get cart visible');
     return this.state.visible;
   },
 

@@ -26,6 +26,9 @@ var styles = {
 };
 
 var Product = React.createClass({  
+  init: function () {
+  },
+
   getInitialState: function() {
     return { modalIsOpen: false };
   },

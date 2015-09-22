@@ -1,14 +1,12 @@
 var React = require('react');
 var CartStore = require('../stores/CartStore');
-var ProductStore = require('../stores/ProductStore');
 var ProductList = require('./ProductList.jsx');
 var Cart = require('./Cart.jsx');
-
 
 function getCartState() {
   return {
     cartItems: CartStore.getCartItems(),
-    cartVisible: CartStore.getCartVisible()
+    // cartVisible: CartStore.getCartVisible()
   };
 }
 

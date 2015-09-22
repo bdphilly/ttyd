@@ -17,6 +17,10 @@ var Cart = React.createClass({
     });
   },
 
+  componentDidMount: function() {
+    AppActions.fetchCart()
+  },
+
   _closeCart: function() {
     AppActions.updateCartVisible(false);
   },
@@ -25,8 +29,8 @@ var Cart = React.createClass({
     AppActions.updateCartVisible(true);
   },
 
-  _removeFromCart: function(product) { 
-    AppActions.removeFromCart(product);
+  _removeFromCart: function(orderItemId) {
+    AppActions.removeFromCart(orderItemId);
   },
 
   render: function() {
@@ -42,7 +46,7 @@ var Cart = React.createClass({
               return (
                 <li key={product}>
                   <h1 className="name">{products[product].product.name}</h1>
-                  <button type="button" className="remove-item" onClick={self._removeFromCart.bind(self, products[product].orderItem)}>Remove</button>
+                  <button type="button" className="remove-item" onClick={self._removeFromCart.bind(self, products[product].orderItem.id)}>Remove</button>
                 </li>
               )
             })}

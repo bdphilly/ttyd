@@ -8,7 +8,7 @@ module.exports = {
       dataType: 'json',
       success: function (products) {
         console.log('products returned from ajax', products);
-        return products;
+        return products.data;
       }.bind(this),
       error: function (xhr, status, err) {
         console.error(this.props.url, status, err.toString());

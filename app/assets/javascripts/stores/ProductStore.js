@@ -10,28 +10,18 @@ var ProductStore = Reflux.createStore({
     this.state = {
       products: []
     };
-
-    // this.listenToMany(ProductActions);
-    
-    // ProductActions.fetchAllProducts();    
   },
 
-  onFetchAllProducts: function() {
-    ProductAPI.fetchProducts();
-  },  
-  onFetchAllProductsCompleted: function (result) {
+  onFetchProductsCompleted: function (result) {
     console.log('completed!', result);
     this.state.products = result;
     this.trigger(this.state.products);
   },
-  onFetchAllProductsFailed: function () {
+
+  onFetchProductsFailed: function () {
     console.log('failed :(')
   },
 
-  // onItemAdded: function (newValue) {
-  //   product = newValue,
-  //   this.trigger(product)
-  // },
 });
 
 module.exports = ProductStore;
