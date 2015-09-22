@@ -1,12 +1,11 @@
 module.exports = {
 
-  addToCart: function(product) {
+  addToCart: function(params) {
     var sourceURL = 'api/order_items';
 
     var orderItem = {"order_item":{ 
-      quantity: 1, 
-      product_id: product.id,
-      local_storage_order_id: 23
+      quantity: params.quantity || 1, 
+      product_id: params.id
     }};
 
     return $.ajax({

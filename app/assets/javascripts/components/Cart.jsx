@@ -2,6 +2,22 @@ var React = require('react');
 var AppActions = require('../actions/AppActions');
 var CartStore = require('../stores/CartStore');
 
+var styles = {
+  container: {
+    background: 'red',
+
+    ':hover': {
+      background: 'black'
+    },
+
+    transition: 'all 500ms'
+  },
+  image: {
+    width: '100px',
+    height: '100px'
+  },
+};
+
 var Cart = React.createClass({
   mixins: [Reflux.listenTo(CartStore, 'onCartChange')],
 
@@ -39,14 +55,14 @@ var Cart = React.createClass({
 
     return (
       <div className={"cart " + (this.props.visible ? 'active' : '')}>
-        <div className="mini-cart">
+        <div className="mini-cart" >
           <button type="button" className="close-cart" onClick={this._closeCart}>×</button>
           <ul>
             {Object.keys(products).map(function(product){
               return (
                 <li key={product}>
                   <h1 className="name">{products[product].product.name}</h1>
-                  <button type="button" className="remove-item" onClick={self._removeFromCart.bind(self, products[product].orderItem.id)}>Remove</button>
+                  <button type="button" className="remove-item" onClick={self._removeFromCart.bind(self, products[product].id)}>Remove</button>
                 </li>
               )
             })}

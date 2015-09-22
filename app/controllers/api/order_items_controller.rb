@@ -8,14 +8,15 @@ class API::OrderItemsController < ApplicationController
       render json: {
         :status => :ok,
         :message => "Success!",
-        :data => {          
-          orderItems: @current_order.order_items.map do |order_item| 
-            {
-              orderItem: order_item,
-              product: order_item.product
-            }
-          end
-        }
+        :data => @order_items.as_json(include: :product)       
+          # orderItems: @current_order.order_items.map do |order_item| 
+          #   {
+          #     orderItem: order_item,
+          #     product: order_item.product
+          #   }
+          # end
+          
+        
       }        
   end
 
@@ -34,10 +35,7 @@ class API::OrderItemsController < ApplicationController
         :status => :ok,
         :message => "Success!",
         :data => {
-          updatedOrderItem: {
-            orderItem: @order_item,
-            product: @order_item.product
-          },
+          updatedOrderItem: @order_item.as_json(include: :product),
           currentCart: @current_order.order_items
         }
       }

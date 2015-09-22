@@ -15,7 +15,7 @@ var Store = Reflux.createStore({
   },
 
   onFetchCartCompleted: function(results) {
-    this.state.orderItems = results.data.orderItems;
+    this.state.orderItems = results.data;
     
     this.trigger(this.state.orderItems);
   },
@@ -25,10 +25,7 @@ var Store = Reflux.createStore({
   },
 
   onAddToCartCompleted: function(result) {
-    this.state.orderItems.push({
-      product: result.data.updatedOrderItem.product,
-      orderItem: result.data.updatedOrderItem.orderItem
-    });
+    this.state.orderItems.push(result.data.updatedOrderItem);
 
     this.trigger(this.state.orderItems);
   },
@@ -41,8 +38,8 @@ var Store = Reflux.createStore({
   },
 
   onRemoveFromCartCompleted: function(result) {
-    _.remove(this.state.orderItems, function(product) { 
-      return product.orderItem.id == result.data.orderItemId
+    _.remove(this.state.orderItems, function(orderItem) { 
+      return orderItem.id == result.data.orderItemId
     });
     this.trigger(this.state.orderItems);
   },
@@ -72,7 +69,31 @@ var Store = Reflux.createStore({
 
   onUpdateCartVisible: function(update) {
     this.state.visible = update;
-  },  
+  },
+
+  onAddOrUpdateCart: function(product) {
+    var orderItem = _.find(this.state.orderItems, function (orderItem) { return orderItem.product_id == product.id });
+    if (orderItem) {
+      //update cart
+    } else {
+      AppActions.addToCart({
+        id: product.id,
+        quantity: 1
+      })
+    }
+  },
+
+  onMinusOrDeleteFromCart: function(product) {
+    var orderItem = _.find(this.state.orderItems, function (orderItem) { return orderItem.product_id == product.id });
+    
+    if (!orderItem) {
+      //handle error, shouldn't be 0
+    } else if (orderItem.quantity == 1) {
+      AppActions.removeFromCart(orderItem.id);
+    } else if (orderItem.quantity > 1) {
+      //update
+    }
+  }
 
 });
 
