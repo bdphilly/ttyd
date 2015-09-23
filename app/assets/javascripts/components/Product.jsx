@@ -93,7 +93,6 @@ var Product = React.createClass({
   },
   
   // _handleDialogTouchTap: function(event) {
-  //   debugger
   //   this.refs.dialog.show();
   // },
 

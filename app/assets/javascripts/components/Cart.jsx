@@ -62,6 +62,7 @@ var Cart = React.createClass({
               return (
                 <li key={product}>
                   <h1 className="name">{products[product].product.name}</h1>
+                  <h3 className="quantity">{products[product].quantity}</h3>
                   <button type="button" className="remove-item" onClick={self._removeFromCart.bind(self, products[product].id)}>Remove</button>
                 </li>
               )

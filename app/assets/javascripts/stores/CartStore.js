@@ -14,42 +14,56 @@ var Store = Reflux.createStore({
     }
   },
 
-  onFetchCartCompleted: function(results) {
-    this.state.orderItems = results.data;
-    
-    this.trigger(this.state.orderItems);
+  onFetchCart: function() {
+    CartAPI.fetchCart()
+    .then(function (result) {
+      this.state.orderItems = result.data;      
+      this.trigger(this.state.orderItems);
+    }.bind(this))
+    .catch(function (error) {
+      console.error(error);
+    }.bind(this))
   },
 
-  onFetchCartFailed: function() {
-    console.log('in the get cart items failedfailed!');    
+  onAddToCart: function(data) {
+    CartAPI.addToCart(data)
+    .then(function (result) {
+      this.state.orderItems.push(result.data.updatedOrderItem);
+
+      this.trigger(this.state.orderItems);
+
+    }.bind(this))
+    .catch(function (error) {
+      console.error(error);
+    }.bind(this))
   },
 
-  onAddToCartCompleted: function(result) {
-    this.state.orderItems.push(result.data.updatedOrderItem);
+  onUpdateItemInCart: function(data) {
+    CartAPI.updateItemInCart(data)
+      .then(function (result) {
+        var updatedItem = _.find(this.state.orderItems, function(orderItem) { return orderItem.id == result.data.updatedOrderItem.id });
+        updatedItem.quantity = result.data.updatedOrderItem.quantity;
+        this.trigger(this.state.orderItems);
+      }.bind(this))
+      .catch(function (error) {
+        console.error(error);
+      }.bind(this))
+  },  
 
-    this.trigger(this.state.orderItems);
-  },
-
-  onAddToCartFailed: function(err) {
-    console.log('fail', err);
-  },
-
-  onRemoveFromCart: function(params) {
-  },
-
-  onRemoveFromCartCompleted: function(result) {
-    _.remove(this.state.orderItems, function(orderItem) { 
-      return orderItem.id == result.data.orderItemId
-    });
-    this.trigger(this.state.orderItems);
-  },
-
-  onRemoveFromCartFailed: function(result) {
-    console.log('not deleted!', result);
+  onRemoveFromCart: function(id) {
+    CartAPI.removeFromCart(id)
+      .then(function (result) {
+        _.remove(this.state.orderItems, function(orderItem) { 
+          return orderItem.id == result.data.orderItemId
+        });
+        this.trigger(this.state.orderItems);
+      }.bind(this))
+      .catch(function (error) {
+        console.error(error);
+      }.bind(this))
   },
 
   getCartItems: function() {
-    // debugger
     // return {
     //   orderItems: []
     // };
@@ -74,7 +88,11 @@ var Store = Reflux.createStore({
   onAddOrUpdateCart: function(product) {
     var orderItem = _.find(this.state.orderItems, function (orderItem) { return orderItem.product_id == product.id });
     if (orderItem) {
-      //update cart
+      AppActions.updateItemInCart({
+        productId: product.id,
+        quantity: orderItem.quantity + 1,
+        orderItemId: orderItem.id
+      })
     } else {
       AppActions.addToCart({
         id: product.id,
@@ -87,11 +105,15 @@ var Store = Reflux.createStore({
     var orderItem = _.find(this.state.orderItems, function (orderItem) { return orderItem.product_id == product.id });
     
     if (!orderItem) {
-      //handle error, shouldn't be 0
+      alert('this item isn\'t in your cart!');
     } else if (orderItem.quantity == 1) {
       AppActions.removeFromCart(orderItem.id);
     } else if (orderItem.quantity > 1) {
-      //update
+      AppActions.updateItemInCart({
+        productId: product.id,
+        quantity: orderItem.quantity - 1,
+        orderItemId: orderItem.id
+      })
     }
   }
 

@@ -80,12 +80,9 @@ class API::OrderItemsController < ApplicationController
 
   end
 
-  def update
-    @current_order = current_order(params[:order_item][:local_storage_order_id])
-    puts "========================================"
-    puts @current_order.order_items.inspect
+  def update     
+    @current_order = current_order   
     @order_item = @current_order.order_items.find(params[:id])
-
 
     if @order_item.update_attributes(order_item_params)
       #build this in the model instead!!
@@ -93,11 +90,8 @@ class API::OrderItemsController < ApplicationController
         :status => :ok,
         :message => "Success!",
         :data => {
-          currentOrder: @current_order.as_json.merge(:message => 'it works'),
-          updatedOrderItem: @order_item,
-          currentCart: @current_order.order_items.map do |order_item|
-            order_item
-          end
+          currentOrder: @current_order.order_items.as_json(include: :product),
+          updatedOrderItem: @order_item
         }
       }
     else
@@ -109,6 +103,7 @@ class API::OrderItemsController < ApplicationController
   end
 
   def destroy
+    # debugger
     @order_item = OrderItem.find_by_id(params[:id])
     
     if @order_item

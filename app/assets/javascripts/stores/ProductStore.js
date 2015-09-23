@@ -12,16 +12,16 @@ var ProductStore = Reflux.createStore({
     };
   },
 
-  onFetchProductsCompleted: function (result) {
-    console.log('completed!', result);
-    this.state.products = result;
-    this.trigger(this.state.products);
-  },
-
-  onFetchProductsFailed: function () {
-    console.log('failed :(')
-  },
-
+  onFetchProducts: function() {
+    ProductAPI.fetchProducts()
+      .then(function (result) {
+        this.state.products = result.data;
+        this.trigger(this.state.products);
+      }.bind(this))
+      .catch(function (error) {
+        console.error(error);
+      }.bind(this))
+  }
 });
 
 module.exports = ProductStore;
