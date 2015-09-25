@@ -68,6 +68,25 @@ module.exports = {
     });    
   },
 
+
+  emptyCart: function() {
+    return reqwest({
+      url: '/api/orders',
+      method: 'DELETE',
+      type: 'json',
+      contentType: 'application/json',
+      headers: {
+        'X-CSRF-TOKEN': csrfToken()
+      },
+      success: function (result) {
+        return result;
+      },
+      error: function (error) {
+        return error;
+      }
+    });    
+  },
+
   fetchCart: function() {
     return reqwest({
       url: '/api/order_items',

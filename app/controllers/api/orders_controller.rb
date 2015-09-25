@@ -6,6 +6,20 @@ class API::OrdersController < ApplicationController
     render json: @order_items
   end
 
+  def destroy
+    @order = current_order
+    @order.order_items.destroy_all
+
+    render json: {
+      :status => :ok,
+      :message => "Successfully Emptied Cart!",
+      :data => {
+        currentCart: @order.order_items
+      }
+    }
+
+  end
+
   private
   
     def order_params

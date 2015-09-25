@@ -49,6 +49,10 @@ var Cart = React.createClass({
     AppActions.removeFromCart(orderItemId);
   },
 
+  _empty: function() {
+    AppActions.emptyCart();
+  },
+
   render: function() {
     var self = this, 
         products = this.state.orderItems;
@@ -56,6 +60,7 @@ var Cart = React.createClass({
     return (
       <div className={"cart " + (this.props.visible ? 'active' : '')}>
         <div className="mini-cart" >
+          <button type="button" className="empty" onClick={this._empty}>Empty Cart</button>
           <button type="button" className="close-cart" onClick={this._closeCart}>×</button>
           <ul>
             {Object.keys(products).map(function(product){

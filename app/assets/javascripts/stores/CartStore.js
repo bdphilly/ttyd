@@ -63,6 +63,17 @@ var Store = Reflux.createStore({
       }.bind(this))
   },
 
+  onEmptyCart: function() {
+    CartAPI.emptyCart()
+      .then(function (result) {
+        this.state.orderItems = [];
+        this.trigger(this.state.orderItems);
+      }.bind(this))
+      .catch(function (error) {
+        console.error(error);
+      }.bind(this))    
+  },
+
   getCartItems: function() {
     // return {
     //   orderItems: []

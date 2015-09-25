@@ -9,7 +9,8 @@ var AppActions = Reflux.createActions([
   "minusOrDeleteFromCart",
   "addToCart",
   "updateItemInCart",  
-  "removeFromCart",  
+  "removeFromCart",
+  "emptyCart",  
   "updateCartVisible",
   "getCartItems",
   "getCartVisible"

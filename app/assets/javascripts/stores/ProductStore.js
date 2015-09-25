@@ -8,15 +8,15 @@ var ProductStore = Reflux.createStore({
 
   init: function () {
     this.state = {
-      products: []
+      categories: []
     };
   },
 
   onFetchProducts: function() {
     ProductAPI.fetchProducts()
       .then(function (result) {
-        this.state.products = result.data;
-        this.trigger(this.state.products);
+        this.state.categories = result.data;
+        this.trigger(this.state.categories);
       }.bind(this))
       .catch(function (error) {
         console.error(error);

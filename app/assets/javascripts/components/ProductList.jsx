@@ -2,35 +2,48 @@ var React = require('react'),
     Reflux = require('reflux'),
     AppActions = require('../actions/AppActions'),
     ProductStore = require('../stores/ProductStore'),
-    Product = require('./Product.jsx');
+    Product = require('./Product.jsx'),
+    CategoryList = require('./CategoryList.jsx');
+
+var styles = {
+  container: {
+    'color': 'blue'
+  },
+  wrapper: {
+    'border': '1px green solid'
+  }
+}
 
 var ProductList = React.createClass({
-  mixins: [Reflux.connect(ProductStore, 'products')],
+  mixins: [Reflux.connect(ProductStore, 'categories')],
   
-  init: function() {
+  // init: function() {
 
-  },
+  // },
 
-  getInitialState: function () { 
-    return {
-      products: []
-    }
-  },  
+  // getInitialState: function () { 
+  //   return {
+  //     categories: {}
+  //   }
+  // },  
 
   componentDidMount: function() {
     AppActions.fetchProducts()
   },
 
   render: function () {
-    var productNodes = this.state.products.map(function (product, index) {
+    var categoryLists = _.map(this.state.categories, (function (products, index) {
       return (
-        <Product product={product} key={index} />
+        <div style={styles.wrapper} key={index}>
+          <h2 style={styles.container}>{index}</h2>
+          <CategoryList products={products} key={index} />
+        </div>
       );
-    });
+    }));
 
-    return (
+    return (      
       <div className="productList">
-        {productNodes}
+        {categoryLists}
       </div>
     );
   }

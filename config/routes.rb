@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   namespace :api, defaults: { format: :json} do
     resources :products, only: [:index]
-    resources :order_items, only: [:index, :show, :create, :update, :destroy, :delete]
-    resource :orders, only: [:show]
+    resources :order_items, only: [:index, :show, :create, :update, :destroy]
+    resource :orders, only: [:show, :destroy]
   end
   
   resources :products, only: [:index]
