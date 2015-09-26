@@ -34,7 +34,7 @@ var Cart = React.createClass({
   },
 
   componentDidMount: function() {
-    AppActions.fetchCart()
+    AppActions.fetchCart();    
   },
 
   _closeCart: function() {
@@ -45,9 +45,9 @@ var Cart = React.createClass({
     AppActions.updateCartVisible(true);
   },
 
-  _removeFromCart: function(orderItemId) {
-    AppActions.removeFromCart(orderItemId);
-  },
+  // _removeFromCart: function(orderItemId) {
+  //   AppActions.removeFromCart(orderItemId);
+  // },
 
   _empty: function() {
     AppActions.emptyCart();
@@ -60,25 +60,38 @@ var Cart = React.createClass({
     return (
       <div className={"cart " + (this.props.visible ? 'active' : '')}>
         <div className="mini-cart" >
-          <button type="button" className="empty" onClick={this._empty}>Empty Cart</button>
-          <button type="button" className="close-cart" onClick={this._closeCart}>×</button>
           <ul>
-            {Object.keys(products).map(function(product){
+            {Object.keys(products).map(function(product, index){
               return (
-                <li key={product}>
-                  <h1 className="name">{products[product].product.name}</h1>
-                  <h3 className="quantity">{products[product].quantity}</h3>
-                  <button type="button" className="remove-item" onClick={self._removeFromCart.bind(self, products[product].id)}>Remove</button>
-                </li>
+                <CartItem product={products[product]} key={index} />
               )
             })}
           </ul>
           <span className="total">Total: ${this.props.total}</span>
-        </div>
-        <button type="button" className="view-cart" onClick={this._openCart} disabled={Object.keys(this.state.orderItems).length > 0 ? "" : "disabled"}>View Cart ({this.props.count})</button>
+        </div>        
+        <button type="button" className="empty" onClick={this._empty}>Empty Cart</button>
       </div>
     );
   }  
+})
+
+var CartItem = React.createClass({
+
+  _removeFromCart: function(orderItemId) {
+    AppActions.removeFromCart(orderItemId);
+  },
+
+  render: function() {
+    var product = this.props.product;
+
+    return (
+      <li>
+        <h1 className="name">{product.product.name}</h1>
+        <h3 className="quantity">Quantity: {product.quantity}</h3>
+        <button type="button" className="remove-item" onClick={this._removeFromCart.bind(this, product.id)}>Remove</button>      
+      </li>
+    )
+  }
 })
 
 module.exports = Cart;

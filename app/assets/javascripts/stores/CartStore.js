@@ -19,6 +19,7 @@ var Store = Reflux.createStore({
     .then(function (result) {
       this.state.orderItems = result.data;      
       this.trigger(this.state.orderItems);
+      AppActions.updateCartVisible(true);
     }.bind(this))
     .catch(function (error) {
       console.error(error);

@@ -16,6 +16,10 @@ Product.create! id: 3, name: "Strawberries", category: "Fruit", price: 1.99, act
 Product.create! id: 4, name: "Turkey", category: "Meat", price: 3.49, active: true
 Product.create! id: 5, name: "Chicken", category: "Meat", price: 4.29, active: true
 Product.create! id: 6, name: "Sausage", category: "Meat", price: 6.99, active: true
+Product.create! id: 7, name: "Bacon", category: "Meat", price: 3.49, active: true
+Product.create! id: 8, name: "Ham", category: "Meat", price: 4.29, active: true
+Product.create! id: 9, name: "Fish", category: "Meat", price: 6.99, active: true
+
 
 
 OrderStatus.delete_all

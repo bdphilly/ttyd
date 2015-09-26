@@ -1,7 +1,10 @@
-var React = require('react');
-var CartStore = require('../stores/CartStore');
-var ProductList = require('./ProductList.jsx');
-var Cart = require('./Cart.jsx');
+var React = require('react'),
+    Radium = require('radium'),
+    AppStore = require('../stores/AppStore'),
+    CartStore = require('../stores/CartStore'),
+    ProductList = require('./ProductList.jsx'),
+    Header = require('./Header.jsx'),
+    Cart = require('./Cart.jsx');
 
 function getCartState() {
   return {
@@ -10,21 +13,77 @@ function getCartState() {
   };
 }
 
+var styles = {
+  productListWrapper: {
+    'display': 'inline-block',
+    'width': '100%',
+    'position': 'absolute',
+    'left': '0'
+  },  
+  cartWrapper: {
+    'boxShadow': '0px 1px 5px 0px rgba(0,0,0,0.46)',
+    'display': 'inline-block',
+    'width': '400px',
+    'top': '100px',
+    'right': '0',
+    'position': 'fixed',
+    'border': '2px black solid',
+    'height': '100%',
+    'backgroundColor': '#FFF',
+    'transition': 'transform 1s'
+
+  },
+  cartHidden: {
+    // 'display': 'none',
+    'transform': 'translateX(500px)',
+
+  }
+};
+
 var CartApp = React.createClass({
+  mixins: [Reflux.listenTo(AppStore, 'onUpdateCartVisible')],
 
   getInitialState: function() {
-    return getCartState();
+    return {
+      cartVisible: true
+    }
   },
 
-  render: function() {
+  componentDidMount: function() {
+    this.setProductListsWidth(true);
+  },
+
+  onUpdateCartVisible: function(visible) {
+    this.setState({
+      cartVisible: visible
+    });
+    this.setProductListsWidth(visible);
+  },
+
+  setProductListsWidth: function(cartVisible) {
+    var cart = React.findDOMNode(this.refs.cartwrap),
+        products = React.findDOMNode(this.refs.productswrap);
+
+    products.style.width = cartVisible ? window.innerWidth - parseInt(cart.style.width, 10) + 'px' : '100%';
+  },
+
+  render: function() {    
     return (
       <div className="ttyd-app">
-        <Cart products={this.state.cartItems} visible={this.state.cartVisible} />
-        <div>brekbetweencartandproductlist</div>
-        <ProductList products={this.state.products} />
+        <Header cartVisible={this.state.cartVisible}/>      
+        <div style={styles.productListWrapper} ref="productswrap">
+          <ProductList 
+            products={this.state.products}/>
+        </div>
+        <div style={[
+          styles.cartWrapper,
+          !this.state.cartVisible && styles.cartHidden
+        ]} ref="cartwrap">
+          <Cart products={this.state.cartItems}/>        
+        </div>
       </div>
     );
   },
 })
 
-module.exports = CartApp;
+module.exports = Radium(CartApp);

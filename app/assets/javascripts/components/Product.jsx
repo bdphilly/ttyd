@@ -40,8 +40,6 @@ var styles = {
 };
 
 var ProductButtons = React.createClass({
-  mixins: [Reflux.connect(ProductStore, 'products')],
-
   /* two functions required for react-ui */
   childContextTypes: {
     muiTheme: React.PropTypes.object
@@ -52,12 +50,6 @@ var ProductButtons = React.createClass({
         muiTheme: ThemeManager.getCurrentTheme()
     };
   },
-
-  getInitialState: function () { 
-    return {
-      product: {}
-    }
-  },    
 
   _handleDialogTouchTap: function(event) {
     if (event == 'plus') {
@@ -82,30 +74,7 @@ var ProductButtons = React.createClass({
 
 })
 
-var Product = React.createClass({
-  mixins: [Reflux.connect(ProductStore, 'products')],
-  
-  init: function () {
-  },
-
-  getInitialState: function() {
-    return { modalIsOpen: false };
-  },
-  
-  // _handleDialogTouchTap: function(event) {
-  //   this.refs.dialog.show();
-  // },
-
-  _handleCustomDialogCancel: function() {
-    this.refs.dialog.dismiss();
-  },
-
-  _handleCustomDialogSubmit: function(event) {
-    AppActions.addToCart(this.props.product);    
-    AppActions.updateCartVisible(true);
-    this.refs.dialog.dismiss();
-  },
-
+var ProductDialog = React.createClass({
   /* two functions required for react-ui */
   childContextTypes: {
     muiTheme: React.PropTypes.object
@@ -115,6 +84,16 @@ var Product = React.createClass({
     return {
         muiTheme: ThemeManager.getCurrentTheme()
     };
+  },
+
+  _handleCustomDialogCancel: function() {
+    this.refs.dialog.dismiss();
+  },
+
+  _handleCustomDialogSubmit: function(event) {
+    AppActions.addToCart(this.props.product);    
+    AppActions.updateCartVisible(true);
+    this.refs.dialog.dismiss();
   },
 
   render: function() {
@@ -132,24 +111,45 @@ var Product = React.createClass({
     ];      
 
     return (      
+      <Dialog ref="dialog" 
+              title={this.props.product.name}                  
+              actions={customActions}
+              modal={true}>
+        The internals of the dialog!
+      </Dialog>        
+    );
+  }  
+
+})
+
+var Product = React.createClass({
+  /* two functions required for react-ui */
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function() {
+    return {
+        muiTheme: ThemeManager.getCurrentTheme()
+    };
+  },
+
+  render: function() {
+    var product = this.props.product;      
+
+    return (      
       // <ReactCSSTransitionGroup transitionName="example" transitionAppear={true}>
         <Paper zDepth={2} className="product" style={styles.container}>
           <img src={'https://upload.wikimedia.org/wikipedia/commons/2/29/PerfectStrawberry.jpg'}
-            style={styles.image}/>
+            style={styles.image} />
 
           <div className="product-detail-wrapper">
             <h2 className="product-name">{product.name}</h2>
             <p className="product-details">{product.details}</p>
           </div>
 
-          <ProductButtons product={product}/>
-
-          <Dialog ref="dialog" 
-                  title={product.name}                  
-                  actions={customActions}
-                  modal={true}>
-            The internals of the dialog!
-          </Dialog>        
+          <ProductButtons product={product} />
+          <ProductDialog product={product} />
         </Paper>
       // </ReactCSSTransitionGroup>
     );

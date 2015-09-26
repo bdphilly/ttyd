@@ -103,7 +103,6 @@ class API::OrderItemsController < ApplicationController
   end
 
   def destroy
-    # debugger
     @order_item = OrderItem.find_by_id(params[:id])
     
     if @order_item

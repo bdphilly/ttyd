@@ -42,7 +42,7 @@ var ProductList = React.createClass({
     }));
 
     return (      
-      <div className="productList">
+      <div className="product-list">
         {categoryLists}
       </div>
     );
