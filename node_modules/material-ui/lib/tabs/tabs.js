@@ -9,6 +9,8 @@ var TabTemplate = require('./tabTemplate');
 var InkBar = require('../ink-bar');
 var StylePropable = require('../mixins/style-propable');
 var Controllable = require('../mixins/controllable');
+var DefaultRawTheme = require('../styles/raw-themes/light-raw-theme');
+var ThemeManager = require('../styles/theme-manager');
 
 var Tabs = React.createClass({
   displayName: 'Tabs',
@@ -26,6 +28,17 @@ var Tabs = React.createClass({
     tabItemContainerStyle: React.PropTypes.object
   },
 
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
+  },
+
   getDefaultProps: function getDefaultProps() {
     return {
       initialSelectedIndex: 0
@@ -37,7 +50,8 @@ var Tabs = React.createClass({
     var initialIndex = this.props.initialSelectedIndex;
 
     return {
-      selectedIndex: valueLink.value ? this._getSelectedIndex(this.props) : initialIndex < this.getTabCount() ? initialIndex : 0
+      selectedIndex: valueLink.value ? this._getSelectedIndex(this.props) : initialIndex < this.getTabCount() ? initialIndex : 0,
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
     };
   },
 
@@ -49,12 +63,15 @@ var Tabs = React.createClass({
     return React.Children.count(this.props.children);
   },
 
-  componentWillReceiveProps: function componentWillReceiveProps(newProps) {
+  componentWillReceiveProps: function componentWillReceiveProps(newProps, nextContext) {
     var valueLink = this.getValueLink(newProps);
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
 
     if (valueLink.value) {
       this.setState({ selectedIndex: this._getSelectedIndex(newProps) });
     }
+
+    this.setState({ muiTheme: newMuiTheme });
   },
 
   render: function render() {
@@ -71,7 +88,7 @@ var Tabs = React.createClass({
 
     var other = _objectWithoutProperties(_props, ['children', 'contentContainerStyle', 'initialSelectedIndex', 'inkBarStyle', 'style', 'tabWidth', 'tabItemContainerStyle']);
 
-    var themeVariables = this.context.muiTheme.component.tabs;
+    var themeVariables = this.state.muiTheme.tabs;
     var styles = {
       tabItemContainer: {
         margin: 0,

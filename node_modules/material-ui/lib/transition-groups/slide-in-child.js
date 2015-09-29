@@ -37,9 +37,9 @@ var SlideInChild = React.createClass({
     style.opacity = '0';
     AutoPrefix.set(style, 'transform', 'translate3d(' + x + ',' + y + ',0)');
 
-    setTimeout((function () {
+    setTimeout(function () {
       if (_this.isMounted()) callback();
-    }).bind(this), this.props.enterDelay);
+    }, this.props.enterDelay);
   },
 
   componentDidEnter: function componentDidEnter() {
@@ -59,9 +59,9 @@ var SlideInChild = React.createClass({
     style.opacity = '0';
     AutoPrefix.set(style, 'transform', 'translate3d(' + x + ',' + y + ',0)');
 
-    setTimeout((function () {
+    setTimeout(function () {
       if (_this2.isMounted()) callback();
-    }).bind(this), 450);
+    }, 450);
   },
 
   render: function render() {

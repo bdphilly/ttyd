@@ -6,6 +6,8 @@ var React = require('react');
 var Checkbox = require('../checkbox');
 var StylePropable = require('../mixins/style-propable');
 var TableHeaderColumn = require('./table-header-column');
+var DefaultRawTheme = require('../styles/raw-themes/light-raw-theme');
+var ThemeManager = require('../styles/theme-manager');
 
 var TableHeader = React.createClass({
   displayName: 'TableHeader',
@@ -25,6 +27,30 @@ var TableHeader = React.createClass({
     style: React.PropTypes.object
   },
 
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
+  },
+
+  getInitialState: function getInitialState() {
+    return {
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
+    };
+  },
+
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
+  },
+
   getDefaultProps: function getDefaultProps() {
     return {
       adjustForCheckbox: true,
@@ -35,7 +61,7 @@ var TableHeader = React.createClass({
   },
 
   getTheme: function getTheme() {
-    return this.context.muiTheme.component.tableHeader;
+    return this.state.muiTheme.tableHeader;
   },
 
   getStyles: function getStyles() {

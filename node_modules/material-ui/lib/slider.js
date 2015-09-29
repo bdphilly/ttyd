@@ -9,6 +9,8 @@ var StylePropable = require('./mixins/style-propable');
 var Draggable = require('react-draggable2');
 var Transitions = require('./styles/transitions');
 var FocusRipple = require('./ripples/focus-ripple');
+var DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
+var ThemeManager = require('./styles/theme-manager');
 
 /**
   * Verifies min/max range.
@@ -71,6 +73,17 @@ var Slider = React.createClass({
     value: valueInRangePropType
   },
 
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
+  },
+
   getDefaultProps: function getDefaultProps() {
     return {
       defaultValue: 0,
@@ -96,18 +109,22 @@ var Slider = React.createClass({
       focused: false,
       hovered: false,
       percent: percent,
-      value: value
+      value: value,
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
     };
   },
 
-  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
+
     if (nextProps.value !== undefined) {
       this.setValue(nextProps.value);
     }
   },
 
   getTheme: function getTheme() {
-    return this.context.muiTheme.component.slider;
+    return this.state.muiTheme.slider;
   },
 
   getStyles: function getStyles() {

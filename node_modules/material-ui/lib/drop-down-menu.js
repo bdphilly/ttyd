@@ -8,6 +8,8 @@ var DropDownArrow = require('./svg-icons/navigation/arrow-drop-down');
 var Paper = require('./paper');
 var Menu = require('./menu/menu');
 var ClearFix = require('./clearfix');
+var DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
+var ThemeManager = require('./styles/theme-manager');
 
 var DropDownMenu = React.createClass({
   displayName: 'DropDownMenu',
@@ -16,6 +18,17 @@ var DropDownMenu = React.createClass({
 
   contextTypes: {
     muiTheme: React.PropTypes.object
+  },
+
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
   },
 
   // The nested styles for drop-down-menu are modified by toolbar and possibly
@@ -48,7 +61,8 @@ var DropDownMenu = React.createClass({
   getInitialState: function getInitialState() {
     return {
       open: false,
-      selectedIndex: this._isControlled() ? null : this.props.selectedIndex || 0
+      selectedIndex: this._isControlled() ? null : this.props.selectedIndex || 0,
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
     };
   },
 
@@ -57,7 +71,10 @@ var DropDownMenu = React.createClass({
     if (this.props.hasOwnProperty('selectedIndex')) this._setSelectedIndex(this.props);
   },
 
-  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
+
     if (this.props.autoWidth) this._setWidth();
     if (nextProps.hasOwnProperty('value') || nextProps.hasOwnProperty('valueLink')) {
       return;
@@ -70,9 +87,9 @@ var DropDownMenu = React.createClass({
     var disabled = this.props.disabled;
 
     var zIndex = 5; // As AppBar
-    var spacing = this.context.muiTheme.spacing;
-    var accentColor = this.context.muiTheme.component.dropDownMenu.accentColor;
-    var backgroundColor = this.context.muiTheme.component.menu.backgroundColor;
+    var spacing = this.state.muiTheme.rawTheme.spacing;
+    var accentColor = this.state.muiTheme.dropDownMenu.accentColor;
+    var backgroundColor = this.state.muiTheme.menu.backgroundColor;
     var styles = {
       root: {
         transition: Transitions.easeOut(),
@@ -98,7 +115,7 @@ var DropDownMenu = React.createClass({
         position: 'absolute',
         top: (spacing.desktopToolbarHeight - 24) / 2,
         right: spacing.desktopGutterLess,
-        fill: this.context.muiTheme.component.dropDownMenu.accentColor
+        fill: this.state.muiTheme.dropDownMenu.accentColor
       },
       label: {
         transition: Transitions.easeOut(),
@@ -107,7 +124,7 @@ var DropDownMenu = React.createClass({
         paddingLeft: spacing.desktopGutter,
         top: 0,
         opacity: 1,
-        color: disabled ? this.context.muiTheme.palette.disabledColor : this.context.muiTheme.palette.textColor
+        color: disabled ? this.state.muiTheme.rawTheme.palette.disabledColor : this.state.muiTheme.rawTheme.palette.textColor
       },
       underline: {
         borderTop: 'solid 1px ' + accentColor,

@@ -1,8 +1,12 @@
 var React = require('react'),
-    AppActions = require('../actions/AppActions'),
-    ThemeManager = require('material-ui/lib/styles/theme-manager')(),
+    AppActions = require('../actions/AppActions'),    
     FlatButton = require('material-ui/lib/flat-button'),
     AppBar = require('material-ui/lib/app-bar');
+
+// var mui = require('material-ui');
+// var ThemeManager = new mui.Styles.ThemeManager();
+
+var ThemeManager = require('material-ui/lib/styles/theme-manager'); 
 
   // var materialReq = {
   //   childContextTypes: {
@@ -18,15 +22,15 @@ var React = require('react'),
 
 var Header = React.createClass({
   /* two functions required for react-ui */
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
+  // childContextTypes: {
+  //   muiTheme: React.PropTypes.object
+  // },
 
-  getChildContext: function() {
-    return {
-        muiTheme: ThemeManager.getCurrentTheme()
-    };
-  },
+  // getChildContext: function() {
+  //   return {
+  //       muiTheme: ThemeManager.getCurrentTheme()
+  //   };
+  // },
   /**/
 
   _cartToggled: function(show) {

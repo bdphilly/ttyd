@@ -6,20 +6,51 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 var React = require('react');
 var StylePropable = require('./mixins/style-propable');
+var ContextPure = require('./mixins/context-pure');
 var Transitions = require('./styles/transitions');
 var PropTypes = require('./utils/prop-types');
 var EnhancedButton = require('./enhanced-button');
 var FontIcon = require('./font-icon');
 var Tooltip = require('./tooltip');
 var Children = require('./utils/children');
+var DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
+var ThemeManager = require('./styles/theme-manager');
 
 var IconButton = React.createClass({
   displayName: 'IconButton',
 
-  mixins: [StylePropable],
+  mixins: [StylePropable, ContextPure],
 
   contextTypes: {
     muiTheme: React.PropTypes.object
+  },
+
+  statics: {
+    getRelevantContextKeys: function getRelevantContextKeys(muiTheme) {
+      var spacing = muiTheme.rawTheme.spacing;
+      var palette = muiTheme.rawTheme.palette;
+
+      return {
+        iconSize: spacing.iconSize,
+        textColor: palette.textColor,
+        disabledColor: palette.disabledColor
+      };
+    },
+
+    getChildrenClasses: function getChildrenClasses() {
+      return [EnhancedButton, FontIcon, Tooltip];
+    }
+  },
+
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
   },
 
   propTypes: {
@@ -38,8 +69,16 @@ var IconButton = React.createClass({
 
   getInitialState: function getInitialState() {
     return {
-      tooltipShown: false
+      tooltipShown: false,
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
     };
+  },
+
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
   },
 
   getDefaultProps: function getDefaultProps() {
@@ -50,36 +89,39 @@ var IconButton = React.createClass({
   },
 
   getStyles: function getStyles() {
-    var spacing = this.context.muiTheme.spacing;
-    var palette = this.context.muiTheme.palette;
+    var _constructor$getRelevantContextKeys = this.constructor.getRelevantContextKeys(this.state.muiTheme);
+
+    var iconSize = _constructor$getRelevantContextKeys.iconSize;
+    var textColor = _constructor$getRelevantContextKeys.textColor;
+    var disabledColor = _constructor$getRelevantContextKeys.disabledColor;
 
     var styles = {
       root: {
         position: 'relative',
         boxSizing: 'border-box',
         transition: Transitions.easeOut(),
-        padding: spacing.iconSize / 2,
-        width: spacing.iconSize * 2,
-        height: spacing.iconSize * 2,
+        padding: iconSize / 2,
+        width: iconSize * 2,
+        height: iconSize * 2,
         fontSize: 0
       },
       tooltip: {
         boxSizing: 'border-box'
       },
       icon: {
-        color: palette.textColor,
-        fill: palette.textColor
+        color: textColor,
+        fill: textColor
       },
       overlay: {
         position: 'relative',
         top: 0,
         width: '100%',
         height: '100%',
-        background: palette.disabledColor
+        background: disabledColor
       },
       disabled: {
-        color: palette.disabledColor,
-        fill: palette.disabledColor
+        color: disabledColor,
+        fill: disabledColor
       }
     };
 

@@ -14,6 +14,8 @@ var KeyCode = require('../utils/key-code');
 var PropTypes = require('../utils/prop-types');
 var List = require('../lists/list');
 var Paper = require('../paper');
+var DefaultRawTheme = require('../styles/raw-themes/light-raw-theme');
+var ThemeManager = require('../styles/theme-manager');
 
 var Menu = React.createClass({
   displayName: 'Menu',
@@ -54,13 +56,25 @@ var Menu = React.createClass({
     };
   },
 
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
+  },
+
   getInitialState: function getInitialState() {
     var selectedIndex = this._getSelectedIndex(this.props);
 
     return {
       focusIndex: selectedIndex >= 0 ? selectedIndex : 0,
       isKeyboardFocused: this.props.initiallyKeyboardFocused,
-      keyWidth: this.props.desktop ? 64 : 56
+      keyWidth: this.props.desktop ? 64 : 56,
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
     };
   },
 
@@ -87,17 +101,19 @@ var Menu = React.createClass({
     AutoPrefix.set(rootStyle, 'transform', 'translate3d(0,-8px,0)');
     rootStyle.opacity = 0;
 
-    setTimeout((function () {
+    setTimeout(function () {
       if (_this.isMounted()) callback();
-    }).bind(this), 250);
+    }, 250);
   },
 
-  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
     var selectedIndex = this._getSelectedIndex(nextProps);
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
 
     this.setState({
       focusIndex: selectedIndex >= 0 ? selectedIndex : 0,
-      keyWidth: nextProps.desktop ? 64 : 56
+      keyWidth: nextProps.desktop ? 64 : 56,
+      muiTheme: newMuiTheme
     });
   },
 
@@ -164,7 +180,7 @@ var Menu = React.createClass({
       },
 
       selectedMenuItem: {
-        color: this.context.muiTheme.palette.accent1Color
+        color: this.state.muiTheme.rawTheme.palette.accent1Color
       }
     };
 
@@ -177,7 +193,7 @@ var Menu = React.createClass({
     var cumulativeDelayIncrement = Math.ceil(150 / cascadeChildrenCount);
 
     var menuItemIndex = 0;
-    var newChildren = React.Children.map(children, (function (child) {
+    var newChildren = React.Children.map(children, function (child) {
 
       var childIsADivider = child.type.displayName === 'MenuDivider';
       var childIsDisabled = child.props.disabled;
@@ -207,7 +223,7 @@ var Menu = React.createClass({
         { style: childrenContainerStyles },
         clonedChild
       ) : clonedChild;
-    }).bind(this));
+    });
 
     return React.createElement(
       'div',
@@ -339,12 +355,12 @@ var Menu = React.createClass({
     var selectedIndex = -1;
     var menuItemIndex = 0;
 
-    React.Children.forEach(children, (function (child) {
+    React.Children.forEach(children, function (child) {
       var childIsADivider = child.type.displayName === 'MenuDivider';
 
       if (_this4._isChildSelected(child, props)) selectedIndex = menuItemIndex;
       if (!childIsADivider) menuItemIndex++;
-    }).bind(this));
+    });
 
     return selectedIndex;
   },

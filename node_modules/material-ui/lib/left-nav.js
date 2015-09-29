@@ -12,6 +12,8 @@ var WindowListenable = require('./mixins/window-listenable');
 var Overlay = require('./overlay');
 var Paper = require('./paper');
 var Menu = require('./menu/menu');
+var DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
+var ThemeManager = require('./styles/theme-manager');
 
 var openNavEventHandler = null;
 
@@ -22,6 +24,17 @@ var LeftNav = React.createClass({
 
   contextTypes: {
     muiTheme: React.PropTypes.object
+  },
+
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
   },
 
   propTypes: {
@@ -60,8 +73,16 @@ var LeftNav = React.createClass({
 
     return {
       open: this.props.docked,
-      swiping: null
+      swiping: null,
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
     };
+  },
+
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
   },
 
   componentDidMount: function componentDidMount() {
@@ -96,11 +117,11 @@ var LeftNav = React.createClass({
   },
 
   getThemePalette: function getThemePalette() {
-    return this.context.muiTheme.palette;
+    return this.state.muiTheme.rawTheme.palette;
   },
 
   getTheme: function getTheme() {
-    return this.context.muiTheme.component.leftNav;
+    return this.state.muiTheme.leftNav;
   },
 
   getStyles: function getStyles() {
@@ -125,8 +146,8 @@ var LeftNav = React.createClass({
         borderRadius: '0'
       },
       menuItem: {
-        height: this.context.muiTheme.spacing.desktopLeftNavMenuItemHeight,
-        lineHeight: this.context.muiTheme.spacing.desktopLeftNavMenuItemHeight + 'px'
+        height: this.state.muiTheme.rawTheme.spacing.desktopLeftNavMenuItemHeight,
+        lineHeight: this.state.muiTheme.rawTheme.spacing.desktopLeftNavMenuItemHeight + 'px'
       },
       rootWhenOpenRight: {
         left: 'auto',
@@ -156,8 +177,7 @@ var LeftNav = React.createClass({
         ref: 'overlay',
         show: this.state.open || !!this.state.swiping,
         transitionEnabled: !this.state.swiping,
-        onTouchTap: this._onOverlayTouchTap
-      });
+        onTouchTap: this._onOverlayTouchTap });
     }
 
     return React.createElement(

@@ -10,6 +10,8 @@ var Transitions = require('./styles/transitions');
 var ClickAwayable = require('./mixins/click-awayable');
 var FontIcon = require('./font-icon');
 var Menu = require('./menu/menu');
+var DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
+var ThemeManager = require('./styles/theme-manager');
 
 var DropDownIcon = React.createClass({
   displayName: 'DropDownIcon',
@@ -18,6 +20,17 @@ var DropDownIcon = React.createClass({
 
   contextTypes: {
     muiTheme: React.PropTypes.object
+  },
+
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
   },
 
   propTypes: {
@@ -31,8 +44,16 @@ var DropDownIcon = React.createClass({
 
   getInitialState: function getInitialState() {
     return {
-      open: false
+      open: false,
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
     };
+  },
+
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
   },
 
   getDefaultProps: function getDefaultProps() {
@@ -53,7 +74,7 @@ var DropDownIcon = React.createClass({
   },
 
   getStyles: function getStyles() {
-    var spacing = this.context.muiTheme.spacing;
+    var spacing = this.state.muiTheme.rawTheme.spacing;
     var iconWidth = 48;
     var styles = {
       root: {

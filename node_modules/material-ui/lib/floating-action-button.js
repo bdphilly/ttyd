@@ -12,6 +12,8 @@ var EnhancedButton = require('./enhanced-button');
 var FontIcon = require('./font-icon');
 var Paper = require('./paper');
 var Children = require('./utils/children');
+var DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
+var ThemeManager = require('./styles/theme-manager');
 
 var getZDepth = function getZDepth(disabled) {
   var zDepth = disabled ? 0 : 2;
@@ -28,6 +30,17 @@ var FloatingActionButton = React.createClass({
 
   contextTypes: {
     muiTheme: React.PropTypes.object
+  },
+
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
   },
 
   propTypes: {
@@ -51,7 +64,8 @@ var FloatingActionButton = React.createClass({
       hovered: false,
       initialZDepth: zDepth,
       touch: false,
-      zDepth: zDepth
+      zDepth: zDepth,
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
     };
   },
 
@@ -59,7 +73,10 @@ var FloatingActionButton = React.createClass({
     this.setState(getZDepth(this.props.disabled));
   },
 
-  componentWillReceiveProps: function componentWillReceiveProps(newProps) {
+  componentWillReceiveProps: function componentWillReceiveProps(newProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
+
     if (newProps.disabled !== this.props.disabled) {
       this.setState(getZDepth(newProps.disabled));
     }
@@ -79,7 +96,7 @@ var FloatingActionButton = React.createClass({
   },
 
   getTheme: function getTheme() {
-    return this.context.muiTheme.component.floatingActionButton;
+    return this.state.muiTheme.floatingActionButton;
   },
 
   _getIconColor: function _getIconColor() {
@@ -87,7 +104,7 @@ var FloatingActionButton = React.createClass({
   },
 
   getStyles: function getStyles() {
-    var themeVariables = this.context.muiTheme.component.floatingActionButton;
+    var themeVariables = this.state.muiTheme.floatingActionButton;
 
     var styles = {
       root: {

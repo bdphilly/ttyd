@@ -4,6 +4,8 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 var React = require('react');
 var StylePropable = require('../mixins/style-propable');
+var DefaultRawTheme = require('../styles/raw-themes/light-raw-theme');
+var ThemeManager = require('../styles/theme-manager');
 
 var Table = React.createClass({
   displayName: 'Table',
@@ -41,21 +43,40 @@ var Table = React.createClass({
     };
   },
 
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
+  },
+
   getInitialState: function getInitialState() {
     return {
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme),
       allRowsSelected: this.props.allRowsSelected
     };
   },
 
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
+  },
+
   getTheme: function getTheme() {
-    return this.context.muiTheme.component.table;
+    return this.state.muiTheme.table;
   },
 
   getStyles: function getStyles() {
     var styles = {
       root: {
         backgroundColor: this.getTheme().backgroundColor,
-        padding: '0 ' + this.context.muiTheme.spacing.desktopGutter + 'px',
+        padding: '0 ' + this.state.muiTheme.rawTheme.spacing.desktopGutter + 'px',
         width: '100%',
         borderCollapse: 'collapse',
         borderSpacing: 0,

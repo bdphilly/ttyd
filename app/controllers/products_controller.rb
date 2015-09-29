@@ -13,7 +13,8 @@ class ProductsController < ApplicationController
         :size, 
         :quantity_type,
         :ingredients,
-        :price
+        :price,
+        :aisle_id
       )      
     end
 end

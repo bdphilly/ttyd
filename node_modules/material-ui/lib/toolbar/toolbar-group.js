@@ -3,6 +3,8 @@
 var React = require('react');
 var Colors = require('../styles/colors');
 var StylePropable = require('../mixins/style-propable');
+var DefaultRawTheme = require('../styles/raw-themes/light-raw-theme');
+var ThemeManager = require('../styles/theme-manager');
 
 var ToolbarGroup = React.createClass({
   displayName: 'ToolbarGroup',
@@ -18,23 +20,47 @@ var ToolbarGroup = React.createClass({
     float: React.PropTypes.string
   },
 
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
+  },
+
   getDefaultProps: function getDefaultProps() {
     return {
       float: 'left'
     };
   },
 
+  getInitialState: function getInitialState() {
+    return {
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
+    };
+  },
+
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
+  },
+
   getTheme: function getTheme() {
-    return this.context.muiTheme.component.toolbar;
+    return this.state.muiTheme.toolbar;
   },
 
   getSpacing: function getSpacing() {
-    return this.context.muiTheme.spacing.desktopGutter;
+    return this.state.muiTheme.rawTheme.spacing.desktopGutter;
   },
 
   getStyles: function getStyles() {
     var marginHorizontal = this.getSpacing();
-    var marginVertical = (this.getTheme().height - this.context.muiTheme.component.button.height) / 2;
+    var marginVertical = (this.getTheme().height - this.state.muiTheme.button.height) / 2;
     var styles = {
       root: {
         position: 'relative',

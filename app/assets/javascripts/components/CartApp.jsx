@@ -6,6 +6,13 @@ var React = require('react'),
     Header = require('./Header.jsx'),
     Cart = require('./Cart.jsx');
 
+var FlatButton = require('material-ui/lib/flat-button');
+
+var ReactRouter = require('react-router');
+var RouteHandler = ReactRouter.RouteHandler;
+var ThemeManager = require('material-ui/lib/styles/theme-manager'); 
+
+
 function getCartState() {
   return {
     cartItems: CartStore.getCartItems(),
@@ -72,8 +79,7 @@ var CartApp = React.createClass({
       <div className="ttyd-app">
         <Header cartVisible={this.state.cartVisible}/>      
         <div style={styles.productListWrapper} ref="productswrap">
-          <ProductList 
-            products={this.state.products}/>
+          <RouteHandler/>
         </div>
         <div style={[
           styles.cartWrapper,

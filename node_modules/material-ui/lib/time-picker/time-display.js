@@ -8,6 +8,8 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 var React = require('react');
 var StylePropable = require('../mixins/style-propable');
+var DefaultRawTheme = require('../styles/raw-themes/light-raw-theme');
+var ThemeManager = require('../styles/theme-manager');
 
 var TimeDisplay = React.createClass({
   displayName: 'TimeDisplay',
@@ -25,9 +27,21 @@ var TimeDisplay = React.createClass({
     affix: React.PropTypes.oneOf(['', 'pm', 'am'])
   },
 
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
+  },
+
   getInitialState: function getInitialState() {
     return {
-      transitionDirection: 'up'
+      transitionDirection: 'up',
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
     };
   },
 
@@ -38,8 +52,10 @@ var TimeDisplay = React.createClass({
     };
   },
 
-  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
     var direction = undefined;
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
 
     if (nextProps.selectedTime !== this.props.selectedTime) {
       direction = nextProps.selectedTime > this.props.selectedTime ? 'up' : 'down';
@@ -67,7 +83,7 @@ var TimeDisplay = React.createClass({
   },
 
   getTheme: function getTheme() {
-    return this.context.muiTheme.component.timePicker;
+    return this.state.muiTheme.timePicker;
   },
 
   render: function render() {

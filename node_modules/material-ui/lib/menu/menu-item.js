@@ -8,6 +8,8 @@ var React = require('react');
 var StylePropable = require('../mixins/style-propable');
 var FontIcon = require('../font-icon');
 var Toggle = require('../toggle');
+var DefaultRawTheme = require('../styles/raw-themes/light-raw-theme');
+var ThemeManager = require('../styles/theme-manager');
 
 var Types = {
   LINK: 'LINK',
@@ -42,6 +44,30 @@ var MenuItem = React.createClass({
     active: React.PropTypes.bool
   },
 
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
+  },
+
+  getInitialState: function getInitialState() {
+    return {
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
+    };
+  },
+
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
+  },
+
   statics: {
     Types: Types
   },
@@ -55,11 +81,11 @@ var MenuItem = React.createClass({
   },
 
   getTheme: function getTheme() {
-    return this.context.muiTheme.component.menuItem;
+    return this.state.muiTheme.menuItem;
   },
 
   getSpacing: function getSpacing() {
-    return this.context.muiTheme.spacing;
+    return this.state.muiTheme.rawTheme.spacing;
   },
 
   getStyles: function getStyles() {
@@ -70,7 +96,7 @@ var MenuItem = React.createClass({
         lineHeight: this.getTheme().height + 'px',
         paddingLeft: this.getTheme().padding,
         paddingRight: this.getTheme().padding,
-        color: this.context.muiTheme.palette.textColor
+        color: this.state.muiTheme.rawTheme.palette.textColor
       },
       number: {
         float: 'right',
@@ -98,10 +124,10 @@ var MenuItem = React.createClass({
         top: -12,
         position: 'relative',
         fontWeight: 300,
-        color: this.context.muiTheme.palette.textColor
+        color: this.state.muiTheme.rawTheme.palette.textColor
       },
       toggle: {
-        marginTop: (this.getTheme().height - this.context.muiTheme.component.radioButton.size) / 2,
+        marginTop: (this.getTheme().height - this.state.muiTheme.radioButton.size) / 2,
         float: 'right',
         width: 42
       },
@@ -113,7 +139,7 @@ var MenuItem = React.createClass({
       },
       rootWhenDisabled: {
         cursor: 'default',
-        color: this.context.muiTheme.palette.disabledColor
+        color: this.state.muiTheme.rawTheme.palette.disabledColor
       }
     };
 

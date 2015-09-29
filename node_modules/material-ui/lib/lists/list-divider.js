@@ -6,6 +6,8 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 var React = require('react/addons');
 var StylePropable = require('../mixins/style-propable');
+var DefaultRawTheme = require('../styles/raw-themes/light-raw-theme');
+var ThemeManager = require('../styles/theme-manager');
 
 var ListDivider = React.createClass({
   displayName: 'ListDivider',
@@ -18,6 +20,30 @@ var ListDivider = React.createClass({
 
   propTypes: {
     inset: React.PropTypes.bool
+  },
+
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
+  },
+
+  getInitialState: function getInitialState() {
+    return {
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
+    };
+  },
+
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
   },
 
   render: function render() {
@@ -33,7 +59,7 @@ var ListDivider = React.createClass({
       marginLeft: inset ? 72 : 0,
       height: 1,
       border: 'none',
-      backgroundColor: this.context.muiTheme.palette.borderColor
+      backgroundColor: this.state.muiTheme.rawTheme.palette.borderColor
     }, style);
 
     return React.createElement('hr', _extends({}, other, { style: mergedStyles }));

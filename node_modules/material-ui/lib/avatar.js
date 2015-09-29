@@ -7,6 +7,8 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 var React = require('react/addons');
 var StylePropable = require('./mixins/style-propable');
 var Colors = require('./styles/colors');
+var DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
+var ThemeManager = require('./styles/theme-manager');
 
 var Avatar = React.createClass({
   displayName: 'Avatar',
@@ -17,6 +19,17 @@ var Avatar = React.createClass({
     muiTheme: React.PropTypes.object
   },
 
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
+  },
+
   propTypes: {
     backgroundColor: React.PropTypes.string,
     color: React.PropTypes.string,
@@ -24,6 +37,19 @@ var Avatar = React.createClass({
     size: React.PropTypes.number,
     src: React.PropTypes.string,
     style: React.PropTypes.object
+  },
+
+  getInitialState: function getInitialState() {
+    return {
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
+    };
+  },
+
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
   },
 
   getDefaultProps: function getDefaultProps() {
@@ -56,7 +82,7 @@ var Avatar = React.createClass({
     };
 
     if (src) {
-      var borderColor = this.context.muiTheme.component.avatar.borderColor;
+      var borderColor = this.state.muiTheme.avatar.borderColor;
 
       if (borderColor) {
         styles.root = this.mergeStyles(styles.root, {

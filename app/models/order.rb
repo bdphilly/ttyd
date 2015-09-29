@@ -16,6 +16,8 @@ class Order < ActiveRecord::Base
 
   before_create :set_order_status
 
+  accepts_nested_attributes_for :order_items
+
   # def add_product(order_item_params)
   #   # initiate_order()
   #   current_item = order_items.find_by(product_id: order_item_params[:product_id])

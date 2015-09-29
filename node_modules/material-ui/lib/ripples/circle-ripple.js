@@ -49,9 +49,9 @@ var CircleRipple = React.createClass({
 
     var style = React.findDOMNode(this).style;
     style.opacity = 0;
-    setTimeout((function () {
+    setTimeout(function () {
       if (_this.isMounted()) callback();
-    }).bind(this), 2000);
+    }, 2000);
   },
 
   render: function render() {
@@ -88,9 +88,9 @@ var CircleRipple = React.createClass({
     var style = React.findDOMNode(this).style;
     style.opacity = this.props.opacity;
     AutoPrefix.set(style, 'transform', 'scale(0)');
-    setTimeout((function () {
+    setTimeout(function () {
       if (_this2.isMounted()) callback();
-    }).bind(this), 0);
+    }, 0);
   }
 
 });

@@ -1,13 +1,15 @@
 'use strict';
 
 var React = require('react/addons');
-var PureRenderMixin = React.addons.PureRenderMixin;
+var ContextPure = require('../mixins/context-pure');
 var Styles = require('../utils/styles');
+var DefaultRawTheme = require('../styles/raw-themes/light-raw-theme');
+var ThemeManager = require('../styles/theme-manager');
 
 var FlatButtonLabel = React.createClass({
   displayName: 'FlatButtonLabel',
 
-  mixins: [PureRenderMixin],
+  mixins: [ContextPure],
 
   contextTypes: {
     muiTheme: React.PropTypes.object
@@ -18,12 +20,36 @@ var FlatButtonLabel = React.createClass({
     style: React.PropTypes.object
   },
 
-  getContextProps: function getContextProps() {
-    var theme = this.context.muiTheme;
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
 
+  getChildContext: function getChildContext() {
     return {
-      spacingDesktopGutterLess: theme.spacing.desktopGutterLess
+      muiTheme: this.state.muiTheme
     };
+  },
+
+  getInitialState: function getInitialState() {
+    return {
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
+    };
+  },
+
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
+  },
+
+  statics: {
+    getRelevantContextKeys: function getRelevantContextKeys(muiTheme) {
+      return {
+        spacingDesktopGutterLess: muiTheme.rawTheme.spacing.desktopGutterLess
+      };
+    }
   },
 
   render: function render() {
@@ -31,11 +57,11 @@ var FlatButtonLabel = React.createClass({
     var label = _props.label;
     var style = _props.style;
 
-    var contextProps = this.getContextProps();
+    var contextKeys = this.constructor.getRelevantContextKeys(this.state.muiTheme);
 
     var mergedRootStyles = Styles.mergeAndPrefix({
       position: 'relative',
-      padding: '0 ' + contextProps.spacingDesktopGutterLess + 'px'
+      padding: '0 ' + contextKeys.spacingDesktopGutterLess + 'px'
     }, style);
 
     return React.createElement(

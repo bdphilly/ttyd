@@ -14,6 +14,8 @@ var ClearFix = require('./clearfix');
 var FocusRipple = require('./ripples/focus-ripple');
 var TouchRipple = require('./ripples/touch-ripple');
 var Paper = require('./paper');
+var DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
+var ThemeManager = require('./styles/theme-manager');
 
 var EnhancedSwitch = React.createClass({
   displayName: 'EnhancedSwitch',
@@ -22,6 +24,17 @@ var EnhancedSwitch = React.createClass({
 
   contextTypes: {
     muiTheme: React.PropTypes.object
+  },
+
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
   },
 
   propTypes: {
@@ -56,7 +69,8 @@ var EnhancedSwitch = React.createClass({
   getInitialState: function getInitialState() {
     return {
       isKeyboardFocused: false,
-      parentWidth: 100
+      parentWidth: 100,
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
     };
   },
 
@@ -79,12 +93,13 @@ var EnhancedSwitch = React.createClass({
     window.removeEventListener("resize", this._handleResize);
   },
 
-  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
     var hasCheckedLinkProp = nextProps.hasOwnProperty('checkedLink');
     var hasCheckedProp = nextProps.hasOwnProperty('checked');
     var hasToggledProp = nextProps.hasOwnProperty('toggled');
     var hasNewDefaultProp = nextProps.hasOwnProperty('defaultSwitched') && nextProps.defaultSwitched !== this.props.defaultSwitched;
     var newState = {};
+    newState.muiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
 
     if (hasCheckedProp) {
       newState.switched = nextProps.checked;
@@ -99,14 +114,16 @@ var EnhancedSwitch = React.createClass({
     if (newState.switched !== undefined && newState.switched !== this.props.switched) {
       this.props.onParentShouldUpdate(newState.switched);
     }
+
+    this.setState(newState);
   },
 
   getTheme: function getTheme() {
-    return this.context.muiTheme.palette;
+    return this.state.muiTheme.rawTheme.palette;
   },
 
   getStyles: function getStyles() {
-    var spacing = this.context.muiTheme.spacing;
+    var spacing = this.state.muiTheme.rawTheme.spacing;
     var switchWidth = 60 - spacing.desktopGutterLess;
     var labelWidth = 'calc(100% - 60px)';
     var styles = {

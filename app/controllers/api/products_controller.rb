@@ -1,11 +1,12 @@
 class API::ProductsController < ApplicationController
   def index
-    @products = Product.all    
+    @aisles = Aisle.all
+    # @products = Product.all    
 
     render json: {
       :status => :ok,
       :message => "Success!",
-      :data => categorize
+      :data => @aisles.as_json(include: :products)    
     }
   end
 

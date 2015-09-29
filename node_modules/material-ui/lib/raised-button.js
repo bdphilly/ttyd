@@ -11,6 +11,8 @@ var ColorManipulator = require('./utils/color-manipulator');
 var Typography = require('./styles/typography');
 var EnhancedButton = require('./enhanced-button');
 var Paper = require('./paper');
+var DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
+var ThemeManager = require('./styles/theme-manager');
 
 function validateLabel(props, propName, componentName) {
   if (!props.children && !props.label) {
@@ -25,6 +27,17 @@ var RaisedButton = React.createClass({
 
   contextTypes: {
     muiTheme: React.PropTypes.object
+  },
+
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
   },
 
   propTypes: {
@@ -52,15 +65,18 @@ var RaisedButton = React.createClass({
       hovered: false,
       touched: false,
       initialZDepth: zDepth,
-      zDepth: zDepth
+      zDepth: zDepth,
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
     };
   },
 
-  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
     var zDepth = nextProps.disabled ? 0 : 1;
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
     this.setState({
       zDepth: zDepth,
-      initialZDepth: zDepth
+      initialZDepth: zDepth,
+      muiTheme: newMuiTheme
     });
   },
 
@@ -77,14 +93,15 @@ var RaisedButton = React.createClass({
   },
 
   getThemeButton: function getThemeButton() {
-    return this.context.muiTheme.component.button;
+    return this.state.muiTheme.button;
   },
 
   getTheme: function getTheme() {
-    return this.context.muiTheme.component.raisedButton;
+    return this.state.muiTheme.raisedButton;
   },
 
   getStyles: function getStyles() {
+
     var amount = this.props.primary || this.props.secondary ? 0.4 : 0.08;
     var styles = {
       root: {
@@ -114,10 +131,10 @@ var RaisedButton = React.createClass({
         opacity: 1,
         fontSize: '14px',
         letterSpacing: 0,
-        textTransform: 'uppercase',
+        textTransform: this.getTheme().textTransform ? this.getTheme().textTransform : this.getThemeButton().textTransform ? this.getThemeButton().textTransform : 'uppercase',
         fontWeight: Typography.fontWeightMedium,
         margin: 0,
-        padding: '0px ' + this.context.muiTheme.spacing.desktopGutterLess + 'px',
+        padding: '0px ' + this.state.muiTheme.rawTheme.spacing.desktopGutterLess + 'px',
         userSelect: 'none',
         lineHeight: this.props.style && this.props.style.height ? this.props.style.height : this.getThemeButton().height + 'px',
         color: this._getLabelColor()

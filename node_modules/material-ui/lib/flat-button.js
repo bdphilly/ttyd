@@ -5,7 +5,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 var React = require('react/addons');
-var PureRenderMixin = React.addons.PureRenderMixin;
+var ContextPure = require('./mixins/context-pure');
 var Transitions = require('./styles/transitions');
 var Children = require('./utils/children');
 var ColorManipulator = require('./utils/color-manipulator');
@@ -13,6 +13,8 @@ var ImmutabilityHelper = require('./utils/immutability-helper');
 var Typography = require('./styles/typography');
 var EnhancedButton = require('./enhanced-button');
 var FlatButtonLabel = require('./buttons/flat-button-label');
+var DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
+var ThemeManager = require('./styles/theme-manager');
 
 function validateLabel(props, propName, componentName) {
   if (!props.children && !props.label) {
@@ -23,10 +25,42 @@ function validateLabel(props, propName, componentName) {
 var FlatButton = React.createClass({
   displayName: 'FlatButton',
 
-  mixins: [PureRenderMixin],
+  mixins: [ContextPure],
+
+  statics: {
+    getRelevantContextKeys: function getRelevantContextKeys(muiTheme) {
+      var buttonTheme = muiTheme.button;
+      var flatButtonTheme = muiTheme.flatButton;
+
+      return {
+        buttonColor: flatButtonTheme.color,
+        buttonHeight: buttonTheme.height,
+        buttonMinWidth: buttonTheme.minWidth,
+        disabledTextColor: flatButtonTheme.disabledTextColor,
+        primaryTextColor: flatButtonTheme.primaryTextColor,
+        secondaryTextColor: flatButtonTheme.secondaryTextColor,
+        textColor: flatButtonTheme.textColor,
+        textTransform: flatButtonTheme.textTransform ? flatButtonTheme.textTransform : buttonTheme.textTransform ? buttonTheme.textTransform : 'uppercase'
+      };
+    },
+    getChildrenClasses: function getChildrenClasses() {
+      return [EnhancedButton, FlatButtonLabel];
+    }
+  },
 
   contextTypes: {
     muiTheme: React.PropTypes.object
+  },
+
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
   },
 
   propTypes: {
@@ -59,24 +93,16 @@ var FlatButton = React.createClass({
     return {
       hovered: false,
       isKeyboardFocused: false,
-      touch: false
+      touch: false,
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
     };
   },
 
-  getContextProps: function getContextProps() {
-    var theme = this.context.muiTheme;
-    var buttonTheme = theme.component.button;
-    var flatButtonTheme = theme.component.flatButton;
-
-    return {
-      buttonColor: flatButtonTheme.color,
-      buttonHeight: buttonTheme.height,
-      buttonMinWidth: buttonTheme.minWidth,
-      disabledTextColor: flatButtonTheme.disabledTextColor,
-      primaryTextColor: flatButtonTheme.primaryTextColor,
-      secondaryTextColor: flatButtonTheme.secondaryTextColor,
-      textColor: flatButtonTheme.textColor
-    };
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
   },
 
   render: function render() {
@@ -98,9 +124,18 @@ var FlatButton = React.createClass({
 
     var other = _objectWithoutProperties(_props, ['children', 'disabled', 'hoverColor', 'label', 'labelStyle', 'labelPosition', 'onKeyboardFocus', 'onMouseLeave', 'onMouseEnter', 'onTouchStart', 'primary', 'rippleColor', 'secondary', 'style']);
 
-    var contextProps = this.getContextProps();
+    var _constructor$getRelevantContextKeys = this.constructor.getRelevantContextKeys(this.state.muiTheme);
 
-    var defaultColor = disabled ? contextProps.disabledTextColor : primary ? contextProps.primaryTextColor : secondary ? contextProps.secondaryTextColor : contextProps.textColor;
+    var buttonColor = _constructor$getRelevantContextKeys.buttonColor;
+    var buttonHeight = _constructor$getRelevantContextKeys.buttonHeight;
+    var buttonMinWidth = _constructor$getRelevantContextKeys.buttonMinWidth;
+    var disabledTextColor = _constructor$getRelevantContextKeys.disabledTextColor;
+    var primaryTextColor = _constructor$getRelevantContextKeys.primaryTextColor;
+    var secondaryTextColor = _constructor$getRelevantContextKeys.secondaryTextColor;
+    var textColor = _constructor$getRelevantContextKeys.textColor;
+    var textTransform = _constructor$getRelevantContextKeys.textTransform;
+
+    var defaultColor = disabled ? disabledTextColor : primary ? primaryTextColor : secondary ? secondaryTextColor : textColor;
 
     var defaultHoverColor = ColorManipulator.fade(ColorManipulator.lighten(defaultColor, 0.4), 0.15);
     var defaultRippleColor = ColorManipulator.fade(defaultColor, 0.8);
@@ -113,15 +148,15 @@ var FlatButton = React.createClass({
       transition: Transitions.easeOut(),
       fontSize: Typography.fontStyleButtonFontSize,
       letterSpacing: 0,
-      textTransform: 'uppercase',
+      textTransform: textTransform,
       fontWeight: Typography.fontWeightMedium,
       borderRadius: 2,
       userSelect: 'none',
       position: 'relative',
       overflow: 'hidden',
-      backgroundColor: hovered ? buttonHoverColor : contextProps.buttonColor,
-      lineHeight: contextProps.buttonHeight + 'px',
-      minWidth: contextProps.buttonMinWidth,
+      backgroundColor: hovered ? buttonHoverColor : buttonColor,
+      lineHeight: buttonHeight + 'px',
+      minWidth: buttonMinWidth,
       padding: 0,
       margin: 0,
       //This is need so that ripples do not bleed past border radius.

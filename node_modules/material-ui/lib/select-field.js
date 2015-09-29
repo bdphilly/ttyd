@@ -8,14 +8,23 @@ var React = require('react');
 var StylePropable = require('./mixins/style-propable');
 var TextField = require('./text-field');
 var DropDownMenu = require('./drop-down-menu');
+var DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
+var ThemeManager = require('./styles/theme-manager');
+var ContextPure = require('./mixins/context-pure');
 
 var SelectField = React.createClass({
   displayName: 'SelectField',
 
-  mixins: [StylePropable],
+  mixins: [StylePropable, ContextPure],
 
   contextTypes: {
     muiTheme: React.PropTypes.object
+  },
+
+  statics: {
+    getChildrenClasses: function getChildrenClasses() {
+      return [TextField, DropDownMenu];
+    }
   },
 
   propTypes: {
@@ -44,10 +53,34 @@ var SelectField = React.createClass({
     selectedIndex: React.PropTypes.number
   },
 
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
+  },
+
+  getInitialState: function getInitialState() {
+    return {
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
+    };
+  },
+
   getDefaultProps: function getDefaultProps() {
     return {
       fullWidth: false
     };
+  },
+
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
   },
 
   getStyles: function getStyles() {

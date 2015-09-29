@@ -13,6 +13,8 @@ var Events = require('./utils/events');
 var KeyCode = require('./utils/key-code');
 var FocusRipple = require('./ripples/focus-ripple');
 var TouchRipple = require('./ripples/touch-ripple');
+var DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
+var ThemeManager = require('./styles/theme-manager');
 
 var styleInjected = false;
 var listening = false;
@@ -45,6 +47,17 @@ var EnhancedButton = React.createClass({
 
   contextTypes: {
     muiTheme: React.PropTypes.object
+  },
+
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
   },
 
   propTypes: {
@@ -85,11 +98,15 @@ var EnhancedButton = React.createClass({
 
   getInitialState: function getInitialState() {
     return {
-      isKeyboardFocused: !this.props.disabled && this.props.keyboardFocused && !this.props.disableKeyboardFocus
+      isKeyboardFocused: !this.props.disabled && this.props.keyboardFocused && !this.props.disableKeyboardFocus,
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
     };
   },
 
-  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
+
     if ((nextProps.disabled || nextProps.disableKeyboardFocus) && this.state.isKeyboardFocused) {
       this.setState({ isKeyboardFocused: false });
       if (nextProps.onKeyboardFocus) {
@@ -134,7 +151,7 @@ var EnhancedButton = React.createClass({
       boxSizing: 'border-box',
       display: 'inline-block',
       font: 'inherit',
-      fontFamily: this.context.muiTheme.contentFontFamily,
+      fontFamily: this.state.muiTheme.rawTheme.fontFamily,
       tapHighlightColor: Colors.transparent,
       appearance: linkButton ? null : 'button',
       cursor: disabled ? 'default' : 'pointer',

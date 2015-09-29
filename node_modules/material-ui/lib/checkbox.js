@@ -10,6 +10,8 @@ var StylePropable = require('./mixins/style-propable');
 var Transitions = require('./styles/transitions');
 var CheckboxOutline = require('./svg-icons/toggle/check-box-outline-blank');
 var CheckboxChecked = require('./svg-icons/toggle/check-box');
+var DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
+var ThemeManager = require('./styles/theme-manager');
 
 var Checkbox = React.createClass({
   displayName: 'Checkbox',
@@ -18,6 +20,17 @@ var Checkbox = React.createClass({
 
   contextTypes: {
     muiTheme: React.PropTypes.object
+  },
+
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
   },
 
   propTypes: {
@@ -32,12 +45,20 @@ var Checkbox = React.createClass({
 
   getInitialState: function getInitialState() {
     return {
-      switched: this.props.checked || this.props.defaultChecked || this.props.valueLink && this.props.valueLink.value || false
+      switched: this.props.checked || this.props.defaultChecked || this.props.valueLink && this.props.valueLink.value || false,
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
     };
   },
 
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
+  },
+
   getTheme: function getTheme() {
-    return this.context.muiTheme.component.checkbox;
+    return this.state.muiTheme.checkbox;
   },
 
   getStyles: function getStyles() {

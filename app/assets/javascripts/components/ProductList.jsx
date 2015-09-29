@@ -21,11 +21,22 @@ var ProductList = React.createClass({
 
   // },
 
-  // getInitialState: function () { 
-  //   return {
-  //     categories: {}
-  //   }
-  // },  
+  // getStateFromStore: function(props) {
+  //   var { id } = props ? props.params : this.props.params;
+  // },
+
+  getInitialState: function () { 
+    return {
+      categories: {}
+    }
+  }, 
+
+  //called when routed to
+  componentWillReceiveProps: function(nextProps) {
+    this.setState({
+
+    })
+  },
 
   componentDidMount: function() {
     AppActions.fetchProducts()

@@ -4,6 +4,8 @@ var React = require('react');
 var StylePropable = require('../mixins/style-propable');
 var ClockNumber = require("./clock-number");
 var ClockPointer = require("./clock-pointer");
+var DefaultRawTheme = require('../styles/raw-themes/light-raw-theme');
+var ThemeManager = require('../styles/theme-manager');
 
 function rad2deg(rad) {
   return rad * 57.29577951308232;
@@ -33,6 +35,30 @@ var ClockMinutes = React.createClass({
   propTypes: {
     initialMinutes: React.PropTypes.number,
     onChange: React.PropTypes.func
+  },
+
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
+  },
+
+  getInitialState: function getInitialState() {
+    return {
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
+    };
+  },
+
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
   },
 
   center: { x: 0, y: 0 },

@@ -4,6 +4,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var React = require('react');
 var StylePropable = require('../mixins/style-propable');
+var DefaultRawTheme = require('../styles/raw-themes/light-raw-theme');
+var ThemeManager = require('../styles/theme-manager');
 
 var LinkMenuItem = React.createClass({
   displayName: 'LinkMenuItem',
@@ -31,14 +33,33 @@ var LinkMenuItem = React.createClass({
     };
   },
 
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
+  },
+
   getInitialState: function getInitialState() {
     return {
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme),
       hovered: false
     };
   },
 
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
+  },
+
   getTheme: function getTheme() {
-    return this.context.muiTheme.component.menuItem;
+    return this.state.muiTheme.menuItem;
   },
 
   getStyles: function getStyles() {
@@ -59,7 +80,7 @@ var LinkMenuItem = React.createClass({
       },
       rootWhenDisabled: {
         cursor: 'default',
-        color: this.context.muiTheme.palette.disabledColor
+        color: this.state.muiTheme.rawTheme.palette.disabledColor
       }
     };
 

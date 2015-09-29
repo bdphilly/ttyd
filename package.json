@@ -6,6 +6,7 @@
     "lodash": "^3.10.1",
     "radium": "^0.14.1",
     "react": "^0.13.3",
+    "react-router": "^0.13.3",
     "react-tap-event-plugin": "^0.1.7",
     "reactify": "^1.1.1",
     "reflux": "^0.2.12",
@@ -22,11 +23,6 @@
     "test": "test"
   },
   "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-html-replace": "^1.5.4",
-    "gulp-react": "^3.0.1",
-    "gulp-uglify": "^1.4.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

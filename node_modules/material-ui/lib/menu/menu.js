@@ -15,6 +15,8 @@ var Paper = require('../paper');
 var MenuItem = require('./menu-item');
 var LinkMenuItem = require('./link-menu-item');
 var SubheaderMenuItem = require('./subheader-menu-item');
+var DefaultRawTheme = require('../styles/raw-themes/light-raw-theme');
+var ThemeManager = require('../styles/theme-manager');
 
 /***********************
 * Nested Menu Component
@@ -45,8 +47,20 @@ var NestedMenuItem = React.createClass({
     };
   },
 
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
+  },
+
   getInitialState: function getInitialState() {
     return {
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme),
       open: false,
       activeIndex: 0
     };
@@ -67,7 +81,7 @@ var NestedMenuItem = React.createClass({
   },
 
   getSpacing: function getSpacing() {
-    return this.context.muiTheme.spacing;
+    return this.state.muiTheme.rawTheme.spacing;
   },
 
   getStyles: function getStyles() {
@@ -76,7 +90,7 @@ var NestedMenuItem = React.createClass({
         userSelect: 'none',
         cursor: 'pointer',
         lineHeight: this.getTheme().height + 'px',
-        color: this.context.muiTheme.palette.textColor
+        color: this.state.muiTheme.rawTheme.palette.textColor
       },
       icon: {
         float: 'left',
@@ -84,7 +98,7 @@ var NestedMenuItem = React.createClass({
         marginRight: this.getSpacing().desktopGutter
       },
       toggle: {
-        marginTop: (this.getTheme().height - this.context.muiTheme.component.radioButton.size) / 2,
+        marginTop: (this.getTheme().height - this.state.muiTheme.radioButton.size) / 2,
         float: 'right',
         width: 42
       },
@@ -96,7 +110,7 @@ var NestedMenuItem = React.createClass({
       },
       rootWhenDisabled: {
         cursor: 'default',
-        color: this.context.muiTheme.palette.disabledColor
+        color: this.state.muiTheme.rawTheme.palette.disabledColor
       }
     };
 
@@ -104,7 +118,7 @@ var NestedMenuItem = React.createClass({
   },
 
   getTheme: function getTheme() {
-    return this.context.muiTheme.component.menuItem;
+    return this.state.muiTheme.menuItem;
   },
 
   render: function render() {
@@ -115,7 +129,7 @@ var NestedMenuItem = React.createClass({
 
     var iconCustomArrowDropRight = {
       marginRight: this.getSpacing().desktopGutterMini * -1,
-      color: this.context.muiTheme.component.dropDownMenu.accentColor
+      color: this.state.muiTheme.dropDownMenu.accentColor
     };
 
     var _props = this.props;
@@ -227,8 +241,20 @@ var Menu = React.createClass({
     menuItemClassNameLink: React.PropTypes.string
   },
 
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
+  },
+
   getInitialState: function getInitialState() {
     return {
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme),
       nestedMenuShown: false,
       activeIndex: 0
     };
@@ -260,17 +286,22 @@ var Menu = React.createClass({
     }
   },
 
-  componentWillReceiveProps: function componentWillReceiveProps() {
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
+
     //Set the menu width
     this._setKeyWidth(React.findDOMNode(this));
   },
 
   getTheme: function getTheme() {
-    return this.context.muiTheme.component.menu;
+    return this.state.muiTheme.menu;
   },
 
   getSpacing: function getSpacing() {
-    return this.context.muiTheme.spacing;
+    return this.state.muiTheme.rawTheme.spacing;
   },
 
   getStyles: function getStyles() {
@@ -283,8 +314,8 @@ var Menu = React.createClass({
         outline: 'none !important'
       },
       subheader: {
-        paddingLeft: this.context.muiTheme.component.menuSubheader.padding,
-        paddingRight: this.context.muiTheme.component.menuSubheader.padding
+        paddingLeft: this.state.muiTheme.menuSubheader.padding,
+        paddingRight: this.state.muiTheme.menuSubheader.padding
       },
       hideable: {
         overflow: 'hidden',

@@ -11,6 +11,8 @@ var StylePropable = require('../mixins/style-propable');
 var Events = require('../utils/events');
 var PropTypes = require('../utils/prop-types');
 var Menu = require('../menus/menu');
+var DefaultRawTheme = require('../styles/raw-themes/light-raw-theme');
+var ThemeManager = require('../styles/theme-manager');
 
 var IconMenu = React.createClass({
   displayName: 'IconMenu',
@@ -51,12 +53,31 @@ var IconMenu = React.createClass({
     };
   },
 
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
+  },
+
   getInitialState: function getInitialState() {
     return {
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme),
       iconButtonRef: this.props.iconButtonElement.props.ref || 'iconButton',
       menuInitiallyKeyboardFocused: false,
       open: false
     };
+  },
+
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
   },
 
   componentWillUnmount: function componentWillUnmount() {
@@ -109,10 +130,10 @@ var IconMenu = React.createClass({
 
     var iconButton = React.cloneElement(iconButtonElement, {
       onKeyboardFocus: this.props.onKeyboardFocus,
-      onTouchTap: (function (e) {
+      onTouchTap: function onTouchTap(e) {
         _this.open(Events.isKeyboard(e));
         if (iconButtonElement.props.onTouchTap) iconButtonElement.props.onTouchTap(e);
-      }).bind(this),
+      },
       ref: this.state.iconButtonRef
     });
 

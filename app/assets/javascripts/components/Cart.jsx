@@ -58,7 +58,7 @@ var Cart = React.createClass({
         products = this.state.orderItems;
 
     return (
-      <div className={"cart " + (this.props.visible ? 'active' : '')}>
+      <div className={"cart" + (this.props.visible ? ' active' : '')}>
         <div className="mini-cart" >
           <ul>
             {Object.keys(products).map(function(product, index){

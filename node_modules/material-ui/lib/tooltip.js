@@ -8,6 +8,8 @@ var React = require('react');
 var StylePropable = require('./mixins/style-propable');
 var Transitions = require('./styles/transitions');
 var Colors = require('./styles/colors');
+var DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
+var ThemeManager = require('./styles/theme-manager');
 
 var Tooltip = React.createClass({
   displayName: 'Tooltip',
@@ -27,13 +29,29 @@ var Tooltip = React.createClass({
     horizontalPosition: React.PropTypes.oneOf(['left', 'right', 'center'])
   },
 
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
+  },
+
   componentDidMount: function componentDidMount() {
     this._setRippleSize();
     this._setTooltipPosition();
   },
 
-  componentWillReceiveProps: function componentWillReceiveProps() {
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
     this._setTooltipPosition();
+
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
   },
 
   componentDidUpdate: function componentDidUpdate() {
@@ -42,7 +60,8 @@ var Tooltip = React.createClass({
 
   getInitialState: function getInitialState() {
     return {
-      offsetWidth: null
+      offsetWidth: null,
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
     };
   },
 
@@ -56,7 +75,7 @@ var Tooltip = React.createClass({
     var styles = {
       root: {
         position: 'absolute',
-        fontFamily: this.context.muiTheme.contentFontFamily,
+        fontFamily: this.state.muiTheme.rawTheme.fontFamily,
         fontSize: '10px',
         lineHeight: '22px',
         padding: '0 8px',

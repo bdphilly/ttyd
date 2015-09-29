@@ -8,6 +8,8 @@ var React = require('react');
 var StylePropable = require('./mixins/style-propable');
 var AutoPrefix = require('./styles/auto-prefix');
 var Transitions = require("./styles/transitions");
+var DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
+var ThemeManager = require('./styles/theme-manager');
 
 var CircularProgress = React.createClass({
   displayName: 'CircularProgress',
@@ -26,6 +28,30 @@ var CircularProgress = React.createClass({
 
   contextTypes: {
     muiTheme: React.PropTypes.object
+  },
+
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
+  },
+
+  getInitialState: function getInitialState() {
+    return {
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
+    };
+  },
+
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
   },
 
   _getRelativeValue: function _getRelativeValue() {
@@ -100,7 +126,7 @@ var CircularProgress = React.createClass({
   },
 
   getTheme: function getTheme() {
-    return this.context.muiTheme.palette;
+    return this.state.muiTheme.rawTheme.palette;
   },
 
   getStyles: function getStyles(zoom) {

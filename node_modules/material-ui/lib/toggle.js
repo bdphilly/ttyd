@@ -9,6 +9,8 @@ var StylePropable = require('./mixins/style-propable');
 var Transitions = require('./styles/transitions');
 var Paper = require('./paper');
 var EnhancedSwitch = require('./enhanced-switch');
+var DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
+var ThemeManager = require('./styles/theme-manager');
 
 var Toggle = React.createClass({
   displayName: 'Toggle',
@@ -27,14 +29,33 @@ var Toggle = React.createClass({
     defaultToggled: React.PropTypes.bool
   },
 
-  getInitialState: function getInitialState() {
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
     return {
-      switched: this.props.toggled || this.props.defaultToggled || this.props.valueLink && this.props.valueLink.value || false
+      muiTheme: this.state.muiTheme
     };
   },
 
+  getInitialState: function getInitialState() {
+    return {
+      switched: this.props.toggled || this.props.defaultToggled || this.props.valueLink && this.props.valueLink.value || false,
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
+    };
+  },
+
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
+  },
+
   getTheme: function getTheme() {
-    return this.context.muiTheme.component.toggle;
+    return this.state.muiTheme.toggle;
   },
 
   getStyles: function getStyles() {
@@ -117,7 +138,7 @@ var Toggle = React.createClass({
       left: -10
     }, this.props.rippleStyle);
 
-    var rippleColor = this.state.switched ? this.getTheme().thumbOnColor : this.context.muiTheme.component.textColor;
+    var rippleColor = this.state.switched ? this.getTheme().thumbOnColor : this.state.muiTheme.textColor;
 
     var iconStyle = this.mergeAndPrefix(styles.icon, this.props.iconStyle);
 

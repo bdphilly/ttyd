@@ -53,9 +53,9 @@ var ScaleInChild = React.createClass({
     style.opacity = '0';
     AutoPrefix.set(style, 'transform', 'scale(' + this.props.minScale + ')');
 
-    setTimeout((function () {
+    setTimeout(function () {
       if (_this.isMounted()) callback();
-    }).bind(this), 450);
+    }, 450);
   },
 
   render: function render() {
@@ -97,9 +97,9 @@ var ScaleInChild = React.createClass({
     style.opacity = '0';
     AutoPrefix.set(style, 'transform', 'scale(0)');
 
-    setTimeout((function () {
+    setTimeout(function () {
       if (_this2.isMounted()) callback();
-    }).bind(this), this.props.enterDelay);
+    }, this.props.enterDelay);
   }
 
 });

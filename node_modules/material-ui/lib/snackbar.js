@@ -10,6 +10,8 @@ var StylePropable = require('./mixins/style-propable');
 var Transitions = require('./styles/transitions');
 var ClickAwayable = require('./mixins/click-awayable');
 var FlatButton = require('./flat-button');
+var DefaultRawTheme = require('./styles/raw-themes/light-raw-theme');
+var ThemeManager = require('./styles/theme-manager');
 
 var Snackbar = React.createClass({
   displayName: 'Snackbar',
@@ -35,10 +37,29 @@ var Snackbar = React.createClass({
     openOnMount: React.PropTypes.bool
   },
 
+  //for passing default theme context to children
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function getChildContext() {
+    return {
+      muiTheme: this.state.muiTheme
+    };
+  },
+
   getInitialState: function getInitialState() {
     return {
-      open: this.props.openOnMount || false
+      open: this.props.openOnMount || false,
+      muiTheme: this.context.muiTheme ? this.context.muiTheme : ThemeManager.getMuiTheme(DefaultRawTheme)
     };
+  },
+
+  //to update theme inside state whenever a new theme is passed down
+  //from the parent / owner using context
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({ muiTheme: newMuiTheme });
   },
 
   componentDidMount: function componentDidMount() {
@@ -75,11 +96,11 @@ var Snackbar = React.createClass({
   },
 
   getTheme: function getTheme() {
-    return this.context.muiTheme.component.snackbar;
+    return this.state.muiTheme.snackbar;
   },
 
   getSpacing: function getSpacing() {
-    return this.context.muiTheme.spacing;
+    return this.state.muiTheme.rawTheme.spacing;
   },
 
   getStyles: function getStyles() {
