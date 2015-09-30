@@ -4,13 +4,7 @@
 
   <title>Tahoe To Your Door</title>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
-  <% if request.ssl? %>
-    <%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css' %>
-    <%= javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js' %>
-  <% else %> 
-    <%= stylesheet_link_tag 'http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css' %>
-    <%= javascript_include_tag 'http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js' %>
-  <% end %>
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -20,7 +14,7 @@
 
 </head>
 <body>
-
+I am here!
 <div id="ttyd-app"></div>
 
 </body>
