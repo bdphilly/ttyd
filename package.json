@@ -6,7 +6,7 @@
     "lodash": "^3.10.1",
     "radium": "^0.14.1",
     "react": "^0.13.3",
-    "react-router": "^0.13.3",
+    "react-router": "^1.0.0-rc1",
     "react-tap-event-plugin": "^0.1.7",
     "reactify": "^1.1.1",
     "reflux": "^0.2.12",

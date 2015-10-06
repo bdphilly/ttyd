@@ -34,6 +34,10 @@ var ProductStore = Reflux.createStore({
       .catch(function (error) {
         console.error(error);
       }.bind(this))
+  },
+
+  filterAisle: function(aisle) {
+    return this.state.categories[aisle];
   }
 });
 

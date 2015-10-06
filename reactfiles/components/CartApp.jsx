@@ -10,6 +10,7 @@ var FlatButton = require('material-ui/lib/flat-button');
 
 var ReactRouter = require('react-router');
 var RouteHandler = ReactRouter.RouteHandler;
+var History = ReactRouter.History;
 var ThemeManager = require('material-ui/lib/styles/theme-manager'); 
 
 var LightRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme');
@@ -49,7 +50,7 @@ var styles = {
 };
 
 var CartApp = React.createClass({
-  mixins: [Reflux.listenTo(AppStore, 'onUpdateCartVisible')],
+  mixins: [Reflux.listenTo(AppStore, 'onUpdateCartVisible'), History],
 
   childContextTypes: {
     muiTheme: React.PropTypes.object
@@ -95,16 +96,18 @@ var CartApp = React.createClass({
   render: function() {    
     return (
       <div className="ttyd-app">
-        <Header cartVisible={this.state.cartVisible}/>      
+        <Header cartVisible={this.state.cartVisible}/>
+        <div>{this.props.children}</div>        
         <div style={styles.productListWrapper} ref="productswrap">
-          <RouteHandler/>
         </div>
+        
         <div style={[
           styles.cartWrapper,
           !this.state.cartVisible && styles.cartHidden
         ]} ref="cartwrap">
           <Cart products={this.state.cartItems}/>        
         </div>
+
       </div>
     );
   },

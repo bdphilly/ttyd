@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   resource :orders, only: [:show]
   root "products#index"
 
+  get '*path' => redirect('/')
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   # The priority is based upon order of creation: first created -> highest priority.
