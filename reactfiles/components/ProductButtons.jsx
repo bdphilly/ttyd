@@ -48,7 +48,9 @@ var styles = {
 
 var ProductButtons = React.createClass({
   _handleDialogTouchTap: function(event) {
-    if (event == 'plus') {
+    event.stopPropagation();
+
+    if (event.currentTarget.className == 'plus') {
       AppActions.addOrUpdateCart(this.props.product);
     } else {      
       AppActions.minusOrDeleteFromCart(this.props.product);
@@ -57,7 +59,7 @@ var ProductButtons = React.createClass({
 
   render: function() {
     var minusButton = this.props.quantity ? 
-      <button onClick={this._handleDialogTouchTap.bind(this, "minus")} style={styles.productButton} key="keyForMinusButton">          
+      <button onClick={this._handleDialogTouchTap} className="minus" style={styles.productButton} key="keyForMinusButton">          
         <i className="fa fa-minus"></i>
       </button> : null;
 
@@ -65,7 +67,7 @@ var ProductButtons = React.createClass({
       <div style={styles.actionItemsWrapper}>  
         <div className="action-items" style={styles.actionItems}>
           {minusButton}          
-          <button onClick={this._handleDialogTouchTap.bind(this, "plus")} style={styles.productButton} key="keyForPlusButton">
+          <button onClick={this._handleDialogTouchTap} className="plus" style={styles.productButton} key="keyForPlusButton">
             <i className="fa fa-plus"></i>            
             <span style={styles.addText}>ADD</span>
           </button>        

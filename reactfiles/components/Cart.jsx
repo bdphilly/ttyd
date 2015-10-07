@@ -2,6 +2,7 @@ var React = require('react');
 var Reflux = require('reflux');
 var AppActions = require('../actions/AppActions');
 var CartStore = require('../stores/CartStore');
+var CartItem = require('./CartItem.jsx');
 
 var styles = {
   container: {
@@ -61,38 +62,21 @@ var Cart = React.createClass({
     return (
       <div className={"cart" + (this.props.visible ? ' active' : '')}>
         <div className="mini-cart" >
-          <ul>
-            {Object.keys(products).map(function(product, index){
-              return (
-                <CartItem product={products[product]} key={index} />
-              )
-            })}
-          </ul>
+          <table>
+            <tbody>
+              {Object.keys(products).map(function(product, index){
+                return (
+                  <CartItem product={products[product]} key={index} />
+                )
+              })}
+            </tbody>
+          </table>
           <span className="total">Total: ${this.props.total}</span>
         </div>        
         <button type="button" className="empty" onClick={this._empty}>Empty Cart</button>
       </div>
     );
   }  
-})
-
-var CartItem = React.createClass({
-
-  _removeFromCart: function(orderItemId) {
-    AppActions.removeFromCart(orderItemId);
-  },
-
-  render: function() {
-    var product = this.props.product;
-
-    return (
-      <li>
-        <h1 className="name">{product.product.name}</h1>
-        <h3 className="quantity">Quantity: {product.quantity}</h3>
-        <button type="button" className="remove-item" onClick={this._removeFromCart.bind(this, product.id)}>Remove</button>      
-      </li>
-    )
-  }
 })
 
 module.exports = Cart;

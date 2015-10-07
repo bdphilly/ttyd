@@ -156,7 +156,8 @@ var Product = React.createClass({
     };
   }, 
 
-  _displayDialog: function() {
+  _displayDialog: function(e) {
+    debugger
     if (!this.state.dialogShowing) this.refs.productInfoDialog.showDialog();
     this.state.dialogShowing = !this.state.dialogShowing;
     console.log('clicked!')
@@ -167,7 +168,7 @@ var Product = React.createClass({
     var productQuantity = this.props.quantity ? <ProductQuantity quantity={this.props.quantity} /> : null;
 
     return (      
-        <li className={"product" + (this.props.quantity ? " in-cart" : "") } key="keyForProduct" style={styles.container} onClick={this._displayDialog.bind(null, this)}>
+        <li className={"product" + (this.props.quantity ? " in-cart" : "") } key="keyForProduct" style={styles.container} onClick={this._displayDialog}>
           <div className="media" style={styles.media}>
             <img src={'https://upload.wikimedia.org/wikipedia/commons/2/29/PerfectStrawberry.jpg'}
               style={styles.image} />
@@ -178,8 +179,7 @@ var Product = React.createClass({
                 <ProductButtons product={product} quantity={this.props.quantity} />    
               </div>
             ) : null}
-            
-            
+                        
           </div>
 
           <div className="product-detail-wrapper" style={styles.detailWrapper}>

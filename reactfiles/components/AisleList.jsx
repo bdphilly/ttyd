@@ -14,9 +14,8 @@ var styles = {
     fontSize: '42px',
     textAlign: 'center'
   },
-  
-  wrapper: {
-    border: '1px green solid'
+
+  wrapper: {   
   }
 }
 

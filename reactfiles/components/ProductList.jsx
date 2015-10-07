@@ -14,7 +14,7 @@ var styles = {
   },
   
   container: {
-    'border': '1px green solid'
+    // 'border': '1px green solid'
   },
 
   categoryListLink: {
