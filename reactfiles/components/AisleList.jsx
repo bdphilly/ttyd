@@ -9,11 +9,14 @@ var React = require('react'),
 var Link = ReactRouter.Link;       
 
 var styles = {
-  container: {
-    'color': 'blue'
+  header: {
+    color: '#363636',
+    fontSize: '42px',
+    textAlign: 'center'
   },
+  
   wrapper: {
-    'border': '1px green solid'
+    border: '1px green solid'
   }
 }
 
@@ -55,11 +58,9 @@ var AisleList = React.createClass({
     // var categoryLists = _.map(this.state.categories, (function (products, index) {
       return (
         <div style={styles.wrapper}>
-          <h2 style={styles.container}>{this.props.params.categoryId}</h2>
-          
-          <Link to="/products">
-            View All
-          </Link>
+          <Link to="/products">...Back</Link>
+
+          <h2 style={styles.header}>{this.props.params.categoryId}</h2>
 
           <CategoryList products={products} key={this.props.params.categoryId} />
 

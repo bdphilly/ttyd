@@ -12,28 +12,24 @@ var RaisedButton = require('material-ui/lib/raised-button');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var ProductInfoDialog = require('./ProductInfoDialog.jsx');
 
+var ProductButtons = require('./ProductButtons.jsx')
+
+var ThemeManager = require('material-ui/lib/styles/theme-manager'); 
+
+var LightRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme');
+
 var styles = {
   container: {
-    background: 'red',
+    background: 'white',
     display: 'inline-block',
-    margin: '10px',
+    margin: '4px',
     width: '200px',
     height: '300px',
-    boxShadow: '0 3px 10px rgba(0, 0, 0, 0.23',
+    boxShadow: '0 3px 10px rgba(0, 0, 0, 0.23)',
 
     ':hover': {},
 
     transition: 'all 500ms'
-  },
-
-  actionItems: {
-    position: 'absolute',
-    display: 'block',
-    width: '100%',
-    backgroundColor: 'red',
-    borderTop: '1px solid blue',
-    height: '50px',
-    bottom: '0'
   },
 
   image: {
@@ -44,24 +40,19 @@ var styles = {
     padding: '10px'
   },
 
-  button: {
-    minwidth: '50px'
-  },
-
   productQuantityWrapper: {    
     backgroundColor: 'rgba(0,0,0,0.5)',
     color: '#FFF',
-    height: '200px',
     position: 'absolute',
     top: '0',
     left: '0',
     width: '100%',
     textAlign: 'center',
-    lineHeight: '38px'
+    lineHeight: '38px',
+    padding: '38px 0'
   },
 
   productQuantityAmount: {
-    marginTop: '50px',
     fontSize: '40px',
     display: 'block'    
   },
@@ -72,36 +63,21 @@ var styles = {
   },
 
   media: {
-    height: '220px',
+    height: '200px',
     position: 'relative'
+  },
+
+  detailWrapper: {
+    marginTop: '20px'
+  },
+
+  productName: {
+    fontWeight: '300',
+    paddingLeft: '10px'
   }
 };
 
-var ProductButtons = React.createClass({
-  _handleDialogTouchTap: function(event) {
-    if (event == 'plus') {
-      AppActions.addOrUpdateCart(this.props.product);
-    } else {      
-      AppActions.minusOrDeleteFromCart(this.props.product);
-    }
-  },
-
-  render: function() {
-    return (
-      <div className="action-items" style={styles.actionItems}>
-        <RaisedButton onClick={this._handleDialogTouchTap.bind(this, "minus")} style={styles.button}>
-          <FontIcon className="material-icons" color={Colors.blue500}>remove_circle_outline</FontIcon>
-        </RaisedButton>
-        <RaisedButton onClick={this._handleDialogTouchTap.bind(this, "plus")} style={styles.button}>
-          <FontIcon className="material-icons" color={Colors.blue500}>add_circle_outline</FontIcon>
-        </RaisedButton>        
-      </div>
-    )
-  }
-
-})
-
-var ProductDialog = React.createClass({
+var ProductInfoDialog = React.createClass({
   _handleCustomDialogCancel: function() {
     this.refs.dialog.dismiss();
   },
@@ -112,6 +88,26 @@ var ProductDialog = React.createClass({
     this.refs.dialog.dismiss();
   },
 
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function() {
+    return {
+        muiTheme: this.state.muiTheme
+    };
+  },  
+
+  getInitialState: function() {
+    return {
+      muiTheme: ThemeManager.getMuiTheme(LightRawTheme)
+    }
+  },
+
+  showDialog: function() {
+    this.refs.dialog.show();
+  },
+
   render: function() {
     var product = this.props.product;
 
@@ -119,17 +115,19 @@ var ProductDialog = React.createClass({
       <FlatButton
         label="Cancel"
         secondary={true}
+        key={product.id}
         onTouchTap={this._handleCustomDialogCancel} />,
       <FlatButton
         label="Submit"
         primary={true}
+        key={product.id + 1}
         onTouchTap={this._handleCustomDialogSubmit} />
     ];      
 
     return (      
       <Dialog ref="dialog" 
               title={this.props.product.name}                  
-              actions={customActions}
+              actions={customActions}              
               modal={true}>
         The internals of the dialog!
       </Dialog>        
@@ -152,33 +150,45 @@ var ProductQuantity = React.createClass({
 });
 
 var Product = React.createClass({
+  getInitialState: function() {
+    return {
+      dialogShowing: false
+    };
+  }, 
+
+  _displayDialog: function() {
+    if (!this.state.dialogShowing) this.refs.productInfoDialog.showDialog();
+    this.state.dialogShowing = !this.state.dialogShowing;
+    console.log('clicked!')
+  },
+
   render: function() {
     var product = this.props.product;      
     var productQuantity = this.props.quantity ? <ProductQuantity quantity={this.props.quantity} /> : null;
+
     return (      
-      // <ReactCSSTransitionGroup transitionName="example" transitionAppear={true}>
-        <li className={"product" + (this.props.quantity ? " in-cart" : "") } key="keyForProduct" style={styles.container}>
+        <li className={"product" + (this.props.quantity ? " in-cart" : "") } key="keyForProduct" style={styles.container} onClick={this._displayDialog.bind(null, this)}>
           <div className="media" style={styles.media}>
             <img src={'https://upload.wikimedia.org/wikipedia/commons/2/29/PerfectStrawberry.jpg'}
               style={styles.image} />
 
-            {Radium.getState(this.state, 'keyForProduct', ':hover') ? (
+            {Radium.getState(this.state, 'keyForProduct', ':hover') ? (              
               <div>
                 {productQuantity}
-                <ProductButtons product={product} />    
+                <ProductButtons product={product} quantity={this.props.quantity} />    
               </div>
             ) : null}
             
+            
           </div>
 
-          <div className="product-detail-wrapper">
-            <h2 className="product-name">{product.name}</h2>
+          <div className="product-detail-wrapper" style={styles.detailWrapper}>
+            <h3 style={styles.productName}>{product.name}</h3>
             <p className="product-details">{product.details}</p>            
           </div>          
 
-          <ProductInfoDialog product={product} />
+          <ProductInfoDialog product={product} key="product.id" showing={this.state.dialogShowing} ref="productInfoDialog"/>
         </li>
-      // </ReactCSSTransitionGroup>
     );
   }
 })

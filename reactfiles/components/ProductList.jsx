@@ -9,11 +9,23 @@ var React = require('react'),
 var Link = ReactRouter.Link;       
 
 var styles = {
-  container: {
-    'color': 'blue'
+  linkWrapper: {
+    marginLeft: '40px'
   },
-  wrapper: {
+  
+  container: {
     'border': '1px green solid'
+  },
+
+  categoryListLink: {
+    textDecoration: 'none',
+    fontSize: '36px',
+    fontWeight: '300',
+    color: '#818181'
+  },
+
+  listWrapper: {
+    marginLeft: '38px'
   }
 }
 
@@ -50,14 +62,17 @@ var ProductList = React.createClass({
 
     var categoryLists = _.map(this.state.categories, (function (products, index) {
       return (
-        <div style={styles.wrapper} key={index}>
-          <h2 style={styles.container}>{index}</h2>
+        <div style={styles.container} key={index}>
+          
+          <h3 style={styles.linkWrapper}>
+            <Link to={`/products/${index}`} style={styles.categoryListLink}>
+              {index}
+            </Link>
+          </h3>
 
-          <Link to={`/products/${index}`}>
-            View More
-          </Link>
-
-          <CategoryList products={products} key={index} />
+          <div style={styles.listWrapper}>
+            <CategoryList products={products} key={index}/>
+          </div>
 
         </div>
       );

@@ -27,3 +27,12 @@
 /*li.product:hover {
   display: none;
 }*/
+
+body {
+  font-family: Roboto;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}

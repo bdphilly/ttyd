@@ -9,12 +9,12 @@ Rails.application.routes.draw do
   resources :products, only: [:index]
   resources :order_items, only: [:create, :update, :destroy, :delete]
   resource :orders, only: [:show]
-  root "products#index"
-
-  get '*path' => redirect('/')
+  root "products#index"  
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
+  get '*path' => redirect('/')
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
