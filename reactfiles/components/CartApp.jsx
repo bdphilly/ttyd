@@ -90,7 +90,7 @@ var CartApp = React.createClass({
   setProductListsWidth: function(cartVisible) {
     var cart = React.findDOMNode(this.refs.cartwrap),
         products = React.findDOMNode(this.refs.productswrap);
-
+    
     products.style.width = cartVisible ? window.innerWidth - parseInt(cart.style.width, 10) + 'px' : '100%';
   },
 
@@ -98,8 +98,7 @@ var CartApp = React.createClass({
     return (
       <div className="ttyd-app">
         <Header cartVisible={this.state.cartVisible}/>
-        <div style={styles.productListWrapper}>{this.props.children}</div>        
-        <div style={styles.productListWrapper} ref="productswrap"></div>        
+        <div style={styles.productListWrapper} ref="productswrap">{this.props.children}</div>
         <div style={[
           styles.cartWrapper,
           !this.state.cartVisible && styles.cartHidden

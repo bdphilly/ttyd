@@ -75,6 +75,20 @@ var styles = {
   productName: {
     fontWeight: '300',
     paddingLeft: '10px'
+  },
+
+  quantityPill: {
+    borderRadius: '50%',
+    height: '30px',
+    width: '30px',
+    lineHeight: '30px',
+    fontSize: '14px',
+    background: 'blue',
+    color: '#FFF',
+    position: 'absolute',
+    top: '10px',
+    right: '10px',
+    textAlign: 'center'
   }
 };
 
@@ -179,7 +193,11 @@ var Product = React.createClass({
                 {productQuantity}
                 <ProductButtons product={product} quantity={this.props.quantity} />    
               </div>
-            ) : null}
+            ) : this.props.quantity ? 
+              <div style={styles.quantityPill}>
+                {this.props.quantity}
+              </div> :
+            null}
                         
           </div>
 

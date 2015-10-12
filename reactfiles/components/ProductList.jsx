@@ -10,7 +10,7 @@ var Link = ReactRouter.Link;
 
 var styles = {
   linkWrapper: {
-    marginLeft: '40px'
+    marginLeft: '60px'
   },
   
   container: {
@@ -25,7 +25,7 @@ var styles = {
   },
 
   listWrapper: {
-    marginLeft: '38px'
+    marginLeft: '58px'
   }
 }
 

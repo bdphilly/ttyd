@@ -45,5 +45,5 @@ end
 
 
 (21..40).each do |id|  
-  Product.create! id: id, name: Faker::Lorem.words(2).join(' '), category: category2, price: Faker::Commerce.price, active: true, aisle_id: 1
+  Product.create! id: id, name: Faker::Lorem.words(2).join(' '), category: category2, price: Faker::Commerce.price, active: true, aisle_id: 2
 end

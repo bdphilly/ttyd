@@ -14,6 +14,7 @@ var styles = {
 
   checkoutButton: {
     background: 'red',
+    color: '#FFF',
     fontSize: '24px',
     lineHeight: '48px',
     textAlign: 'center',
@@ -34,7 +35,6 @@ var CartCheckout = React.createClass({
         <div className="cart-checkout">
           <a href="#" onClick={this._goToCheckout()}>
             <div style={styles.checkoutButton}>Checkout</div>
-            <div>Price</div>
           </a>
         </div>
       </div>
