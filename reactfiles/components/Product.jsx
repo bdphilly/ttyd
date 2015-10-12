@@ -54,7 +54,8 @@ var styles = {
 
   productQuantityAmount: {
     fontSize: '40px',
-    display: 'block'    
+    display: 'block',
+    fontWeight: '300'   
   },
 
   productQuantityLabel: {

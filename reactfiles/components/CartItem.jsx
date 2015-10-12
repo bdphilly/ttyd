@@ -1,10 +1,47 @@
 var React = require('react');
 var Reflux = require('reflux');
+var Radium = require('radium');
 var AppActions = require('../actions/AppActions');
 var CartStore = require('../stores/CartStore');
 
 var styles = {
+  row: {
+    borderBottom: '1px #C3C3C3 solid'
+  },
 
+  columnWrapper: {
+    textAlign: 'center',
+    color: '#929292',
+    fontSize: '18px'
+  },
+
+  minusButtonDisabled: {
+    color: '#C3C3C3',        
+    cursor: 'default'      
+  },
+
+  // quantity: {
+  //   fontSize: '18px'
+  // },
+
+  removeItemIcon: {
+    margin: '0 20px',
+    color: 'red',
+
+    ':hover': {
+      cursor: 'pointer',
+      color: '#C3C3C3'
+    }
+  },
+
+  image: {
+    width: '40px',
+    height: '40px'
+  },
+
+  productName: {
+    fontWeight: '300'
+  }
 };
 
 var CartItem = React.createClass({
@@ -27,7 +64,7 @@ var CartItem = React.createClass({
       cartItem.quantity -= 1;
       AppActions.updateItemInCart(cartItem);
     } else {
-      AppActions.removeFromCart(this.props.product.id);
+      //AppActions.removeFromCart(this.props.product.id);
     }
   },
 
@@ -35,25 +72,28 @@ var CartItem = React.createClass({
     var product = this.props.product;
 
     return (
-      <tr>
-        <td>
+      <tr style={styles.row}>
+        <td style={styles.columnWrapper}>
           <a onClick={this._updateCart.bind(this, "increase")} href="#">
             <i className="fa fa-caret-up"></i>
           </a>
-          <div className="quantity">{product.quantity}</div>
-          <a onClick={this._updateCart.bind(this, "decrease")} href="#">
+          <div style={styles.quantity}>{product.quantity}</div>
+          <a onClick={this._updateCart.bind(this, "decrease")} href="#" style={[product.quantity == 1 && styles.minusButtonDisabled]}>
             <i className="fa fa-caret-down"></i>
           </a>
-        </td>        
-        <td>
-          <h3 className="name">{product.product.name}</h3>
         </td>
-        <td>
-          <button type="button" className="remove-item" onClick={this._removeFromCart.bind(this, product.id)}>Remove</button>      
+        <td style={styles.columnWrapper}>
+          <img src={'http://www.health-alternatives.com/images/strawberry.jpg'} style={styles.image} />        
+        </td>        
+        <td style={styles.columnWrapper}>
+          <span style={styles.productName}>{product.product.name}</span>
+        </td>
+        <td style={styles.columnWrapper}>
+          <i className="fa fa-times" onClick={this._removeFromCart.bind(this, product.id)} style={styles.removeItemIcon}></i>
         </td>
       </tr>
     )
   }
 })
 
-module.exports = CartItem;
+module.exports = Radium(CartItem);

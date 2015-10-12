@@ -4,7 +4,7 @@ var React = require('react'),
     CartStore = require('../stores/CartStore'),
     ProductList = require('./ProductList.jsx'),
     Header = require('./Header.jsx'),
-    Cart = require('./Cart.jsx');
+    CartSidebar = require('./CartSidebar.jsx');
 
 var FlatButton = require('material-ui/lib/flat-button');
 
@@ -27,18 +27,19 @@ var styles = {
     'display': 'inline-block',
     'width': '100%',
     'position': 'absolute',
-    'left': '0'
+    'left': '0',
+    'top': '50px'
   },  
   cartWrapper: {
     'boxShadow': '0px 1px 5px 0px rgba(0,0,0,0.46)',
     'display': 'inline-block',
     'width': '400px',
-    'top': '100px',
+    'top': '50px',
     'right': '0',
     'position': 'fixed',
-    'border': '2px black solid',
     'height': '100%',
     'backgroundColor': '#FFF',
+    'height': '100%',
     'transition': 'transform 1s'
 
   },
@@ -97,15 +98,13 @@ var CartApp = React.createClass({
     return (
       <div className="ttyd-app">
         <Header cartVisible={this.state.cartVisible}/>
-        <div>{this.props.children}</div>        
-        <div style={styles.productListWrapper} ref="productswrap">
-        </div>
-        
+        <div style={styles.productListWrapper}>{this.props.children}</div>        
+        <div style={styles.productListWrapper} ref="productswrap"></div>        
         <div style={[
           styles.cartWrapper,
           !this.state.cartVisible && styles.cartHidden
         ]} ref="cartwrap">
-          <Cart products={this.state.cartItems}/>        
+          <CartSidebar products={this.state.cartItems}/>        
         </div>
 
       </div>

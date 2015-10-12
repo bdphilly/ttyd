@@ -27,9 +27,8 @@ class API::OrderItemsController < ApplicationController
 
   def create
     @current_order = current_order
-    
-    @order_item = @current_order.order_items.build(order_item_params)
 
+    @order_item = @current_order.order_items.build(order_item_params)
     if @current_order.save
       render json: {
         :status => :ok,

@@ -3,6 +3,23 @@ var React = require('react'),
     FlatButton = require('material-ui/lib/flat-button'),
     AppBar = require('material-ui/lib/app-bar');
 
+var styles = {
+  container: {
+    background: '#9BF5FF',
+    height: '50px',
+    position: 'fixed',
+    width: '100%',
+    top: '0',
+    zIndex: '1'
+  },
+
+  cartButton: {
+    borderRadius: '10px',
+    position: 'absolute',
+    right: '50px'
+  }
+}
+
 var Header = React.createClass({
   _cartToggled: function(show) {
     AppActions.updateCartVisible(show);
@@ -10,13 +27,14 @@ var Header = React.createClass({
 
   render: function() {
     var cartToggleButton = this.props.cartVisible ? 
-      <FlatButton onClick={this._cartToggled.bind(this, false)} label="Hide Cart" /> : 
-      <FlatButton onClick={this._cartToggled.bind(this, true)} label="Show Cart" />;
+      <button onClick={this._cartToggled.bind(this, false)} style={styles.cartButton}>Hide Cart</button> : 
+      <button onClick={this._cartToggled.bind(this, true)} style={styles.cartButton}>Show Cart</button>;
       
     return (
-      <AppBar
-        title="Tahoe To Your Door"
-        iconElementRight={cartToggleButton} />
+      <div style={styles.container}>
+        {cartToggleButton}
+      </div>
+        
     )
   }
 })

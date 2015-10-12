@@ -14,10 +14,24 @@ var styles = {
 
     transition: 'all 500ms'
   },
+
   image: {
     width: '100px',
     height: '100px'
   },
+
+  cartHeader: {
+    height: '50px',
+    background: 'green',
+    textAlign: 'right',
+    paddingRight: '50px',
+    lineHeight: '50px'
+  },
+
+  cartTable: {
+    borderCollapse: 'collapse',
+    width: '100%'
+  }
 };
 
 var Cart = React.createClass({
@@ -61,22 +75,23 @@ var Cart = React.createClass({
 
     return (
       <div className={"cart" + (this.props.visible ? ' active' : '')}>
-        <div className="mini-cart" >
-          <table>
-            <tbody>
-              {Object.keys(products).map(function(product, index){
-                return (
-                  <CartItem product={products[product]} key={index} />
-                )
-              })}
-            </tbody>
-          </table>
-          <span className="total">Total: ${this.props.total}</span>
-        </div>        
+        <div style={styles.cartHeader}>
+          Total Items: {this.state.orderItems.length}
+        </div>
+        <table style={styles.cartTable}>
+          <tbody>
+            {Object.keys(products).map(function(product, index){
+              return (
+                <CartItem product={products[product]} key={index} />
+              )
+            })}
+          </tbody>
+        </table>
+        <span className="total">Total: ${this.props.total}</span>    
         <button type="button" className="empty" onClick={this._empty}>Empty Cart</button>
-      </div>
+      </div>      
     );
   }  
-})
+});
 
 module.exports = Cart;

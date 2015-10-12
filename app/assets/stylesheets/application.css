@@ -30,9 +30,20 @@
 
 body {
   font-family: Roboto;
+  margin: 0;
 }
 
 ul {
   padding: 0;
   list-style-type: none;
 }
+
+a {
+  color: #646464;
+  text-decoration: none;
+}
+
+a:active {
+  color: #C3C3C3;
+}
+
