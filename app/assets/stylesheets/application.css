@@ -47,3 +47,19 @@ a:active {
   color: #C3C3C3;
 }
 
+.typeahead-input {
+  width: 600px;
+  height: 30px;
+  /*margin: 0 auto;*/
+  padding: 0 25px;
+  /*display: block;*/
+}
+
+.testname:before {
+  font-family: "FontAwesome";
+  content: "\f002";
+  color: green;
+  left: 25px;
+  z-index: 1;
+  font-size: 24px;
+}

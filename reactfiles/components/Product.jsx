@@ -98,7 +98,7 @@ var ProductInfoDialog = React.createClass({
   },
 
   _handleCustomDialogSubmit: function(event) {
-    AppActions.addToCart(this.props.product);    
+    AppActions.addToCart(this.props.product);
     AppActions.updateCartVisible(true);
     this.refs.dialog.dismiss();
   },
