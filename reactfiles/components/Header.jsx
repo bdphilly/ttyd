@@ -11,7 +11,7 @@ var blurTimer;
 var styles = {
   container: {
     background: '#60AB59',
-    height: '56px',
+    height: '60px',
     lineHeight: '50px',
     position: 'fixed',
     width: '100%',
@@ -19,22 +19,32 @@ var styles = {
     zIndex: '1'
   },
 
+  logoWrapper: {
+    height: '100%',
+    lineHeight: '60px',
+    float: 'left',
+    marginLeft: '25px'
+  },
+
   logo: {
     height: '50px',
-    position: 'absolute',
-    top: '0',
-    left: '0',
-    display: 'inline-block',
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
+    '-webkitFilter': 'invert(1)',
+  },
+
+  cartButtonWrapper: {
+    height: '100%',
+    lineHeight: '60px',
+    float: 'right',
+    marginRight: '25px'
   },
 
   cartButton: {
     borderRadius: '10px',
-    position: 'absolute',
-    right: '50px',
     fontSize: '16px',
     cursor: 'pointer',
-    background: '#5DDE9D'
+    background: '#5DDE9D',
+    verticalAlign: 'middle'
   },
 
   cartIcon: {
@@ -51,7 +61,10 @@ var styles = {
   },
 
   autocompleteWrapper: {
-    display: 'flex'
+    verticalAlign: 'middle',
+    textAlign: 'center',
+    overflow: 'auto',
+    lineHeight: '60px'
   },
 
   menu: {
@@ -134,12 +147,16 @@ var Header = React.createClass({
     
     return (
       <div style={styles.container}>
-        <img style={styles.logo} src="https://s3-us-west-1.amazonaws.com/ttyd/ttyd-logo.png"/>
+        <div style={styles.logoWrapper}>
+          <img style={styles.logo} src="https://s3-us-west-1.amazonaws.com/ttyd/ttyd-logo.png"/>
+        </div>
         
-        <button onClick={this._cartToggled.bind(this, cartToggleBool)} style={styles.cartButton}>
-          <i className="fa fa-shopping-cart" style={styles.cartIcon}></i>
-            {cartToggleButtonText}
-        </button>
+        <div style={styles.cartButtonWrapper}>
+          <button onClick={this._cartToggled.bind(this, cartToggleBool)} style={styles.cartButton}>
+            <i className="fa fa-shopping-cart" style={styles.cartIcon}></i>
+              {cartToggleButtonText}
+          </button>
+        </div>
 
         <div style={styles.autocompleteWrapper}>
           <Typeahead
