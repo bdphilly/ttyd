@@ -13,7 +13,7 @@ var styles = {
   },
 
   checkoutButton: {
-    background: 'red',
+    background: '#B25DDE',
     color: '#FFF',
     fontSize: '24px',
     lineHeight: '48px',

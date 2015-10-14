@@ -1,0 +1,58 @@
+.typeahead-input {
+  width: 600px;
+  height: 30px;
+  padding: 0 25px;
+}
+
+/*.topcoat-typeahead:before {
+  font-family: "FontAwesome";
+  content: "\f002";
+  color: green;
+  left: 25px;
+  z-index: 1;
+  font-size: 24px;
+}*/
+
+.topcoat-typeahead {
+  width: 50%;
+  margin: 0 auto;
+  display: inline;
+}
+
+.topcoat-text-input {
+  border-radius: 10px;
+  font-size: 16px;
+  line-height: 16px;
+  width: 1000px;
+  height: 40px;
+  padding-left: 50px;
+  border: none;
+  background-image: url(https://s3-us-west-1.amazonaws.com/ttyd/search19.svg);
+  background-repeat: no-repeat;
+  background-size: 48px;
+  background-position: 0;
+}
+
+.topcoat-list-container {
+  background: #FFF;
+  border-radius: 10px;
+  width: 1000px;
+  padding: 10px 0;
+  box-shadow: 0px 4px 8px rgba(100,100,100,100);
+  -moz-box-shadow: 0px 4px 8px rgba(100,100,100,100);
+  -webkit-box-shadow: 0px 4px 8px rgba(100,100,100,100);
+}
+
+.topcoat-list-item {
+  background: #FFF;
+  border-bottom: 1px #CCC solid;
+  padding-left: 25px;
+
+  &:hover {
+    background: #5DDE9D;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}

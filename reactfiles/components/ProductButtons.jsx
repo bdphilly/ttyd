@@ -9,7 +9,7 @@ var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var styles = {
   productButton: {
-    background: '#5AF7FF',
+    background: '#60AB59',
     minWidth: '30px',
     borderRadius: '10px',
     cursor: 'pointer',
@@ -34,7 +34,7 @@ var styles = {
     position: 'absolute',
     width: '100%',
     top: '150px',
-    borderTop: '1px solid #FC07EA',
+    borderTop: '1px solid #B25DDE',
     backgroundImage: 'linear-gradient(rgba(255,255,255,0.75), #fff)'    
   },
 

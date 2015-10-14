@@ -3,12 +3,15 @@ var React = require('react'),
     ProductStore = require('../stores/ProductStore'),
     FlatButton = require('material-ui/lib/flat-button'),
     AppBar = require('material-ui/lib/app-bar'),
-    Autocomplete = require('react-autocomplete');
+    ReactTypeahead = require('react-typeahead');
+
+var Typeahead = ReactTypeahead.Typeahead;
+var blurTimer;
 
 var styles = {
   container: {
-    background: '#9BF5FF',
-    height: '50px',
+    background: '#60AB59',
+    height: '56px',
     lineHeight: '50px',
     position: 'fixed',
     width: '100%',
@@ -16,15 +19,28 @@ var styles = {
     zIndex: '1'
   },
 
+  logo: {
+    height: '50px',
+    position: 'absolute',
+    top: '0',
+    left: '0',
+    display: 'inline-block',
+    verticalAlign: 'middle'
+  },
+
   cartButton: {
     borderRadius: '10px',
     position: 'absolute',
-    right: '50px'
+    right: '50px',
+    fontSize: '16px',
+    cursor: 'pointer',
+    background: '#5DDE9D'
   },
 
-  typeaheadInput: {
-    width: '400px'
-  },
+  cartIcon: {
+    fontSize: '16px',
+    padding: '5px'
+  },  
 
   item: {
     background: '#FFF'
@@ -35,7 +51,7 @@ var styles = {
   },
 
   autocompleteWrapper: {
-
+    display: 'flex'
   },
 
   menu: {
@@ -56,8 +72,8 @@ var Header = React.createClass({
 
   getInitialState: function () { 
     return {
-      categories: {},
-      products: {}
+      categories: [],
+      products: []
     }
   },  
 
@@ -97,67 +113,53 @@ var Header = React.createClass({
 
   },
 
-  render: function() {
-    var cartToggleButton = this.props.cartVisible ? 
-      <button onClick={this._cartToggled.bind(this, false)} style={styles.cartButton}>Hide Cart</button> : 
-      <button onClick={this._cartToggled.bind(this, true)} style={styles.cartButton}>Show Cart</button>;
-
-    return (
-      <div style={styles.container}>
-        <div style={styles.autocompleteWrapper}>
-          <Autocomplete
-            items={this.state.products}
-            getItemValue={(item) => item.name}
-            onSelect={(el) => console.log('selected', el)}
-            onChange={(event, value) => {
-              this.setState({loading: true})
-              this._searchForProduct(value, (items) => {
-                debugger
-                this.setState({products: items, loading: false})
-              })
-            }}
-            renderItem={(item, isHighlighted) => (
-              <div
-                style={isHighlighted ? styles.highlightedItem : styles.item}
-                key={item.name}>
-                {item.name}
-              </div>
-              )}
-            renderMenu={(items, value, style) => (
-              <div style={styles.menu}>
-                {value === '' ? (
-                  <div style={{padding: 6}}>Type of the name of a United State</div>
-                ) : this.state.loading ? (
-                  <div style={{padding: 6}}>Loading...</div>
-                ) : items.length === 0 ? (
-                  <div style={{padding: 6}}>No matches for {value}</div>
-                ) : this.renderItems(items)}
-              </div>
-            )}/>
-          </div>
-        {cartToggleButton}
-      </div>
-        
-    )
+  _hideDropdownList: function(event) {
+    blurTimer = setTimeout(function() {
+      React.findDOMNode(this.refs.typeahead).children[1].style.display = "none";
+    }.bind(this), 100);
   },
 
-  renderItems (items) {
-    return items.map((item, index) => {
-      var text = item.props.children
-      if (index === 0 || items[index - 1].props.children.charAt(0) !== text.charAt(0)) {
-        var style = {
-          background: '#eee',
-          color: '#454545',
-          padding: '2px 6px',
-          fontWeight: 'bold'
-        }
-        return [<div style={style}>{text.charAt(0)}</div>, item]
-      }
-      else {
-        return item
-      }
-    })
-  }  
+  _showDropdownList: function() {
+    React.findDOMNode(this.refs.typeahead).children[1].style.display = "";
+  },
+
+  _handleOptionSelected: function(option) {
+    clearTimeout(blurTimer);
+    console.log('option selected', option);
+  },
+
+  render: function() {
+    var cartToggleButtonText = this.props.cartVisible ? 'Hide Cart' : 'Show Cart';
+    var cartToggleBool = this.props.cartVisible ? false : true;
+    
+    return (
+      <div style={styles.container}>
+        <img style={styles.logo} src="https://s3-us-west-1.amazonaws.com/ttyd/ttyd-logo.png"/>
+        
+        <button onClick={this._cartToggled.bind(this, cartToggleBool)} style={styles.cartButton}>
+          <i className="fa fa-shopping-cart" style={styles.cartIcon}></i>
+            {cartToggleButtonText}
+        </button>
+
+        <div style={styles.autocompleteWrapper}>
+          <Typeahead
+            options={this.state.products.map((product) => {return product.name})}
+            className="topcoat-typeahead"
+            onOptionSelected={this._handleOptionSelected}                        
+            onKeyDown={this._showDropdownList}
+            onBlur={this._hideDropdownList}
+            placeholder="Search for an item..."
+            ref="typeahead"
+            customClasses={{
+              input: "topcoat-text-input",
+              results: "topcoat-list-container",
+              listItem: "topcoat-list-item"
+            }}
+            maxVisible={4}/>
+        </div>        
+      </div>
+    )
+  }
 })
 
 module.exports = Header;

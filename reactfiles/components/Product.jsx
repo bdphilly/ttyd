@@ -83,7 +83,7 @@ var styles = {
     width: '30px',
     lineHeight: '30px',
     fontSize: '14px',
-    background: 'blue',
+    background: '#60AB59',
     color: '#FFF',
     position: 'absolute',
     top: '10px',

@@ -9,6 +9,7 @@
     "react-autocomplete": "^0.1.4",
     "react-router": "^1.0.0-rc1",
     "react-tap-event-plugin": "^0.1.7",
+    "react-typeahead": "^1.1.4",
     "reactify": "^1.1.1",
     "reflux": "^0.2.12",
     "reqwest": "^2.0.4"
