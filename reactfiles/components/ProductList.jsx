@@ -9,13 +9,19 @@ var React = require('react'),
 var Link = ReactRouter.Link;       
 
 var styles = {
+  outerContainer: {
+    // textAlign: 'center',
+    margin: '0 auto'
+  },  
+
+  innerContainer: {
+    
+  },
+
   linkWrapper: {
-    marginLeft: '60px'
-  },
-  
-  container: {
-    // 'border': '1px green solid'
-  },
+    textAlign: 'left'
+    // marginLeft: '60px'
+  },    
 
   categoryListLink: {
     textDecoration: 'none',
@@ -25,7 +31,6 @@ var styles = {
   },
 
   listWrapper: {
-    marginLeft: '58px'
   }
 }
 
@@ -42,9 +47,15 @@ var ProductList = React.createClass({
 
   getInitialState: function () { 
     return {
-      categories: {}
+      categories: {},
+      productWidth: 200,
+      productMargin: 4
     }
   }, 
+
+  componentDidMount: function() {
+    AppActions.fetchProducts();
+  },
 
   //called when routed to
   componentWillReceiveProps: function(nextProps) {
@@ -53,18 +64,31 @@ var ProductList = React.createClass({
     })
   },
 
-  componentDidMount: function() {
-    AppActions.fetchProducts()
+  componentDidUpdate: function() {
+    console.log(this.props.getProductListWidth());
+    // this._calculateWidth();
+
+    var productWidth = this.state.productWidth + 2 * this.state.productMargin;
+
+    React.findDOMNode(this.refs.productList).style.width = parseInt(this.props.getProductListWidth() / this.state.productWidth) * productWidth + 'px';
   },
+
+  // _calculateWidth: function() {
+  //   var product = document.getElementsByClassName('product')[0],
+  //       header = React.findDOMNode(this.refs.categoryHeader);
+
+  //   header.style.marginLeft = firstProductIndent + 'px';
+
+  // },
 
   render: function () {
     var self = this;
 
     var categoryLists = _.map(this.state.categories, (function (products, index) {
       return (
-        <div style={styles.container} key={index}>
+        <div style={styles.innerContainer} key={index}>
           
-          <h3 style={styles.linkWrapper}>
+          <h3 style={styles.linkWrapper} ref="categoryHeader">
             <Link to={`/products/${index}`} style={styles.categoryListLink}>
               {index}
             </Link>
@@ -79,7 +103,7 @@ var ProductList = React.createClass({
     }));
 
     return (      
-      <div className="product-list">
+      <div className="product-list" ref="productList" style={styles.outerContainer}>
         {categoryLists}
       </div>
     );

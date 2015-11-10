@@ -22,6 +22,8 @@ function getCartState() {
   };
 }
 
+var productWidthConstant = 200;
+
 var styles = {
   productListWrapper: {
     'display': 'inline-block',
@@ -90,15 +92,24 @@ var CartApp = React.createClass({
   setProductListsWidth: function(cartVisible) {
     var cart = React.findDOMNode(this.refs.cartwrap),
         products = React.findDOMNode(this.refs.productswrap);
-    
+
     products.style.width = cartVisible ? window.innerWidth - parseInt(cart.style.width, 10) + 'px' : '100%';
+  },
+
+  _getProductListWidth: function() {
+// debugger
+    //productListWidth%(200+4+4)..
+    // return 1248;
+    return this.refs.productswrap ? parseInt(React.findDOMNode(this.refs.productswrap).style.width) : 0; // % (2 * (200 + 2 + 2)) : 0;
+      
   },
 
   render: function() {    
     return (
       <div className="ttyd-app">
         <Header cartVisible={this.state.cartVisible}/>
-        <div style={styles.productListWrapper} ref="productswrap">{this.props.children}</div>
+        <div style={styles.productListWrapper} ref="productswrap">{ this.props.children && 
+          React.cloneElement(this.props.children, {getProductListWidth: this._getProductListWidth }) }</div>
         <div style={[
           styles.cartWrapper,
           !this.state.cartVisible && styles.cartHidden
@@ -112,3 +123,6 @@ var CartApp = React.createClass({
 })
 
 module.exports = Radium(CartApp);
+
+        // <div style={styles.productListWrapper} ref="productswrap">{ this.props.children && 
+        //   React.cloneElement(this.props.children, {getProductListWidth: this._getProductListWidth }) }</div>

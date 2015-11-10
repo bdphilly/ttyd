@@ -16,7 +16,8 @@ var styles = {
     position: 'fixed',
     width: '100%',
     top: '0',
-    zIndex: '1'
+    zIndex: '1',
+    boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.16), 0px 1px 2px 0px rgba(0,0,0,0.26)'
   },
 
   logoWrapper: {
@@ -29,7 +30,7 @@ var styles = {
   logo: {
     height: '50px',
     verticalAlign: 'middle',
-    '-webkitFilter': 'invert(1)',
+    WebkitFilter: 'invert(1)',
   },
 
   cartButtonWrapper: {

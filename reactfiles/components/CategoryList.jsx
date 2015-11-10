@@ -1,9 +1,15 @@
 var React = require('react'),
     Reflux = require('reflux'),
+    Radium = require('radium'),
     AppActions = require('../actions/AppActions'),
     ProductStore = require('../stores/ProductStore'),
     CartStore = require('../stores/CartStore'),
     Product = require('./Product.jsx');
+
+var styles = {
+  container: {
+  }
+};
 
 var CategoryList = React.createClass({
   mixins: [Reflux.connect(CartStore, 'cart')],
@@ -44,11 +50,11 @@ var CategoryList = React.createClass({
     });
 
     return (      
-      <ul className="category-list">
+      <ul className="category-list" style={styles.container}>
         {productNodes}
       </ul>
     );
   }
 });
 
-module.exports = CategoryList;
+module.exports = Radium(CategoryList);
