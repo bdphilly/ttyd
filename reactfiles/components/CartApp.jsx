@@ -4,7 +4,8 @@ var React = require('react'),
     CartStore = require('../stores/CartStore'),
     ProductList = require('./ProductList.jsx'),
     Header = require('./Header.jsx'),
-    CartSidebar = require('./CartSidebar.jsx');
+    CartSidebar = require('./CartSidebar.jsx'),
+    WindowDimensions = require('./WindowDimensions.jsx');
 
 var FlatButton = require('material-ui/lib/flat-button');
 
@@ -106,7 +107,7 @@ var CartApp = React.createClass({
   setProductListsWidth: function(cartVisible) {
     var cart = React.findDOMNode(this.refs.cartwrap),
         products = React.findDOMNode(this.refs.productswrap);
-        debugger
+
     products.style.width = cartVisible ? window.innerWidth - parseInt(cart.style.width) + 'px' : window.innerWidth + 'px';
   },
 
@@ -134,6 +135,7 @@ var CartApp = React.createClass({
         ]} ref="cartwrap">
           <CartSidebar products={this.state.cartItems}/>        
         </div>
+        <WindowDimensions/>
 
       </div>
     );

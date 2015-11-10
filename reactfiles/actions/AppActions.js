@@ -13,7 +13,8 @@ var AppActions = Reflux.createActions([
   "emptyCart",  
   "updateCartVisible",
   "getCartItems",
-  "getCartVisible"
+  "getCartVisible",
+  "resizeWindow"
 ]);
 
 module.exports = AppActions;

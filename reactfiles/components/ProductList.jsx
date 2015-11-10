@@ -3,6 +3,7 @@ var React = require('react'),
     ReactRouter = require('react-router'),
     AppActions = require('../actions/AppActions'),
     ProductStore = require('../stores/ProductStore'),
+    ResizeStore = require('../stores/ResizeStore'),
     Product = require('./Product.jsx'),
     CategoryList = require('./CategoryList.jsx'); 
 
@@ -37,7 +38,10 @@ var styles = {
 var resizeTimeout;
 
 var ProductList = React.createClass({
-  mixins: [Reflux.connect(ProductStore, 'categories')],
+  mixins: [
+    Reflux.connect(ProductStore, 'categories'),
+    Reflux.listenTo(ResizeStore, 'onResizeWindow')
+  ],
   
   // init: function() {
 
@@ -56,20 +60,7 @@ var ProductList = React.createClass({
   }, 
 
   componentDidMount: function() {
-    AppActions.fetchProducts();
-    
-    window.addEventListener('resize', this.handleWindowResize);
-    //   clearTimeout(resizeTimeout);
-    //   resizeTimeout = setTimeout(function() {
-    //     console.log('resize!');
-    //     this.props.resize();
-    //     this.recalculateWidth();
-    //   }.bind(this), 300);      
-    // }.bind(this));    
-  },
-
-  componentWillUnmount: function() {
-    window.removeEventListener('resize', this.handleWindowResize);
+    AppActions.fetchProducts();    
   },
 
   //called when routed to
@@ -79,17 +70,18 @@ var ProductList = React.createClass({
     })
   },
 
-  componentDidUpdate: function() {
-    this.recalculateWidth();
-  },
-
-  handleWindowResize: function(resizeTimeout) {    
+  onResizeWindow: function(width) {
     clearTimeout(resizeTimeout);
+    
     resizeTimeout = setTimeout(function() {
       console.log('resize!');
       this.props.resize();
       this.recalculateWidth();
-    }.bind(this), 300);
+    }.bind(this), 300);    
+  },
+
+  componentDidUpdate: function() {
+    this.recalculateWidth();
   },
 
   recalculateWidth: function() {

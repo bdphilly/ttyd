@@ -3,6 +3,7 @@ var React = require('react'),
     ReactRouter = require('react-router'),
     AppActions = require('../actions/AppActions'),
     ProductStore = require('../stores/ProductStore'),
+    ResizeStore = require('../stores/ResizeStore'),    
     Product = require('./Product.jsx'),
     CategoryList = require('./CategoryList.jsx'); 
 
@@ -16,15 +17,18 @@ var styles = {
   },
 
   wrapper: {   
+    margin: '0 auto'
   }
 }
 
-var AisleList = React.createClass({
-  mixins: [Reflux.connect(ProductStore, 'categories'), React.addons.LinkedStateMixin],
-  
-  // init: function() {
+var resizeTimeout;
 
-  // },
+var AisleList = React.createClass({
+  mixins: [
+    Reflux.connect(ProductStore, 'categories'),
+    Reflux.listenTo(ResizeStore, 'onResizeWindow'),
+    React.addons.LinkedStateMixin
+  ],
 
   getStateFromStore: function(props) {
     // var { id } = props ? props.params : this.props.params;
@@ -35,15 +39,15 @@ var AisleList = React.createClass({
 
     //needs to be subcategories instead
     return {
-      categories: categories
+      categories: categories,
+      productWidth: 200,
+      productMargin: 4      
     }
   },
 
-  // getInitialState: function () { 
-  //   return {
-  //     categories: {}
-  //   }
-  // }, 
+  componentDidMount: function() {
+    this.recalculateWidth();
+  },
 
   //called when routed to
   componentWillReceiveProps: function(nextProps) {
@@ -52,24 +56,36 @@ var AisleList = React.createClass({
     })
   },
 
+  onResizeWindow: function(width) {
+    clearTimeout(resizeTimeout);
+    debugger
+    resizeTimeout = setTimeout(function() {
+      console.log('resize!');
+      this.props.resize();
+      this.recalculateWidth();
+    }.bind(this), 300);    
+  },
+
+  componentDidUpdate: function() {
+    this.recalculateWidth();
+  },
+
+  recalculateWidth: function() {
+    var productWidth = this.state.productWidth + (2 * this.state.productMargin);
+    React.findDOMNode(this.refs.aisleList).style.width = parseInt(this.props.getProductListWidth() / productWidth) * productWidth + 'px';
+  },    
+
   render: function () {
     var products = this.state.categories;
-    // var categoryLists = _.map(this.state.categories, (function (products, index) {
-      return (
-        <div style={styles.wrapper}>
-          <Link to="/products">...Back</Link>
+    
+    return (
+      <div style={styles.wrapper} ref="aisleList">
+        <Link to="/products">...Back</Link>
 
-          <h2 style={styles.header}>{this.props.params.categoryId}</h2>
+        <h2 style={styles.header}>{this.props.params.categoryId}</h2>
 
-          <CategoryList products={products} key={this.props.params.categoryId} />
+        <CategoryList products={products} key={this.props.params.categoryId} />
 
-        </div>
-      );
-    // }));
-
-    return (      
-      <div className="product-list">
-        {categoryLists}
       </div>
     );
   }

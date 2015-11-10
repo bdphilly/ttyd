@@ -1,12 +1,13 @@
 var React = require('react');
 var Reflux = require('reflux');
+var AppActions = require('../actions/AppActions');
 
 var WindowDimensions = React.createClass({
   componentWillMount: function() {
-    this.updateDimensions({
-      width: window.innerWidth,
-      height: window.innerHeight
-    });
+    // this.updateDimensions({
+    //   width: window.innerWidth,
+    //   height: window.innerHeight
+    // });
   },
 
   componentDidMount: function() {
@@ -18,14 +19,16 @@ var WindowDimensions = React.createClass({
   },
 
   updateDimensions: function() {
-    this.setState({
-      height: 
-    })
+    // this.setState({
+    //   height: 
+    // })
+    console.log('rrrr');
+    AppActions.resizeWindow();
   },
 
   render: function() {
     return (
-      <span className="window-dimensions">{this.state.width} x {this.state.height}</span>;
+      <span className="window-dimensions"></span>
     );
   }    
 })

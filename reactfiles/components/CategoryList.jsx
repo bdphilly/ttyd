@@ -13,16 +13,13 @@ var styles = {
 
 var CategoryList = React.createClass({
   mixins: [Reflux.connect(CartStore, 'cart')],
-  
-  init: function() {
 
-  },
-
-  // getInitialState: function () { 
-  //   // return {
-  //   //   products: []
-  //   // }
-  // },  
+  getInitialState: function () { 
+    // return {
+    //   productWidth: 200,
+    //   productMargin: 4
+    // }
+  }, 
 
   componentDidMount: function() {
     
@@ -50,7 +47,7 @@ var CategoryList = React.createClass({
     });
 
     return (      
-      <ul className="category-list" style={styles.container}>
+      <ul className="category-list" ref="categoryList" style={styles.container}>
         {productNodes}
       </ul>
     );
