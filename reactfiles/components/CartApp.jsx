@@ -27,7 +27,7 @@ var productWidthConstant = 200;
 var styles = {
   productListWrapper: {
     'display': 'inline-block',
-    'width': '100%',
+    // 'width': '100%',
     'position': 'absolute',
     'left': '0',
     'top': '50px'
@@ -79,29 +79,44 @@ var CartApp = React.createClass({
   },
 
   componentDidMount: function() {
+    var resizeTimeout;
     this.setProductListsWidth(true);
+
+    // window.addEventListener('resize', function() {
+    //   clearTimeout(resizeTimeout);
+    //   resizeTimeout = setTimeout(function() {
+    //     console.log('resize!');
+    //     this.setProductListsWidth(this.state.cartVisible);
+    //   }.bind(this), 300);      
+    // }.bind(this));
   },
 
+  // componentWillUnmount: function() {
+  //   window.removeEventListener('resize', this.setProductListsWidth(this.state.cartVisible));
+  // },
+
   onUpdateCartVisible: function(visible) {
+    this.setProductListsWidth(visible);
+
     this.setState({
       cartVisible: visible
     });
-    this.setProductListsWidth(visible);
   },
 
   setProductListsWidth: function(cartVisible) {
     var cart = React.findDOMNode(this.refs.cartwrap),
         products = React.findDOMNode(this.refs.productswrap);
-
-    products.style.width = cartVisible ? window.innerWidth - parseInt(cart.style.width, 10) + 'px' : '100%';
+        debugger
+    products.style.width = cartVisible ? window.innerWidth - parseInt(cart.style.width) + 'px' : window.innerWidth + 'px';
   },
 
-  _getProductListWidth: function() {
-// debugger
-    //productListWidth%(200+4+4)..
-    // return 1248;
-    return this.refs.productswrap ? parseInt(React.findDOMNode(this.refs.productswrap).style.width) : 0; // % (2 * (200 + 2 + 2)) : 0;
-      
+  getProductListWidth: function() {
+    // this.setProductListsWidth(this.cartVisible);
+    return this.refs.productswrap ? parseInt(React.findDOMNode(this.refs.productswrap).style.width) : 0; // % (2 * (200 + 2 + 2)) : 0;      
+  },
+
+  resize: function() {
+    this.setProductListsWidth(this.state.cartVisible);    
   },
 
   render: function() {    
@@ -109,7 +124,10 @@ var CartApp = React.createClass({
       <div className="ttyd-app">
         <Header cartVisible={this.state.cartVisible}/>
         <div style={styles.productListWrapper} ref="productswrap">{ this.props.children && 
-          React.cloneElement(this.props.children, {getProductListWidth: this._getProductListWidth }) }</div>
+          React.cloneElement(this.props.children, {
+            getProductListWidth: this.getProductListWidth,
+            resize: this.resize
+          }) }</div>
         <div style={[
           styles.cartWrapper,
           !this.state.cartVisible && styles.cartHidden
@@ -122,7 +140,6 @@ var CartApp = React.createClass({
   },
 })
 
-module.exports = Radium(CartApp);
+// window.addEventListener('resize', function() { console.log('resize!')})
 
-        // <div style={styles.productListWrapper} ref="productswrap">{ this.props.children && 
-        //   React.cloneElement(this.props.children, {getProductListWidth: this._getProductListWidth }) }</div>
+module.exports = Radium(CartApp);

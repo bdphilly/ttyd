@@ -34,6 +34,8 @@ var styles = {
   }
 }
 
+var resizeTimeout;
+
 var ProductList = React.createClass({
   mixins: [Reflux.connect(ProductStore, 'categories')],
   
@@ -55,6 +57,19 @@ var ProductList = React.createClass({
 
   componentDidMount: function() {
     AppActions.fetchProducts();
+    
+    window.addEventListener('resize', this.handleWindowResize);
+    //   clearTimeout(resizeTimeout);
+    //   resizeTimeout = setTimeout(function() {
+    //     console.log('resize!');
+    //     this.props.resize();
+    //     this.recalculateWidth();
+    //   }.bind(this), 300);      
+    // }.bind(this));    
+  },
+
+  componentWillUnmount: function() {
+    window.removeEventListener('resize', this.handleWindowResize);
   },
 
   //called when routed to
@@ -65,21 +80,22 @@ var ProductList = React.createClass({
   },
 
   componentDidUpdate: function() {
-    console.log(this.props.getProductListWidth());
-    // this._calculateWidth();
-
-    var productWidth = this.state.productWidth + 2 * this.state.productMargin;
-
-    React.findDOMNode(this.refs.productList).style.width = parseInt(this.props.getProductListWidth() / this.state.productWidth) * productWidth + 'px';
+    this.recalculateWidth();
   },
 
-  // _calculateWidth: function() {
-  //   var product = document.getElementsByClassName('product')[0],
-  //       header = React.findDOMNode(this.refs.categoryHeader);
+  handleWindowResize: function(resizeTimeout) {    
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(function() {
+      console.log('resize!');
+      this.props.resize();
+      this.recalculateWidth();
+    }.bind(this), 300);
+  },
 
-  //   header.style.marginLeft = firstProductIndent + 'px';
-
-  // },
+  recalculateWidth: function() {
+    var productWidth = this.state.productWidth + (2 * this.state.productMargin);
+    React.findDOMNode(this.refs.productList).style.width = parseInt(this.props.getProductListWidth() / productWidth) * productWidth + 'px';
+  },
 
   render: function () {
     var self = this;
