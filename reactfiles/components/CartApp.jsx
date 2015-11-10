@@ -28,10 +28,9 @@ var productWidthConstant = 200;
 var styles = {
   productListWrapper: {
     'display': 'inline-block',
-    // 'width': '100%',
     'position': 'absolute',
     'left': '0',
-    'top': '50px'
+    'top': '60px'
   },  
   cartWrapper: {
     'boxShadow': '0px 1px 5px 0px rgba(0,0,0,0.46)',

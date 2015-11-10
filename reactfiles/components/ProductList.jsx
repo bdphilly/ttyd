@@ -100,6 +100,7 @@ var ProductList = React.createClass({
             <Link to={`/products/${index}`} style={styles.categoryListLink}>
               {index}
             </Link>
+            <button>View More /> </button>
           </h3>
 
           <div style={styles.listWrapper}>

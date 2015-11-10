@@ -58,7 +58,7 @@ var AisleList = React.createClass({
 
   onResizeWindow: function(width) {
     clearTimeout(resizeTimeout);
-    debugger
+
     resizeTimeout = setTimeout(function() {
       console.log('resize!');
       this.props.resize();

@@ -31,6 +31,21 @@ var styles = {
   cartTable: {
     borderCollapse: 'collapse',
     width: '100%'
+  },
+
+  emptyCartIcon: {
+    fontSize: '128px',
+    color: '#ccc',
+    textAlign: 'center',
+    display: 'block',
+    marginTop: '100px'
+  },
+
+  emptyCartText: {
+    display: 'block',
+    textAlign: 'center',
+    fontSize: '32px',
+    color: '#ccc'
   }
 };
 
@@ -73,6 +88,17 @@ var Cart = React.createClass({
     var self = this, 
         products = this.state.orderItems;
 
+    var emptyCart = products.length ? 
+      <div>
+        <span className="total">Total: ${this.props.total}</span>    
+        <button type="button" className="empty" onClick={this._empty}>Empty Cart</button>
+      </div>
+      :
+      <div>
+        <i className="fa fa-shopping-cart" style={styles.emptyCartIcon}></i>
+        <span style={styles.emptyCartText}>Your Cart is Empty</span>
+      </div>;
+
     return (
       <div className={"cart" + (this.props.visible ? ' active' : '')}>
         <div style={styles.cartHeader}>
@@ -86,9 +112,8 @@ var Cart = React.createClass({
               )
             })}
           </tbody>
-        </table>
-        <span className="total">Total: ${this.props.total}</span>    
-        <button type="button" className="empty" onClick={this._empty}>Empty Cart</button>
+        </table>        
+        {emptyCart}
       </div>      
     );
   }  
