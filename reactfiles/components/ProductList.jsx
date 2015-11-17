@@ -32,6 +32,18 @@ var styles = {
   },
 
   listWrapper: {
+  },
+
+  viewMoreButton: {
+    background: '#B25DDE',
+    borderRadius: '5px',
+    border: 0,
+    fontSize: '16px',
+    color: '#fff',
+    padding: '5px 15px',
+    marginLeft: '20px',
+    cursor: 'pointer',
+    fontWeight: '300'
   }
 }
 
@@ -100,7 +112,7 @@ var ProductList = React.createClass({
             <Link to={`/products/${index}`} style={styles.categoryListLink}>
               {index}
             </Link>
-            <button>View More /> </button>
+            <Link to={`/products/${index}`} style={styles.viewMoreButton}>View More &nbsp; &gt;</Link>
           </h3>
 
           <div style={styles.listWrapper}>

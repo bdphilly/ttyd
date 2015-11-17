@@ -26,6 +26,7 @@ var styles = {
     width: '200px',
     height: '300px',
     boxShadow: '0 3px 10px rgba(0, 0, 0, 0.23)',
+    verticalAlign: 'middle',
 
     ':hover': {},
 
