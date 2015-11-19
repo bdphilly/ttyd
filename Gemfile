@@ -64,3 +64,7 @@ gem 'browserify-rails'
 gem 'react-rails', '~> 1.0'
 
 gem 'faker'
+
+gem "paperclip", "~> 4.3"
+
+gem "aws-sdk-v1"

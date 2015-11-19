@@ -40,10 +40,12 @@ Aisle.create! id: 2, name: category2
 
 (1..20).each do |id|
   category = Faker::Commerce.department
-  Product.create! id: id, name: Faker::Lorem.words(2).join(' '), category: category1, price: Faker::Commerce.price, active: true, aisle_id: 1
+  pic = File.new("./db/images_for_db/mustard.jpg")
+  Product.create! name: Faker::Lorem.words(2).join(' '), category: category1, price: Faker::Commerce.price, active: true, aisle_id: 1, photo: pic
 end
 
 
 (21..40).each do |id|  
-  Product.create! id: id, name: Faker::Lorem.words(2).join(' '), category: category2, price: Faker::Commerce.price, active: true, aisle_id: 2
+  pic = File.new("./db/images_for_db/red-hot.jpg")
+  Product.create! name: Faker::Lorem.words(2).join(' '), category: category2, price: Faker::Commerce.price, active: true, aisle_id: 2, photo: pic
 end

@@ -25,15 +25,15 @@ var styles = {
 };
 
 var CartCheckout = React.createClass({
-  _goToCheckout: function() {
-    console.log('visit checkout');
+  goToCheckout: function() {
+    alert('this functionality is in development');
   },
 
   render: function() {
     return (
       <div className="cart-options" style={styles.container}>
         <div className="cart-checkout">
-          <a href="#" onClick={this._goToCheckout()}>
+          <a href="#" onClick={this.goToCheckout}>
             <div style={styles.checkoutButton}>Checkout</div>
           </a>
         </div>

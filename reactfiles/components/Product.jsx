@@ -179,14 +179,15 @@ var Product = React.createClass({
     console.log('clicked!')
   },
 
+
   render: function() {
     var product = this.props.product;      
     var productQuantity = this.props.quantity ? <ProductQuantity quantity={this.props.quantity} /> : null;
-
     return (      
         <li className={"product" + (this.props.quantity ? " in-cart" : "") } key="keyForProduct" style={styles.container} onClick={this._displayDialog}>
           <div className="media" style={styles.media}>
-            <img src={'https://upload.wikimedia.org/wikipedia/commons/2/29/PerfectStrawberry.jpg'}
+
+            <img src={'https://s3-us-west-1.amazonaws.com/ttyd/photos/' + this.props.product.photo_file_name}
               style={styles.image} />
 
             {Radium.getState(this.state, 'keyForProduct', ':hover') ? (              

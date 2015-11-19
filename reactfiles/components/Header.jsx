@@ -65,7 +65,9 @@ var styles = {
     verticalAlign: 'middle',
     textAlign: 'center',
     overflow: 'auto',
-    lineHeight: '60px'
+    lineHeight: '60px',
+    margin: '0 auto',
+    width: '50%'
   },
 
   menu: {

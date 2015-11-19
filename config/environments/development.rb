@@ -42,4 +42,13 @@ Rails.application.configure do
 
   config.react.variant = :development
   config.react.addons = true
+
+  # Paperclip
+  config.paperclip_defaults = {
+    storage: :s3,
+    s3_host_name: 's3-us-west-1.amazonaws.com',
+    bucket: 'ttyd',
+    s3_credentials: "#{Rails.root}/config/aws.yml",
+    path: "photos/:filename"
+  }
 end
