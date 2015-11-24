@@ -1,0 +1,132 @@
+/* line 1, /Users/bphillips/Desktop/TahoeToYourDoor/app/assets/stylesheets/typeahead.scss */
+.typeahead-input {
+  width: 600px;
+  height: 30px;
+  padding: 0 25px;
+}
+
+/*.topcoat-typeahead:before {
+  font-family: "FontAwesome";
+  content: "\f002";
+  color: green;
+  left: 25px;
+  z-index: 1;
+  font-size: 24px;
+}*/
+/* line 16, /Users/bphillips/Desktop/TahoeToYourDoor/app/assets/stylesheets/typeahead.scss */
+.topcoat-typeahead {
+  width: 50%;
+  margin: 0 auto;
+  display: inline;
+}
+
+/* line 22, /Users/bphillips/Desktop/TahoeToYourDoor/app/assets/stylesheets/typeahead.scss */
+.topcoat-text-input {
+  border-radius: 10px;
+  font-size: 16px;
+  line-height: 16px;
+  width: 100%;
+  height: 40px;
+  padding-left: 50px;
+  border: none;
+  background-image: url(https://s3-us-west-1.amazonaws.com/ttyd/search19.svg);
+  background-repeat: no-repeat;
+  background-size: 48px;
+  background-position: 0;
+}
+
+/* line 36, /Users/bphillips/Desktop/TahoeToYourDoor/app/assets/stylesheets/typeahead.scss */
+.topcoat-list-container {
+  background: #FFF;
+  border-radius: 10px;
+  width: 50%;
+  padding: 10px 0;
+  text-align: left;
+  box-shadow: 0px 4px 8px #646464;
+  -moz-box-shadow: 0px 4px 8px #646464;
+  -webkit-box-shadow: 0px 4px 8px #646464;
+}
+
+/* line 47, /Users/bphillips/Desktop/TahoeToYourDoor/app/assets/stylesheets/typeahead.scss */
+.topcoat-list-item {
+  background: #FFF;
+  border-bottom: 1px #CCC solid;
+  padding-left: 25px;
+}
+/* line 52, /Users/bphillips/Desktop/TahoeToYourDoor/app/assets/stylesheets/typeahead.scss */
+.topcoat-list-item:hover {
+  background: #5DDE9D;
+}
+/* line 56, /Users/bphillips/Desktop/TahoeToYourDoor/app/assets/stylesheets/typeahead.scss */
+.topcoat-list-item:last-child {
+  border-bottom: none;
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+
+
+ */
+
+
+/*.example-appear {
+  opacity: 0.01;
+  transition: opacity 3000ms ease-in;
+}
+
+.example-appear.example-appear-active {
+  opacity: 1;
+}*/
+
+/*li.product:hover {
+  display: none;
+}*/
+
+
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+body {
+  font-family: Roboto;
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+a {
+  color: #646464;
+  text-decoration: none;
+}
+
+a:active {
+  color: #C3C3C3;
+}
+
+input:focus {
+  outline: none;
+}
+
+h2 {
+  font-weight: 300;
+}

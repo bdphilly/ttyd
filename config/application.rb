@@ -25,6 +25,6 @@ module TahoeToYourDoor
     config.browserify_rails.commandline_options = "-t reactify --extension=\".js.jsx\""
 
     # config/application.rb
-    config.assets.initialize_on_precompile = false
+    config.assets.initialize_on_precompile = true
   end
 end
