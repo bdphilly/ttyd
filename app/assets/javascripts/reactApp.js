@@ -49741,15 +49741,15 @@ var Header = React.createClass({
     if (value == '')
       return this.state.products;
     debugger;
-    var items = this.state.products.filter((function(product) {
+    var items = this.state.products.filter(function(product) {
       return product.name.toLowerCase().indexOf(value.toLowerCase()) !== -1;
-    }));
-    var categories = _.keys(this.state.categories).filter((function(category) {
+    });
+    var categories = _.keys(this.state.categories).filter(function(category) {
       return category.toLowerCase().indexOf(value.toLowerCase()) !== -1;
-    }));
-    setTimeout((function() {
+    });
+    setTimeout(function() {
       cb(items);
-    }), 500);
+    }, 500);
   },
   _hideDropdownList: function(event) {
     blurTimer = setTimeout(function() {
@@ -49776,9 +49776,9 @@ var Header = React.createClass({
       className: "fa fa-shopping-cart",
       style: styles.cartIcon
     }), cartToggleButtonText)), React.createElement("div", {style: [styles.autocompleteWrapper, this.state.windowWidth < 640 && styles.hideTypeahead]}, React.createElement(Typeahead, {
-      options: this.state.products.map((function(product) {
+      options: this.state.products.map(function(product) {
         return product.name;
-      })),
+      }),
       className: "topcoat-typeahead",
       onOptionSelected: this._handleOptionSelected,
       onKeyDown: this._showDropdownList,
