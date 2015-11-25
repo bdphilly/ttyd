@@ -82,17 +82,17 @@ var Header = React.createClass({
 
   _searchForProduct: function(value, cb) {
     if (value == '') return this.state.products;      
-    debugger
-    var items = this.state.products.filter((product) => {
+
+    var items = this.state.products.filter(function (product) {
       return product.name.toLowerCase().indexOf(value.toLowerCase()) !== -1
     });
 
-    var categories = _.keys(this.state.categories).filter((category) => {
+    var categories = _.keys(this.state.categories).filter(function (category) {
       return category.toLowerCase().indexOf(value.toLowerCase()) !== -1
     });
 
-    setTimeout(() => {
-      cb(items);  
+    setTimeout(function() {
+      cb(items);
     }, 500);    
 
   },
