@@ -47,8 +47,8 @@ var path = {
 
 var bundler = browserify({
                 entries: ['./reactfiles/app.js'],
-                debug: true, //Sourcemapping
-                cache: {}, packageCache: {}, fullPaths: true //Required by watchify)
+                // debug: true, //Sourcemapping
+                // cache: {}, packageCache: {}, fullPaths: true //Required by watchify)
               })
               .transform(reactify)
               .transform(es6ify.configure(/.jsx/));

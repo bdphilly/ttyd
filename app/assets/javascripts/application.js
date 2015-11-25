@@ -14,4 +14,4 @@
 //= require react
 //= require reflux
 //= require react_ujs
-//= require_tree .
+//= require reactApp.js
