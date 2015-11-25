@@ -7,6 +7,7 @@ var gulp = require('gulp'),
   gutil = require('gulp-util'),
   browserify = require('browserify'),
   watchify = require('watchify'),
+  es6ify = require('es6ify'),
   reactify = require('reactify');
 
 var path = {
@@ -36,13 +37,24 @@ var path = {
 // });
 // gulp.task('browserify', bundle);
 
+// var bundler = browserify({
+//       entries: ['./reactfiles/app.js'],
+//       transform: [reactify], //Convert JSX to normal JS
+//       debug: true, //Sourcemapping
+//       cache: {}, packageCache: {}, fullPaths: true //Required by watchify
+//     }),
+//     watcher = watchify(bundler);
+
 var bundler = browserify({
-      entries: ['./reactfiles/app.js'],
-      transform: [reactify], //Convert JSX to normal JS
-      debug: true, //Sourcemapping
-      cache: {}, packageCache: {}, fullPaths: true //Required by watchify
-    }),
-    watcher = watchify(bundler);
+                entries: ['./reactfiles/app.js'],
+                debug: true, //Sourcemapping
+                cache: {}, packageCache: {}, fullPaths: true //Required by watchify)
+              })
+              .transform(reactify)
+              .transform(es6ify.configure(/.jsx/));
+
+var watcher = watchify(bundler);
+
 
 function bundle() {
   return watcher.bundle()

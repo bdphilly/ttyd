@@ -23,7 +23,7 @@
   border-radius: 10px;
   font-size: 16px;
   line-height: 16px;
-  width: 100%;
+  width: 80%;  
   height: 40px;
   padding-left: 50px;
   border: none;
@@ -55,5 +55,11 @@
 
   &:last-child {
     border-bottom: none;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .topcoat-text-input {
+    width: 100%;  
   }
 }

@@ -1,6 +1,8 @@
 var React = require('react'),
+    Radium = require('radium'),
     AppActions = require('../actions/AppActions'),    
     ProductStore = require('../stores/ProductStore'),
+    ResizeStore = require('../stores/ResizeStore'),
     FlatButton = require('material-ui/lib/flat-button'),
     AppBar = require('material-ui/lib/app-bar'),
     ReactTypeahead = require('react-typeahead');
@@ -18,6 +20,10 @@ var styles = {
     top: '0',
     zIndex: '1',
     boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.16), 0px 1px 2px 0px rgba(0,0,0,0.26)'
+  },
+
+  hideTypeahead: {
+    display: 'none'
   },
 
   logoWrapper: {
@@ -77,7 +83,10 @@ var styles = {
 
 var Header = React.createClass({
   // mixins: [Reflux.connect(ProductStore, 'categories')],  
-  mixins: [Reflux.listenTo(ProductStore, 'onFetchProducts')],
+  mixins: [
+    Reflux.listenTo(ProductStore, 'onFetchProducts'),
+    Reflux.listenTo(ResizeStore, 'onResizeWindow'),
+  ],
 
   onFetchProducts: function(categories) {
     this.setState({
@@ -86,10 +95,18 @@ var Header = React.createClass({
     })
   },
 
+  onResizeWindow: function(data) {
+    console.log('here!', data)
+    this.setState({
+      windowWidth: data
+    })
+  },  
+
   getInitialState: function () { 
     return {
       categories: [],
-      products: []
+      products: [],
+      windowWidth: window.innerWidth
     }
   },  
 
@@ -161,7 +178,10 @@ var Header = React.createClass({
           </button>
         </div>
 
-        <div style={styles.autocompleteWrapper}>
+        <div style={[
+          styles.autocompleteWrapper,
+          this.state.windowWidth < 640 && styles.hideTypeahead
+        ]}>
           <Typeahead
             options={this.state.products.map((product) => {return product.name})}
             className="topcoat-typeahead"
@@ -182,4 +202,4 @@ var Header = React.createClass({
   }
 })
 
-module.exports = Header;
+module.exports = Radium(Header);

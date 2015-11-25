@@ -23,9 +23,9 @@ var styles = {
   cartHeader: {
     height: '50px',
     background: 'green',
-    textAlign: 'right',
-    paddingRight: '50px',
-    lineHeight: '50px'
+    color: '#fff',
+    paddingLeft: '10px',
+    lineHeight: '60px'
   },
 
   cartTable: {
@@ -58,7 +58,7 @@ var Cart = React.createClass({
     }
   },
 
-  onCartChange: function(products) {
+  onCartChange: function(products) {    
     this.setState({
       orderItems: products
     });
@@ -87,10 +87,12 @@ var Cart = React.createClass({
   render: function() {
     var self = this, 
         products = this.state.orderItems;
+    
+    var totalProducts = _.sum(_.map(this.state.orderItems, function(el) { return el.quantity }));        
 
     var emptyCart = products.length ? 
       <div>
-        <span className="total">Total: ${this.props.total}</span>    
+        <span className="total">Total: ${totalProducts}</span>    
         <button type="button" className="empty" onClick={this._empty}>Empty Cart</button>
       </div>
       :
@@ -98,11 +100,10 @@ var Cart = React.createClass({
         <i className="fa fa-shopping-cart" style={styles.emptyCartIcon}></i>
         <span style={styles.emptyCartText}>Your Cart is Empty</span>
       </div>;
-
     return (
       <div className={"cart" + (this.props.visible ? ' active' : '')}>
         <div style={styles.cartHeader}>
-          Total Items: {this.state.orderItems.length}
+          Total Items: {this.state.totalProducts}
         </div>
         <table style={styles.cartTable}>
           <tbody>

@@ -41,7 +41,6 @@ var styles = {
     'position': 'fixed',
     'height': '100%',
     'backgroundColor': '#FFF',
-    'height': '100%',
     'transition': 'transform 1s'
 
   },

@@ -3,6 +3,7 @@
   "dependencies": {
     "browserify": "^10.2.6",
     "browserify-incremental": "^3.0.1",
+    "es6ify": "^1.6.0",
     "lodash": "^3.10.1",
     "radium": "^0.14.1",
     "react": "^0.13.3",

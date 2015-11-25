@@ -14,7 +14,11 @@ var AppStore = Reflux.createStore({
     console.log('in the resize store!');
     this.state.windowWidth = window.innerWidth;
     this.trigger(this.state.windowWidth);
-  }
+  },
+
+  getWindowSize: function() {
+    return this.state.windowWidth;
+  },
 });
 
 module.exports = AppStore;

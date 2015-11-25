@@ -28,7 +28,9 @@ var styles = {
     textDecoration: 'none',
     fontSize: '36px',
     fontWeight: '300',
-    color: '#818181'
+    color: '#818181',
+    verticalAlign: 'middle',
+    lineHeight: '36px'
   },
 
   listWrapper: {
@@ -40,10 +42,11 @@ var styles = {
     border: 0,
     fontSize: '16px',
     color: '#fff',
-    padding: '5px 15px',
+    padding: '10px',
     marginLeft: '20px',
     cursor: 'pointer',
-    fontWeight: '300'
+    fontWeight: '300',
+    float: 'right'
   }
 }
 
@@ -72,7 +75,7 @@ var ProductList = React.createClass({
   }, 
 
   componentDidMount: function() {
-    AppActions.fetchProducts();    
+    AppActions.fetchProducts();
   },
 
   //called when routed to
@@ -85,25 +88,31 @@ var ProductList = React.createClass({
   onResizeWindow: function(width) {
     clearTimeout(resizeTimeout);
     
-    resizeTimeout = setTimeout(function() {
-      console.log('resize!');
+    resizeTimeout = setTimeout(function() {      
       this.props.resize();
       this.recalculateWidth();
-    }.bind(this), 300);    
+    }.bind(this), 300);
   },
 
-  componentDidUpdate: function() {
+  componentDidUpdate: function(data) {    
     this.recalculateWidth();
   },
 
   recalculateWidth: function() {
-    var productWidth = this.state.productWidth + (2 * this.state.productMargin);
-    React.findDOMNode(this.refs.productList).style.width = parseInt(this.props.getProductListWidth() / productWidth) * productWidth + 'px';
+    var productWidth = this.state.productWidth + (2 * this.state.productMargin),
+        productsPerRow = parseInt(this.props.getProductListWidth() / productWidth);
+    
+    React.findDOMNode(this.refs.productList).style.width = productsPerRow * productWidth + 'px';
+
+    if (this.state.productsPerRow != productsPerRow) {
+      this.setState({
+        productsPerRow: productsPerRow
+      });
+    }
   },
 
   render: function () {
     var self = this;
-
     var categoryLists = _.map(this.state.categories, (function (products, index) {
       return (
         <div style={styles.innerContainer} key={index}>
@@ -116,7 +125,7 @@ var ProductList = React.createClass({
           </h3>
 
           <div style={styles.listWrapper}>
-            <CategoryList products={products} key={index}/>
+            <CategoryList products={products.slice(0, self.state.productsPerRow)} key={index}/>
           </div>
 
         </div>
