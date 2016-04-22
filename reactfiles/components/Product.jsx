@@ -3,14 +3,15 @@ var AppActions = require('../actions/AppActions');
 var Radium = require('radium');
 var ProductStore = require('../stores/ProductStore');
 var Dialog = require('material-ui/lib/dialog');
-var Toggle = require('material-ui/lib/toggle');
-var Colors = require('material-ui/lib/styles/colors');
-var Paper = require('material-ui/lib/paper');
-var FontIcon = require('material-ui/lib/font-icon');
+// var Toggle = require('material-ui/lib/toggle');
+// var Colors = require('material-ui/lib/styles/colors');
+// var Paper = require('material-ui/lib/paper');
+// var FontIcon = require('material-ui/lib/font-icon');
 var FlatButton = require('material-ui/lib/flat-button');
 var RaisedButton = require('material-ui/lib/raised-button');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var ProductInfoDialog = require('./ProductInfoDialog.jsx');
+var Button = require('./Button.jsx');
 
 var ProductButtons = require('./ProductButtons.jsx')
 
@@ -93,65 +94,6 @@ var styles = {
   }
 };
 
-var ProductInfoDialog = React.createClass({
-  _handleCustomDialogCancel: function() {
-    this.refs.dialog.dismiss();
-  },
-
-  _handleCustomDialogSubmit: function(event) {
-    AppActions.addToCart(this.props.product);
-    AppActions.updateCartVisible(true);
-    this.refs.dialog.dismiss();
-  },
-
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-
-  getChildContext: function() {
-    return {
-        muiTheme: this.state.muiTheme
-    };
-  },  
-
-  getInitialState: function() {
-    return {
-      muiTheme: ThemeManager.getMuiTheme(LightRawTheme)
-    }
-  },
-
-  showDialog: function() {
-    this.refs.dialog.show();
-  },
-
-  render: function() {
-    var product = this.props.product;
-
-    var customActions = [
-      <FlatButton
-        label="Cancel"
-        secondary={true}
-        key={product.id}
-        onTouchTap={this._handleCustomDialogCancel} />,
-      <FlatButton
-        label="Submit"
-        primary={true}
-        key={product.id + 1}
-        onTouchTap={this._handleCustomDialogSubmit} />
-    ];      
-
-    return (      
-      <Dialog ref="dialog" 
-              title={this.props.product.name}                  
-              actions={customActions}              
-              modal={true}>
-        The internals of the dialog!
-      </Dialog>        
-    );
-  }  
-
-})
-
 var ProductQuantity = React.createClass({
   render: function() {
     return (
@@ -173,7 +115,6 @@ var Product = React.createClass({
   }, 
 
   _displayDialog: function(e) {
-    debugger
     if (!this.state.dialogShowing) this.refs.productInfoDialog.showDialog();
     this.state.dialogShowing = !this.state.dialogShowing;
     console.log('clicked!')

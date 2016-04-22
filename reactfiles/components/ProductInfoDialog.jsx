@@ -11,6 +11,12 @@ var FlatButton = require('material-ui/lib/flat-button');
 var RaisedButton = require('material-ui/lib/raised-button');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
+const Button = require('./Button.jsx');
+
+var ThemeManager = require('material-ui/lib/styles/theme-manager'); 
+
+var LightRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme');
+
 var styles = {
   container: {
     background: 'red',
@@ -76,37 +82,93 @@ var styles = {
   }
 };
 
+// var ProductInfoDialog = React.createClass({
+//   _handleCustomDialogCancel: function() {
+//     this.refs.dialog.dismiss();
+//   },
+
+//   _handleCustomDialogSubmit: function(event) {
+//     AppActions.addToCart(this.props.product);    
+//     AppActions.updateCartVisible(true);
+//     this.refs.dialog.dismiss();
+//   },
+
+//   render: function() {
+//     var product = this.props.product;
+
+//     var customActions = [
+//       <FlatButton
+//         label="Cancel"
+//         secondary={true}
+//         key={product.id}
+//         onTouchTap={this._handleCustomDialogCancel} />,
+//       <FlatButton
+//         label="Submit"
+//         primary={true}
+//         key={product.id}
+//         onTouchTap={this._handleCustomDialogSubmit} />
+//     ];      
+
+//     return (      
+//       <Dialog ref="dialog" 
+//               title={this.props.product.name}                  
+//               actions={customActions}
+//               modal={true}>
+//         The internals of the dialog!
+//       </Dialog>        
+//     );
+//   }  
+
+// })
+
 var ProductInfoDialog = React.createClass({
   _handleCustomDialogCancel: function() {
     this.refs.dialog.dismiss();
   },
 
   _handleCustomDialogSubmit: function(event) {
-    AppActions.addToCart(this.props.product);    
+    AppActions.addToCart(this.props.product);
     AppActions.updateCartVisible(true);
     this.refs.dialog.dismiss();
+  },
+
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext: function() {
+    return {
+        muiTheme: this.state.muiTheme
+    };
+  },  
+
+  getInitialState: function() {
+    return {
+      muiTheme: ThemeManager.getMuiTheme(LightRawTheme)
+    }
+  },
+
+  showDialog: function() {
+    this.refs.dialog.show();
   },
 
   render: function() {
     var product = this.props.product;
 
     var customActions = [
-      <FlatButton
-        label="Cancel"
-        secondary={true}
-        key={product.id}
-        onTouchTap={this._handleCustomDialogCancel} />,
-      <FlatButton
+      <Button
+        key={product.id} />,
+      <RaisedButton
         label="Submit"
         primary={true}
-        key={product.id}
+        key={product.id + 1}
         onTouchTap={this._handleCustomDialogSubmit} />
     ];      
 
     return (      
       <Dialog ref="dialog" 
               title={this.props.product.name}                  
-              actions={customActions}
+              actions={customActions}              
               modal={true}>
         The internals of the dialog!
       </Dialog>        

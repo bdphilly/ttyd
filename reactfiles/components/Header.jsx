@@ -131,8 +131,8 @@ var Header = React.createClass({
 
   _searchForProduct: function(value, cb) {
     if (value == '') return this.state.products;      
-    debugger
-    var items = this.state.products.filter(function (product){
+    console.log('searching...');
+    var items = this.state.products.filter((product) => {
       return product.name.toLowerCase().indexOf(value.toLowerCase()) !== -1
     });
 
@@ -158,7 +158,7 @@ var Header = React.createClass({
 
   _handleOptionSelected: function(option) {
     clearTimeout(blurTimer);
-    console.log('option selected', option);
+    console.log('option selected', option);    
   },
 
   render: function() {

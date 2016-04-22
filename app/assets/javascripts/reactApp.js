@@ -49143,7 +49143,7 @@ var AppActions = Reflux.createActions([
 
 module.exports = AppActions;
 
-},{"../utils/cartAPI":354,"../utils/productAPI":355,"reflux":331}],336:[function(require,module,exports){
+},{"../utils/cartAPI":355,"../utils/productAPI":356,"reflux":331}],336:[function(require,module,exports){
 window._ = require('lodash');
 
 var React = require('react'),
@@ -49211,7 +49211,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     //       document.getElementById('ttyd-app')
     //       );
 
-},{"./components/AisleList.jsx":337,"./components/CartApp.jsx":339,"./components/ProductList.jsx":348,"history/lib/createBrowserHistory":9,"lodash":19,"path":1,"react":314,"react-router":105,"react-tap-event-plugin":132}],337:[function(require,module,exports){
+},{"./components/AisleList.jsx":337,"./components/CartApp.jsx":340,"./components/ProductList.jsx":349,"history/lib/createBrowserHistory":9,"lodash":19,"path":1,"react":314,"react-router":105,"react-tap-event-plugin":132}],337:[function(require,module,exports){
 "use strict";
 var React = require('react'),
     Reflux = require('reflux'),
@@ -49278,7 +49278,25 @@ var AisleList = React.createClass({
 module.exports = AisleList;
 
 //# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/AisleList.jsx
-},{"../actions/AppActions":335,"../stores/ProductStore":352,"../stores/ResizeStore":353,"./CategoryList.jsx":343,"./Product.jsx":345,"react":314,"react-router":105,"reflux":331}],338:[function(require,module,exports){
+},{"../actions/AppActions":335,"../stores/ProductStore":353,"../stores/ResizeStore":354,"./CategoryList.jsx":344,"./Product.jsx":346,"react":314,"react-router":105,"reflux":331}],338:[function(require,module,exports){
+"use strict";
+var React = require('react');
+var Reflux = require('reflux');
+var Radium = require('radium');
+var styles = {button: {
+    background: '#000',
+    color: '#fff'
+  }};
+var Button = React.createClass({
+  displayName: "Button",
+  render: function() {
+    return (React.createElement("button", {style: styles.button}, "i'm a button"));
+  }
+});
+module.exports = Radium(Button);
+
+//# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/Button.jsx
+},{"radium":71,"react":314,"reflux":331}],339:[function(require,module,exports){
 "use strict";
 var React = require('react');
 var Reflux = require('reflux');
@@ -49366,7 +49384,7 @@ var Cart = React.createClass({
 module.exports = Cart;
 
 //# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/Cart.jsx
-},{"../actions/AppActions":335,"../stores/CartStore":351,"./CartItem.jsx":341,"react":314,"reflux":331}],339:[function(require,module,exports){
+},{"../actions/AppActions":335,"../stores/CartStore":352,"./CartItem.jsx":342,"react":314,"reflux":331}],340:[function(require,module,exports){
 "use strict";
 var React = require('react'),
     Radium = require('radium'),
@@ -49454,7 +49472,7 @@ var CartApp = React.createClass({
 module.exports = Radium(CartApp);
 
 //# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/CartApp.jsx
-},{"../stores/AppStore":350,"../stores/CartStore":351,"./CartSidebar.jsx":342,"./Header.jsx":344,"./ProductList.jsx":348,"./WindowDimensions.jsx":349,"material-ui/lib/flat-button":27,"material-ui/lib/styles/raw-themes/light-raw-theme":41,"material-ui/lib/styles/theme-manager":43,"radium":71,"react":314,"react-router":105}],340:[function(require,module,exports){
+},{"../stores/AppStore":351,"../stores/CartStore":352,"./CartSidebar.jsx":343,"./Header.jsx":345,"./ProductList.jsx":349,"./WindowDimensions.jsx":350,"material-ui/lib/flat-button":27,"material-ui/lib/styles/raw-themes/light-raw-theme":41,"material-ui/lib/styles/theme-manager":43,"radium":71,"react":314,"react-router":105}],341:[function(require,module,exports){
 "use strict";
 var React = require('react');
 var Reflux = require('reflux');
@@ -49492,7 +49510,7 @@ var CartCheckout = React.createClass({
 module.exports = CartCheckout;
 
 //# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/CartCheckout.jsx
-},{"../actions/AppActions":335,"../stores/CartStore":351,"react":314,"reflux":331}],341:[function(require,module,exports){
+},{"../actions/AppActions":335,"../stores/CartStore":352,"react":314,"reflux":331}],342:[function(require,module,exports){
 "use strict";
 var React = require('react');
 var Reflux = require('reflux');
@@ -49565,7 +49583,7 @@ var CartItem = React.createClass({
 module.exports = Radium(CartItem);
 
 //# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/CartItem.jsx
-},{"../actions/AppActions":335,"../stores/CartStore":351,"radium":71,"react":314,"reflux":331}],342:[function(require,module,exports){
+},{"../actions/AppActions":335,"../stores/CartStore":352,"radium":71,"react":314,"reflux":331}],343:[function(require,module,exports){
 "use strict";
 var React = require('react');
 var Reflux = require('reflux');
@@ -49600,7 +49618,7 @@ var CartSidebar = React.createClass({
 module.exports = CartSidebar;
 
 //# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/CartSidebar.jsx
-},{"../actions/AppActions":335,"../stores/CartStore":351,"./Cart.jsx":338,"./CartCheckout.jsx":340,"react":314,"reflux":331}],343:[function(require,module,exports){
+},{"../actions/AppActions":335,"../stores/CartStore":352,"./Cart.jsx":339,"./CartCheckout.jsx":341,"react":314,"reflux":331}],344:[function(require,module,exports){
 "use strict";
 var React = require('react'),
     Reflux = require('reflux'),
@@ -49638,7 +49656,7 @@ var CategoryList = React.createClass({
 module.exports = Radium(CategoryList);
 
 //# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/CategoryList.jsx
-},{"../actions/AppActions":335,"../stores/CartStore":351,"../stores/ProductStore":352,"./Product.jsx":345,"radium":71,"react":314,"reflux":331}],344:[function(require,module,exports){
+},{"../actions/AppActions":335,"../stores/CartStore":352,"../stores/ProductStore":353,"./Product.jsx":346,"radium":71,"react":314,"reflux":331}],345:[function(require,module,exports){
 "use strict";
 var React = require('react'),
     Radium = require('radium'),
@@ -49740,10 +49758,10 @@ var Header = React.createClass({
   _searchForProduct: function(value, cb) {
     if (value == '')
       return this.state.products;
-    debugger;
-    var items = this.state.products.filter(function(product) {
+    console.log('searching...');
+    var items = this.state.products.filter((function(product) {
       return product.name.toLowerCase().indexOf(value.toLowerCase()) !== -1;
-    });
+    }));
     var categories = _.keys(this.state.categories).filter(function(category) {
       return category.toLowerCase().indexOf(value.toLowerCase()) !== -1;
     });
@@ -49797,21 +49815,18 @@ var Header = React.createClass({
 module.exports = Radium(Header);
 
 //# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/Header.jsx
-},{"../actions/AppActions":335,"../stores/ProductStore":352,"../stores/ResizeStore":353,"material-ui/lib/app-bar":20,"material-ui/lib/flat-button":27,"radium":71,"react":314,"react-typeahead":134}],345:[function(require,module,exports){
+},{"../actions/AppActions":335,"../stores/ProductStore":353,"../stores/ResizeStore":354,"material-ui/lib/app-bar":20,"material-ui/lib/flat-button":27,"radium":71,"react":314,"react-typeahead":134}],346:[function(require,module,exports){
 "use strict";
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 var Radium = require('radium');
 var ProductStore = require('../stores/ProductStore');
 var Dialog = require('material-ui/lib/dialog');
-var Toggle = require('material-ui/lib/toggle');
-var Colors = require('material-ui/lib/styles/colors');
-var Paper = require('material-ui/lib/paper');
-var FontIcon = require('material-ui/lib/font-icon');
 var FlatButton = require('material-ui/lib/flat-button');
 var RaisedButton = require('material-ui/lib/raised-button');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var ProductInfoDialog = require('./ProductInfoDialog.jsx');
+var Button = require('./Button.jsx');
 var ProductButtons = require('./ProductButtons.jsx');
 var ThemeManager = require('material-ui/lib/styles/theme-manager');
 var LightRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme');
@@ -49877,47 +49892,6 @@ var styles = {
     textAlign: 'center'
   }
 };
-var ProductInfoDialog = React.createClass({
-  displayName: "ProductInfoDialog",
-  _handleCustomDialogCancel: function() {
-    this.refs.dialog.dismiss();
-  },
-  _handleCustomDialogSubmit: function(event) {
-    AppActions.addToCart(this.props.product);
-    AppActions.updateCartVisible(true);
-    this.refs.dialog.dismiss();
-  },
-  childContextTypes: {muiTheme: React.PropTypes.object},
-  getChildContext: function() {
-    return {muiTheme: this.state.muiTheme};
-  },
-  getInitialState: function() {
-    return {muiTheme: ThemeManager.getMuiTheme(LightRawTheme)};
-  },
-  showDialog: function() {
-    this.refs.dialog.show();
-  },
-  render: function() {
-    var product = this.props.product;
-    var customActions = [React.createElement(FlatButton, {
-      label: "Cancel",
-      secondary: true,
-      key: product.id,
-      onTouchTap: this._handleCustomDialogCancel
-    }), React.createElement(FlatButton, {
-      label: "Submit",
-      primary: true,
-      key: product.id + 1,
-      onTouchTap: this._handleCustomDialogSubmit
-    })];
-    return (React.createElement(Dialog, {
-      ref: "dialog",
-      title: this.props.product.name,
-      actions: customActions,
-      modal: true
-    }, "The internals of the dialog!"));
-  }
-});
 var ProductQuantity = React.createClass({
   displayName: "ProductQuantity",
   render: function() {
@@ -49939,7 +49913,6 @@ var Product = React.createClass({
     return {dialogShowing: false};
   },
   _displayDialog: function(e) {
-    debugger;
     if (!this.state.dialogShowing)
       this.refs.productInfoDialog.showDialog();
     this.state.dialogShowing = !this.state.dialogShowing;
@@ -49976,7 +49949,7 @@ var Product = React.createClass({
 module.exports = Radium(Product);
 
 //# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/Product.jsx
-},{"../actions/AppActions":335,"../stores/ProductStore":352,"./ProductButtons.jsx":346,"./ProductInfoDialog.jsx":347,"material-ui/lib/dialog":24,"material-ui/lib/flat-button":27,"material-ui/lib/font-icon":28,"material-ui/lib/paper":34,"material-ui/lib/raised-button":35,"material-ui/lib/styles/colors":40,"material-ui/lib/styles/raw-themes/light-raw-theme":41,"material-ui/lib/styles/theme-manager":43,"material-ui/lib/toggle":48,"radium":71,"react":314}],346:[function(require,module,exports){
+},{"../actions/AppActions":335,"../stores/ProductStore":353,"./Button.jsx":338,"./ProductButtons.jsx":347,"./ProductInfoDialog.jsx":348,"material-ui/lib/dialog":24,"material-ui/lib/flat-button":27,"material-ui/lib/raised-button":35,"material-ui/lib/styles/raw-themes/light-raw-theme":41,"material-ui/lib/styles/theme-manager":43,"radium":71,"react":314}],347:[function(require,module,exports){
 "use strict";
 var React = require('react');
 var AppActions = require('../actions/AppActions');
@@ -50049,7 +50022,7 @@ var ProductButtons = React.createClass({
 module.exports = Radium(ProductButtons);
 
 //# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/ProductButtons.jsx
-},{"../actions/AppActions":335,"../stores/ProductStore":352,"material-ui/lib/font-icon":28,"material-ui/lib/paper":34,"material-ui/lib/styles/colors":40,"radium":71,"react":314}],347:[function(require,module,exports){
+},{"../actions/AppActions":335,"../stores/ProductStore":353,"material-ui/lib/font-icon":28,"material-ui/lib/paper":34,"material-ui/lib/styles/colors":40,"radium":71,"react":314}],348:[function(require,module,exports){
 "use strict";
 var React = require('react');
 var AppActions = require('../actions/AppActions');
@@ -50063,6 +50036,9 @@ var FontIcon = require('material-ui/lib/font-icon');
 var FlatButton = require('material-ui/lib/flat-button');
 var RaisedButton = require('material-ui/lib/raised-button');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+var Button = require('./Button.jsx');
+var ThemeManager = require('material-ui/lib/styles/theme-manager');
+var LightRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme');
 var styles = {
   container: {
     background: 'red',
@@ -50126,17 +50102,22 @@ var ProductInfoDialog = React.createClass({
     AppActions.updateCartVisible(true);
     this.refs.dialog.dismiss();
   },
+  childContextTypes: {muiTheme: React.PropTypes.object},
+  getChildContext: function() {
+    return {muiTheme: this.state.muiTheme};
+  },
+  getInitialState: function() {
+    return {muiTheme: ThemeManager.getMuiTheme(LightRawTheme)};
+  },
+  showDialog: function() {
+    this.refs.dialog.show();
+  },
   render: function() {
     var product = this.props.product;
-    var customActions = [React.createElement(FlatButton, {
-      label: "Cancel",
-      secondary: true,
-      key: product.id,
-      onTouchTap: this._handleCustomDialogCancel
-    }), React.createElement(FlatButton, {
+    var customActions = [React.createElement(Button, {key: product.id}), React.createElement(RaisedButton, {
       label: "Submit",
       primary: true,
-      key: product.id,
+      key: product.id + 1,
       onTouchTap: this._handleCustomDialogSubmit
     })];
     return (React.createElement(Dialog, {
@@ -50150,7 +50131,7 @@ var ProductInfoDialog = React.createClass({
 module.exports = Radium(ProductInfoDialog);
 
 //# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/ProductInfoDialog.jsx
-},{"../actions/AppActions":335,"../stores/ProductStore":352,"material-ui/lib/dialog":24,"material-ui/lib/flat-button":27,"material-ui/lib/font-icon":28,"material-ui/lib/paper":34,"material-ui/lib/raised-button":35,"material-ui/lib/styles/colors":40,"material-ui/lib/toggle":48,"radium":71,"react":314}],348:[function(require,module,exports){
+},{"../actions/AppActions":335,"../stores/ProductStore":353,"./Button.jsx":338,"material-ui/lib/dialog":24,"material-ui/lib/flat-button":27,"material-ui/lib/font-icon":28,"material-ui/lib/paper":34,"material-ui/lib/raised-button":35,"material-ui/lib/styles/colors":40,"material-ui/lib/styles/raw-themes/light-raw-theme":41,"material-ui/lib/styles/theme-manager":43,"material-ui/lib/toggle":48,"radium":71,"react":314}],349:[function(require,module,exports){
 "use strict";
 var React = require('react'),
     Reflux = require('reflux'),
@@ -50252,7 +50233,7 @@ var ProductList = React.createClass({
 module.exports = ProductList;
 
 //# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/ProductList.jsx
-},{"../actions/AppActions":335,"../stores/ProductStore":352,"../stores/ResizeStore":353,"./CategoryList.jsx":343,"./Product.jsx":345,"react":314,"react-router":105,"reflux":331}],349:[function(require,module,exports){
+},{"../actions/AppActions":335,"../stores/ProductStore":353,"../stores/ResizeStore":354,"./CategoryList.jsx":344,"./Product.jsx":346,"react":314,"react-router":105,"reflux":331}],350:[function(require,module,exports){
 "use strict";
 var React = require('react');
 var Reflux = require('reflux');
@@ -50277,7 +50258,7 @@ var WindowDimensions = React.createClass({
 module.exports = WindowDimensions;
 
 //# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/WindowDimensions.jsx
-},{"../actions/AppActions":335,"react":314,"reflux":331}],350:[function(require,module,exports){
+},{"../actions/AppActions":335,"react":314,"reflux":331}],351:[function(require,module,exports){
 var Reflux = require('reflux'),
     AppActions = require('../actions/AppActions'),
     ProductAPI = require('../utils/productAPI'),
@@ -50300,7 +50281,7 @@ var AppStore = Reflux.createStore({
 
 module.exports = AppStore;
 
-},{"../actions/AppActions":335,"../utils/cartAPI":354,"../utils/productAPI":355,"reflux":331}],351:[function(require,module,exports){
+},{"../actions/AppActions":335,"../utils/cartAPI":355,"../utils/productAPI":356,"reflux":331}],352:[function(require,module,exports){
 var Reflux = require('reflux'),
     AppActions = require('../actions/AppActions'),
     CartAPI = require('../utils/cartAPI');
@@ -50436,7 +50417,7 @@ var Store = Reflux.createStore({
 
 module.exports = Store;
 
-},{"../actions/AppActions":335,"../utils/cartAPI":354,"reflux":331}],352:[function(require,module,exports){
+},{"../actions/AppActions":335,"../utils/cartAPI":355,"reflux":331}],353:[function(require,module,exports){
 var Reflux = require('reflux'),
     AppActions = require('../actions/AppActions'),
     CartStore = require('./CartStore'),
@@ -50482,7 +50463,7 @@ var ProductStore = Reflux.createStore({
 
 module.exports = ProductStore;
 
-},{"../actions/AppActions":335,"../utils/cartAPI":354,"../utils/productAPI":355,"./CartStore":351,"reflux":331}],353:[function(require,module,exports){
+},{"../actions/AppActions":335,"../utils/cartAPI":355,"../utils/productAPI":356,"./CartStore":352,"reflux":331}],354:[function(require,module,exports){
 var Reflux = require('reflux'),
     AppActions = require('../actions/AppActions');
 
@@ -50508,7 +50489,7 @@ var AppStore = Reflux.createStore({
 
 module.exports = AppStore;
 
-},{"../actions/AppActions":335,"reflux":331}],354:[function(require,module,exports){
+},{"../actions/AppActions":335,"reflux":331}],355:[function(require,module,exports){
 var reqwest = require('reqwest');
 
 module.exports = {
@@ -50624,7 +50605,7 @@ function csrfToken() {
   }).content;
 }
 
-},{"reqwest":334}],355:[function(require,module,exports){
+},{"reqwest":334}],356:[function(require,module,exports){
 var reqwest = require('reqwest');
 
 module.exports = {
