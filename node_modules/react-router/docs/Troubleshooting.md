@@ -4,17 +4,17 @@
 
 ```js
 <Route component={App}>
-  {/* ... other routes */
+  {/* ... other routes */}
 </Route>
 
-var App = React.createClass({
+const App = React.createClass({
   getInitialState() {
     return { showBackButton: false }
   },
 
   componentWillReceiveProps(nextProps) {
-    var routeChanged = nextProps.location !== this.props.location;
-    this.setState({ showBackButton: routeChanged });
+    const routeChanged = nextProps.location !== this.props.location
+    this.setState({ showBackButton: routeChanged })
   }
-});
+})
 ```

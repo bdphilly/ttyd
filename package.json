@@ -1,33 +1,48 @@
 {
   "name": "tahoetoyourdoor",
-  "dependencies": {
-    "browserify": "^10.2.6",
-    "browserify-incremental": "^3.0.1",
-    "es6ify": "^1.6.0",
-    "lodash": "^3.10.1",
-    "radium": "^0.14.1",
-    "react": "^0.13.3",
-    "react-autocomplete": "^0.1.4",
-    "react-router": "^1.0.0-rc1",
-    "react-tap-event-plugin": "^0.1.7",
-    "react-typeahead": "^1.1.4",
-    "reactify": "^1.1.1",
-    "reflux": "^0.2.12",
-    "reqwest": "^2.0.4"
-  },
-  "license": "MIT",
-  "engines": {
-    "node": ">= 0.10"
-  },
-  "description": "== README",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "== README",
+  "main": "gulpfile.js",
   "directories": {
     "test": "test"
+  },
+  "dependencies": {
+    "browserify": "^10.2.6",
+    "browserify-incremental": "^3.1.1",
+    "es6ify": "^1.6.0",
+    "fbjs": "^0.2.1",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-react": "^3.1.0",
+    "gulp-uglify": "^1.5.3",
+    "gulp-util": "^3.0.7",
+    "history": "^1.17.0",
+    "lodash": "^3.10.1",
+    "radium": "^0.14.3",
+    "react": "^15.0.1",
+    "react-autocomplete": "^0.1.4",
+    "react-dom": "^15.0.1",
+    "react-router": "^1.0.3",
+    "react-tap-event-plugin": "^0.1.8",
+    "reactify": "^1.1.1",
+    "reflux": "^0.2.13",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "reqwest": "^2.0.5",
+    "watchify": "^3.7.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": ""
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bdphilly/ttyd.git"
+  },
+  "author": "bryan phillips",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bdphilly/ttyd/issues"
+  },
+  "homepage": "https://github.com/bdphilly/ttyd#readme"
 }

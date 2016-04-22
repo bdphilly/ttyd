@@ -5,7 +5,7 @@ var ProductStore = require('../stores/ProductStore');
 var Colors = require('material-ui/lib/styles/colors');
 var Paper = require('material-ui/lib/paper');
 var FontIcon = require('material-ui/lib/font-icon');
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
 var styles = {
   productButton: {

@@ -9,7 +9,7 @@ var Dialog = require('material-ui/lib/dialog');
 // var FontIcon = require('material-ui/lib/font-icon');
 var FlatButton = require('material-ui/lib/flat-button');
 var RaisedButton = require('material-ui/lib/raised-button');
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+// var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var ProductInfoDialog = require('./ProductInfoDialog.jsx');
 var Button = require('./Button.jsx');
 
@@ -46,8 +46,8 @@ var styles = {
     backgroundColor: 'rgba(0,0,0,0.5)',
     color: '#FFF',
     position: 'absolute',
-    top: '0',
-    left: '0',
+    top: '0px',
+    left: '0px',
     width: '100%',
     textAlign: 'center',
     lineHeight: '38px',
@@ -115,7 +115,7 @@ var Product = React.createClass({
   }, 
 
   _displayDialog: function(e) {
-    if (!this.state.dialogShowing) this.refs.productInfoDialog.showDialog();
+    // if (!this.state.dialogShowing) this.refs.productInfoDialog.showDialog();
     this.state.dialogShowing = !this.state.dialogShowing;
     console.log('clicked!')
   },

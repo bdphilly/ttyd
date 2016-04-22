@@ -1,3 +1,11 @@
+    // return (      
+    //   <Dialog ref="dialog" 
+    //           title={this.props.product.name}                  
+    //           actions={customActions}              
+    //           modal={true}>
+    //     The internals of the dialog!
+    //   </Dialog>        
+    // );
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 var Radium = require('radium');
@@ -9,9 +17,13 @@ var Paper = require('material-ui/lib/paper');
 var FontIcon = require('material-ui/lib/font-icon');
 var FlatButton = require('material-ui/lib/flat-button');
 var RaisedButton = require('material-ui/lib/raised-button');
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+
 
 const Button = require('./Button.jsx');
+var Modal = require('react-modal');
+
+
 
 var ThemeManager = require('material-ui/lib/styles/theme-manager'); 
 
@@ -82,6 +94,17 @@ var styles = {
   }
 };
 
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
+
 // var ProductInfoDialog = React.createClass({
 //   _handleCustomDialogCancel: function() {
 //     this.refs.dialog.dismiss();
@@ -142,22 +165,52 @@ var ProductInfoDialog = React.createClass({
     };
   },  
 
+  // getInitialState: function() {
+  //   return {
+  //     muiTheme: ThemeManager.getMuiTheme(LightRawTheme)
+  //   }
+  // },
+
+  // showDialog: function() {
+  //   this.refs.dialog.show();
+  // },
+
+  componentWillMount() {
+    var el = document.getElementById('ttyd-app');
+    Modal.setAppElement(el);
+    // Modal.setAppElement('#ttyd-app');
+  },
+  
   getInitialState: function() {
-    return {
-      muiTheme: ThemeManager.getMuiTheme(LightRawTheme)
-    }
+    return { modalIsOpen: false };
   },
 
-  showDialog: function() {
-    this.refs.dialog.show();
+  openModal: function() {
+    this.setState({modalIsOpen: true});
   },
+
+  afterOpenModal: function() {
+    // references are now sync'd and can be accessed.
+    this.refs.subtitle.style.color = '#f00';
+  },
+
+  closeModal: function() {
+    this.setState({modalIsOpen: false});
+  },  
 
   render: function() {
     var product = this.props.product;
 
+    var cancelButtonStyle = {
+      color: '#000',
+      background: '#ccc'
+    }
+
     var customActions = [
       <Button
-        key={product.id} />,
+        label="Cancel"
+        key={product.id}
+        style={cancelButtonStyle} />,
       <RaisedButton
         label="Submit"
         primary={true}
@@ -165,17 +218,30 @@ var ProductInfoDialog = React.createClass({
         onTouchTap={this._handleCustomDialogSubmit} />
     ];      
 
-    return (      
-      <Dialog ref="dialog" 
-              title={this.props.product.name}                  
-              actions={customActions}              
-              modal={true}>
-        The internals of the dialog!
-      </Dialog>        
+    return (        
+      <div>
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          style={customStyles} >
+
+          <h2 ref="subtitle">Hello</h2>
+          <button onClick={this.closeModal}>close</button>
+          <div>I am a modal</div>
+          <form>
+            <input />
+            <button>tab navigation</button>
+            <button>stays</button>
+            <button>inside</button>
+            <button>the modal</button>
+          </form>
+        </Modal>
+      </div>      
     );
   }  
 
 })
 
 
-module.exports = Radium(ProductInfoDialog);            
+module.exports = ProductInfoDialog;            

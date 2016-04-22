@@ -26,8 +26,8 @@ var resizeTimeout;
 var AisleList = React.createClass({
   mixins: [
     Reflux.connect(ProductStore, 'categories'),
-    Reflux.listenTo(ResizeStore, 'onResizeWindow'),
-    React.addons.LinkedStateMixin
+    Reflux.listenTo(ResizeStore, 'onResizeWindow')
+    // React.addons.LinkedStateMixin
   ],
 
   getStateFromStore: function(props) {
@@ -72,7 +72,7 @@ var AisleList = React.createClass({
 
   recalculateWidth: function() {
     var productWidth = this.state.productWidth + (2 * this.state.productMargin);
-    React.findDOMNode(this.refs.aisleList).style.width = parseInt(this.props.getProductListWidth() / productWidth) * productWidth + 'px';
+    this.refs.aisleList.style.width = parseInt(this.props.getProductListWidth() / productWidth) * productWidth + 'px';
   },    
 
   render: function () {

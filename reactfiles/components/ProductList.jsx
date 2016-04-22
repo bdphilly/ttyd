@@ -102,7 +102,7 @@ var ProductList = React.createClass({
     var productWidth = this.state.productWidth + (2 * this.state.productMargin),
         productsPerRow = parseInt(this.props.getProductListWidth() / productWidth);
     
-    React.findDOMNode(this.refs.productList).style.width = productsPerRow * productWidth + 'px';
+    this.refs.productList.style.width = productsPerRow * productWidth + 'px';
 
     if (this.state.productsPerRow != productsPerRow) {
       this.setState({
@@ -132,7 +132,7 @@ var ProductList = React.createClass({
       );
     }));
 
-    return (      
+    return (
       <div className="product-list" ref="productList" style={styles.outerContainer}>
         {categoryLists}
       </div>

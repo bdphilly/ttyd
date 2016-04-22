@@ -103,15 +103,15 @@ var CartApp = React.createClass({
   },
 
   setProductListsWidth: function(cartVisible) {
-    var cart = React.findDOMNode(this.refs.cartwrap),
-        products = React.findDOMNode(this.refs.productswrap);
+    var cart = this.refs.cartwrap,
+        products = this.refs.productswrap;
 
     products.style.width = cartVisible ? window.innerWidth - parseInt(cart.style.width) + 'px' : window.innerWidth + 'px';
   },
 
   getProductListWidth: function() {
     // this.setProductListsWidth(this.cartVisible);
-    return this.refs.productswrap ? parseInt(React.findDOMNode(this.refs.productswrap).style.width) : 0; // % (2 * (200 + 2 + 2)) : 0;      
+    return this.refs.productswrap ? parseInt(this.refs.productswrap.style.width) : 0; // % (2 * (200 + 2 + 2)) : 0;      
   },
 
   resize: function() {

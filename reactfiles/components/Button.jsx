@@ -3,16 +3,22 @@ var Reflux = require('reflux');
 var Radium = require('radium');
 
 var styles = {
-  button: {
+  buttonDefault: {
     background: '#000',
     color: '#fff'
   },  
 };
 
 const Button = React.createClass({
-  render: function() {
+  _handleClick () {
+    console.log('the button is clicked!');
+  },
+
+  render () {
     return (
-      <button style={styles.button}>i'm a button</button>      
+      <button style={this.props.style || styles.buttonDefault} onClick={this._handleClick}>
+        {this.props.label}
+      </button>      
     )
   }
 })

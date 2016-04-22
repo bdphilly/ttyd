@@ -148,12 +148,12 @@ var Header = React.createClass({
 
   _hideDropdownList: function(event) {
     blurTimer = setTimeout(function() {
-      React.findDOMNode(this.refs.typeahead).children[1].style.display = "none";
+      this.refs.typeahead.children[1].style.display = "none";
     }.bind(this), 100);
   },
 
   _showDropdownList: function() {
-    React.findDOMNode(this.refs.typeahead).children[1].style.display = "";
+    React.this.refs.typeahead.children[1].style.display = "";
   },
 
   _handleOptionSelected: function(option) {

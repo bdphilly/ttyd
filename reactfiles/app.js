@@ -1,6 +1,7 @@
 window._ = require('lodash');
 
 var React = require('react'),
+    ReactDOM = require('react-dom'),
     ReactRouter = require('react-router'),
     CartApp = require('./components/CartApp.jsx'),
     ProductList = require('./components/ProductList.jsx'),
@@ -45,7 +46,7 @@ var ready = function () {
   //     <Handler path={state.path}/>, document.getElementById('ttyd-app'));
   // });
 
-  React.render(
+  ReactDOM.render(
     <Router history={createBrowserHistory()} routes={routes}/>, document.getElementById('ttyd-app')
   )
 

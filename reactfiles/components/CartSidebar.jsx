@@ -27,7 +27,7 @@ var CartSidebar = React.createClass({
   },
 
   updateDimensions: function() {
-    React.findDOMNode(this.refs.cartProducts).style.height = window.innerHeight - 150 + 'px';
+    this.refs.cartProducts.style.height = window.innerHeight - 150 + 'px';
   },
 
   render: function() {
