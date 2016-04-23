@@ -94,7 +94,7 @@ var styles = {
   }
 };
 
-const customStyles = {
+const modalStyle = {
   content : {
     top                   : '0px',
     left                  : '50%',
@@ -102,6 +102,7 @@ const customStyles = {
     bottom                : 'auto',
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
+    opacity               : '0%',
     transition            : 'all 500ms'
   }
 };
@@ -193,10 +194,13 @@ var ProductInfoDialog = React.createClass({
   afterOpenModal: function() {
     // references are now sync'd and can be accessed.
     this.refs.subtitle.style.color = '#f00';
-    this.refs.myModal.props.style.content.top = '50%'
+    this.refs.myModal.props.style.content.opacity = '100%';
+    this.refs.myModal.props.style.content.top = '50%';
   },
 
   closeModal: function() {
+    this.refs.myModal.props.style.content.opacity = '0%';
+    this.refs.myModal.props.style.content.top = '0px';
     this.setState({modalIsOpen: false});
   },  
 
@@ -221,20 +225,19 @@ var ProductInfoDialog = React.createClass({
     ];      
 
     return (        
-      <div>
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          style={customStyles}
-          ref="myModal" >
+      <Modal
+        isOpen={this.state.modalIsOpen}
+        onAfterOpen={this.afterOpenModal}
+        onRequestClose={this.closeModal}
+        style={modalStyle}
+        closeTimeoutMS={500}
+        ref="myModal" >
 
-          <h2 ref="subtitle">Hello</h2>
-          <button onClick={this.closeModal}>close</button>
-          <div>I am a modal</div>
-          <div>Here is some stuff...</div>
-        </Modal>
-      </div>      
+        <h2 ref="subtitle">Hello</h2>
+        <button onClick={this.closeModal}>close</button>
+        <div>I am a modal</div>
+        <div>Here is some stuff...</div>
+      </Modal>
     );
   }  
 

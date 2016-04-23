@@ -74580,13 +74580,14 @@ var styles = {
     position: 'relative'
   }
 };
-var customStyles = {content: {
+var modalStyle = {content: {
     top: '0px',
     left: '50%',
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
+    opacity: '0%',
     transition: 'all 500ms'
   }};
 var ProductInfoDialog = React.createClass({
@@ -74615,9 +74616,12 @@ var ProductInfoDialog = React.createClass({
   },
   afterOpenModal: function() {
     this.refs.subtitle.style.color = '#f00';
+    this.refs.myModal.props.style.content.opacity = '100%';
     this.refs.myModal.props.style.content.top = '50%';
   },
   closeModal: function() {
+    this.refs.myModal.props.style.content.opacity = '0%';
+    this.refs.myModal.props.style.content.top = '0px';
     this.setState({modalIsOpen: false});
   },
   render: function() {
@@ -74636,13 +74640,14 @@ var ProductInfoDialog = React.createClass({
       key: product.id + 1,
       onTouchTap: this._handleCustomDialogSubmit
     })];
-    return (React.createElement("div", null, React.createElement(Modal, {
+    return (React.createElement(Modal, {
       isOpen: this.state.modalIsOpen,
       onAfterOpen: this.afterOpenModal,
       onRequestClose: this.closeModal,
-      style: customStyles,
+      style: modalStyle,
+      closeTimeoutMS: 500,
       ref: "myModal"
-    }, React.createElement("h2", {ref: "subtitle"}, "Hello"), React.createElement("button", {onClick: this.closeModal}, "close"), React.createElement("div", null, "I am a modal"), React.createElement("div", null, "Here is some stuff..."))));
+    }, React.createElement("h2", {ref: "subtitle"}, "Hello"), React.createElement("button", {onClick: this.closeModal}, "close"), React.createElement("div", null, "I am a modal"), React.createElement("div", null, "Here is some stuff...")));
   }
 });
 module.exports = ProductInfoDialog;
