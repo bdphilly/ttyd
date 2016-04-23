@@ -116,8 +116,8 @@ var Product = React.createClass({
 
   _displayDialog: function(e) {
     // if (!this.state.dialogShowing) this.refs.productInfoDialog.showDialog();
-    this.state.dialogShowing = !this.state.dialogShowing;
-    console.log('clicked!')
+    // this.state.dialogShowing = !this.state.dialogShowing;
+    this.refs.productInfoDialog.openModal();
   },
 
 

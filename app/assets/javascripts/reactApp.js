@@ -74403,8 +74403,7 @@ var Product = React.createClass({
     return {dialogShowing: false};
   },
   _displayDialog: function(e) {
-    this.state.dialogShowing = !this.state.dialogShowing;
-    console.log('clicked!');
+    this.refs.productInfoDialog.openModal();
   },
   render: function() {
     var product = this.props.product;
@@ -74582,12 +74581,13 @@ var styles = {
   }
 };
 var customStyles = {content: {
-    top: '50%',
+    top: '0px',
     left: '50%',
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
+    transform: 'translate(-50%, -50%)',
+    transition: 'all 500ms'
   }};
 var ProductInfoDialog = React.createClass({
   displayName: "ProductInfoDialog",
@@ -74615,6 +74615,7 @@ var ProductInfoDialog = React.createClass({
   },
   afterOpenModal: function() {
     this.refs.subtitle.style.color = '#f00';
+    this.refs.myModal.props.style.content.top = '50%';
   },
   closeModal: function() {
     this.setState({modalIsOpen: false});
@@ -74639,8 +74640,9 @@ var ProductInfoDialog = React.createClass({
       isOpen: this.state.modalIsOpen,
       onAfterOpen: this.afterOpenModal,
       onRequestClose: this.closeModal,
-      style: customStyles
-    }, React.createElement("h2", {ref: "subtitle"}, "Hello"), React.createElement("button", {onClick: this.closeModal}, "close"), React.createElement("div", null, "I am a modal"), React.createElement("form", null, React.createElement("input", null), React.createElement("button", null, "tab navigation"), React.createElement("button", null, "stays"), React.createElement("button", null, "inside"), React.createElement("button", null, "the modal")))));
+      style: customStyles,
+      ref: "myModal"
+    }, React.createElement("h2", {ref: "subtitle"}, "Hello"), React.createElement("button", {onClick: this.closeModal}, "close"), React.createElement("div", null, "I am a modal"), React.createElement("div", null, "Here is some stuff..."))));
   }
 });
 module.exports = ProductInfoDialog;
