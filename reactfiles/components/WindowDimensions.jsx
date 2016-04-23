@@ -22,7 +22,7 @@ var WindowDimensions = React.createClass({
     // this.setState({
     //   height: 
     // })
-    console.log('rrrr');
+    console.log('resize window');
     AppActions.resizeWindow();
   },
 

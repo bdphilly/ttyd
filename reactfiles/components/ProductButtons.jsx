@@ -2,9 +2,6 @@ var React = require('react');
 var AppActions = require('../actions/AppActions');
 var Radium = require('radium');
 var ProductStore = require('../stores/ProductStore');
-var Colors = require('material-ui/lib/styles/colors');
-var Paper = require('material-ui/lib/paper');
-var FontIcon = require('material-ui/lib/font-icon');
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
 var styles = {

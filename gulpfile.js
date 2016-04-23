@@ -46,7 +46,7 @@ var path = {
 //     watcher = watchify(bundler);
 
 var bundler = browserify({
-                entries: ['./reactfiles/app.js'],
+                entries: ['./reactfiles/app.jsx'],
                 // debug: true, //Sourcemapping
                 // cache: {}, packageCache: {}, fullPaths: true //Required by watchify)
               })
@@ -59,7 +59,7 @@ var watcher = watchify(bundler);
 function bundle() {
   return watcher.bundle()
     .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-    .pipe(source('reactApp.js'))
+    .pipe(source('reactApp.jsx'))
     // .pipe(buffer()) //put back in for production
     // .pipe(uglify()) //put back in for production
     .pipe(gulp.dest('./app/assets/javascripts/'));

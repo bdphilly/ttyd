@@ -10,6 +10,12 @@ var styles = {
 };
 
 const Button = React.createClass({
+  propTypes: {
+    label: React.PropTypes.string,
+    style: React.PropTypes.object,
+    clickHandler: React.PropTypes.func
+  },
+
   handleClick: function () {
     this.props.clickHandler();    
   },
@@ -21,6 +27,6 @@ const Button = React.createClass({
       </button>      
     )
   }
-})
+});
 
-module.exports = Radium(Button);
+module.exports = Button;

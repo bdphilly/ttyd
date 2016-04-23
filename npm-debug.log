@@ -2,660 +2,253 @@
 1 verbose cli [ '/usr/local/bin/node',
 1 verbose cli   '/usr/local/bin/npm',
 1 verbose cli   'install',
-1 verbose cli   '--save',
-1 verbose cli   'reflux' ]
+1 verbose cli   'react-tap-event-plugin',
+1 verbose cli   '--save' ]
 2 info using npm@2.14.12
 3 info using node@v4.3.2
 4 verbose install initial load of /Users/bphillips/Desktop/TahoeToYourDoor/package.json
-5 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/browserify/package.json
-6 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/browserify-incremental/package.json
-7 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/es6ify/package.json
-8 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/fbjs/package.json
-9 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp/package.json
-10 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp-concat/package.json
-11 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp-react/package.json
-12 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp-uglify/package.json
-13 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp-util/package.json
-14 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/history/package.json
-15 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/lodash/package.json
-16 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/material-ui/package.json
-17 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/radium/package.json
-18 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react/package.json
-19 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-addons-css-transition-group/package.json
-20 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-autocomplete/package.json
-21 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-dom/package.json
-22 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-modal/package.json
-23 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-router/package.json
-24 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-tap-event-plugin/package.json
-25 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-typeahead/package.json
-26 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reactify/package.json
-27 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reqwest/package.json
-28 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/vinyl-buffer/package.json
-29 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/vinyl-source-stream/package.json
-30 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/watchify/package.json
-31 info package.json react-tap-event-plugin@0.1.8 No license field.
-32 verbose readDependencies loading dependencies from /Users/bphillips/Desktop/TahoeToYourDoor/package.json
-33 silly cache add args [ 'reflux@^0.2.13', null ]
-34 verbose cache add spec reflux@^0.2.13
-35 silly cache add parsed spec Result {
-35 silly cache add   raw: 'reflux@^0.2.13',
-35 silly cache add   scope: null,
-35 silly cache add   name: 'reflux',
-35 silly cache add   rawSpec: '^0.2.13',
-35 silly cache add   spec: '>=0.2.13 <0.3.0',
-35 silly cache add   type: 'range' }
-36 silly addNamed reflux@>=0.2.13 <0.3.0
-37 verbose addNamed ">=0.2.13 <0.3.0" is a valid semver range for reflux
-38 silly addNameRange { name: 'reflux', range: '>=0.2.13 <0.3.0', hasData: false }
-39 silly mapToRegistry name reflux
-40 silly mapToRegistry using default registry
-41 silly mapToRegistry registry https://registry.npmjs.org/
-42 silly mapToRegistry uri https://registry.npmjs.org/reflux
-43 verbose addNameRange registry:https://registry.npmjs.org/reflux not in flight; fetching
-44 verbose request uri https://registry.npmjs.org/reflux
-45 verbose request no auth needed
-46 info attempt registry request try #1 at 3:48:17 PM
-47 verbose request id 027fb2453151a1b3
-48 verbose etag "7HYCQKWAIN6BWA5O4FDXKR4WK"
-49 http request GET https://registry.npmjs.org/reflux
-50 http 304 https://registry.npmjs.org/reflux
-51 verbose headers { date: 'Fri, 22 Apr 2016 22:48:18 GMT',
-51 verbose headers   via: '1.1 varnish',
-51 verbose headers   'cache-control': 'max-age=300',
-51 verbose headers   etag: '"7HYCQKWAIN6BWA5O4FDXKR4WK"',
-51 verbose headers   age: '0',
-51 verbose headers   connection: 'keep-alive',
-51 verbose headers   'x-served-by': 'cache-lax1432-LAX',
-51 verbose headers   'x-cache': 'HIT',
-51 verbose headers   'x-cache-hits': '1',
-51 verbose headers   'x-timer': 'S1461365298.713036,VS0,VE83',
-51 verbose headers   vary: 'Accept-Encoding' }
-52 silly get cb [ 304,
-52 silly get   { date: 'Fri, 22 Apr 2016 22:48:18 GMT',
-52 silly get     via: '1.1 varnish',
-52 silly get     'cache-control': 'max-age=300',
-52 silly get     etag: '"7HYCQKWAIN6BWA5O4FDXKR4WK"',
-52 silly get     age: '0',
-52 silly get     connection: 'keep-alive',
-52 silly get     'x-served-by': 'cache-lax1432-LAX',
-52 silly get     'x-cache': 'HIT',
-52 silly get     'x-cache-hits': '1',
-52 silly get     'x-timer': 'S1461365298.713036,VS0,VE83',
-52 silly get     vary: 'Accept-Encoding' } ]
-53 verbose etag https://registry.npmjs.org/reflux from cache
-54 verbose get saving reflux to /Users/bphillips/.npm/registry.npmjs.org/reflux/.cache.json
-55 silly addNameRange number 2 { name: 'reflux', range: '>=0.2.13 <0.3.0', hasData: true }
-56 silly addNameRange versions [ 'reflux',
-56 silly addNameRange   [ '0.0.1',
-56 silly addNameRange     '0.0.2',
-56 silly addNameRange     '0.0.3',
-56 silly addNameRange     '0.0.4',
-56 silly addNameRange     '0.1.0',
-56 silly addNameRange     '0.1.1',
-56 silly addNameRange     '0.1.2',
-56 silly addNameRange     '0.1.3',
-56 silly addNameRange     '0.1.4',
-56 silly addNameRange     '0.1.5',
-56 silly addNameRange     '0.1.6',
-56 silly addNameRange     '0.1.7',
-56 silly addNameRange     '0.1.8',
-56 silly addNameRange     '0.1.9',
-56 silly addNameRange     '0.1.10',
-56 silly addNameRange     '0.1.11',
-56 silly addNameRange     '0.1.12',
-56 silly addNameRange     '0.1.13',
-56 silly addNameRange     '0.1.14',
-56 silly addNameRange     '0.1.15',
-56 silly addNameRange     '0.2.0',
-56 silly addNameRange     '0.2.1',
-56 silly addNameRange     '0.2.2',
-56 silly addNameRange     '0.2.3',
-56 silly addNameRange     '0.2.4',
-56 silly addNameRange     '0.2.5',
-56 silly addNameRange     '0.2.6',
-56 silly addNameRange     '0.2.7',
-56 silly addNameRange     '0.2.8',
-56 silly addNameRange     '0.2.9',
-56 silly addNameRange     '0.2.10',
-56 silly addNameRange     '0.2.11',
-56 silly addNameRange     '0.2.12',
-56 silly addNameRange     '0.2.13',
-56 silly addNameRange     '0.3.0',
-56 silly addNameRange     '0.3.1',
-56 silly addNameRange     '0.4.0',
-56 silly addNameRange     '0.4.1' ] ]
-57 silly addNamed reflux@0.2.13
-58 verbose addNamed "0.2.13" is a plain semver version for reflux
-59 silly cache afterAdd reflux@0.2.13
-60 verbose afterAdd /Users/bphillips/.npm/reflux/0.2.13/package/package.json not in flight; writing
-61 verbose afterAdd /Users/bphillips/.npm/reflux/0.2.13/package/package.json written
-62 silly install resolved [ { name: 'reflux',
-62 silly install resolved     version: '0.2.13',
-62 silly install resolved     description: 'A simple library for uni-directional dataflow application architecture inspired by ReactJS Flux',
-62 silly install resolved     main: 'src/index.js',
-62 silly install resolved     scripts:
-62 silly install resolved      { test: 'grunt test',
-62 silly install resolved        'test:sauce': 'grunt karma:sauce',
-62 silly install resolved        benchmark: 'node test/benchmarks',
-62 silly install resolved        build: 'grunt build' },
-62 silly install resolved     author: { name: 'Mikael Brassman' },
-62 silly install resolved     license: 'BSD-3-Clause',
-62 silly install resolved     repository:
-62 silly install resolved      { type: 'git',
-62 silly install resolved        url: 'git+ssh://git@github.com/reflux/refluxjs.git' },
-62 silly install resolved     bugs: { url: 'https://github.com/reflux/refluxjs/issues' },
-62 silly install resolved     keywords:
-62 silly install resolved      [ 'reflux',
-62 silly install resolved        'react',
-62 silly install resolved        'flux',
-62 silly install resolved        'architecture',
-62 silly install resolved        'dataflow',
-62 silly install resolved        'action',
-62 silly install resolved        'event',
-62 silly install resolved        'data' ],
-62 silly install resolved     dependencies: { eventemitter3: '^1.1.1', 'reflux-core': '^0.2.1' },
-62 silly install resolved     devDependencies:
-62 silly install resolved      { benchmark: '^1.0.0',
-62 silly install resolved        browserify: '~10.2.3',
-62 silly install resolved        chai: 'latest',
-62 silly install resolved        'chai-as-promised': 'latest',
-62 silly install resolved        'es6-promise': '^2.3.0',
-62 silly install resolved        grunt: '^0.4.5',
-62 silly install resolved        'grunt-browserify': '3.8.0',
-62 silly install resolved        'grunt-cli': '^0.1.13',
-62 silly install resolved        'grunt-contrib-jshint': '^0.11.2',
-62 silly install resolved        'grunt-contrib-uglify': '^0.5.0',
-62 silly install resolved        'grunt-contrib-watch': '^0.6.1',
-62 silly install resolved        'grunt-karma': 'latest',
-62 silly install resolved        'grunt-mocha-test': '~0.12.7',
-62 silly install resolved        karma: 'latest',
-62 silly install resolved        'karma-browserify': 'latest',
-62 silly install resolved        'karma-commonjs': 'latest',
-62 silly install resolved        'karma-mocha': 'latest',
-62 silly install resolved        'karma-phantomjs-launcher': 'latest',
-62 silly install resolved        'karma-sauce-launcher': 'latest',
-62 silly install resolved        'karma-spec-reporter': 'latest',
-62 silly install resolved        matchdep: '^0.3.0',
-62 silly install resolved        mocha: 'latest',
-62 silly install resolved        q: '^1.0.1',
-62 silly install resolved        sinon: '^1.10.3' },
-62 silly install resolved     peerDependencies: { react: '>=0.12.2 <0.15.0' },
-62 silly install resolved     gitHead: 'd0ad3a8d078d95bca297d6faeaf1ed5aa1996292',
-62 silly install resolved     homepage: 'https://github.com/reflux/refluxjs#readme',
-62 silly install resolved     _id: 'reflux@0.2.13',
-62 silly install resolved     _shasum: '8d43a94ce790c94259ac27b9256f63fe97cf29f5',
-62 silly install resolved     _from: 'reflux@>=0.2.13 <0.3.0',
-62 silly install resolved     _npmVersion: '2.11.1',
-62 silly install resolved     _nodeVersion: '0.10.12',
-62 silly install resolved     _npmUser: { name: 'spoike', email: 'mishakun+npm@gmail.com' },
-62 silly install resolved     maintainers: [ [Object] ],
-62 silly install resolved     dist:
-62 silly install resolved      { shasum: '8d43a94ce790c94259ac27b9256f63fe97cf29f5',
-62 silly install resolved        tarball: 'https://registry.npmjs.org/reflux/-/reflux-0.2.13.tgz' },
-62 silly install resolved     directories: {},
-62 silly install resolved     _resolved: 'https://registry.npmjs.org/reflux/-/reflux-0.2.13.tgz',
-62 silly install resolved     readme: 'ERROR: No README data found!' } ]
-63 info install reflux@0.2.13 into /Users/bphillips/Desktop/TahoeToYourDoor
-64 info installOne reflux@0.2.13
-65 verbose installOne of reflux to /Users/bphillips/Desktop/TahoeToYourDoor not in flight; installing
-66 verbose lock using /Users/bphillips/.npm/_locks/reflux-a420b827b11d4ecd.lock for /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux
-67 silly install write writing reflux 0.2.13 to /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux
-68 verbose unbuild node_modules/reflux
-69 silly gentlyRm /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux is being purged from base /Users/bphillips/Desktop/TahoeToYourDoor
-70 verbose gentlyRm don't care about contents; nuking /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux
-71 verbose tar unpack /Users/bphillips/.npm/reflux/0.2.13/package.tgz
-72 verbose tar unpacking to /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux
-73 silly gentlyRm /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux is being purged
-74 verbose gentlyRm don't care about contents; nuking /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux
-75 silly gunzTarPerm modes [ '755', '644' ]
-76 silly gunzTarPerm extractEntry package.json
-77 silly gunzTarPerm extractEntry .npmignore
-78 silly gunzTarPerm extractEntry README.md
-79 silly gunzTarPerm extractEntry Gruntfile.js
-80 silly gunzTarPerm extractEntry karma.conf.js
-81 silly gunzTarPerm extractEntry .travis.yml
-82 silly gunzTarPerm extractEntry CHANGELOG.md
-83 silly gunzTarPerm extractEntry LICENSE.md
-84 silly gunzTarPerm extractEntry .editorconfig
-85 silly gunzTarPerm extractEntry bower.json
-86 silly gunzTarPerm extractEntry .jshintrc
-87 silly gunzTarPerm extractEntry src/ListenerMixin.js
-88 silly gunzTarPerm extractEntry src/connect.js
-89 silly gunzTarPerm extractEntry src/connectFilter.js
-90 silly gunzTarPerm extractEntry src/index.js
-91 silly gunzTarPerm extractEntry src/listenTo.js
-92 silly gunzTarPerm extractEntry src/listenToMany.js
-93 verbose write writing to /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/package.json
-94 info preinstall reflux@0.2.13
-95 verbose readDependencies loading dependencies from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/package.json
-96 silly prepareForInstallMany adding eventemitter3@^1.1.1 from reflux dependencies
-97 silly prepareForInstallMany adding reflux-core@^0.2.1 from reflux dependencies
-98 silly prepareForInstallMany adding react@>=0.12.2 <0.15.0 from reflux peerDependencies
-99 warn peerDependencies The peer dependency react@>=0.12.2 <0.15.0 included from reflux will no
-100 warn peerDependencies longer be automatically installed to fulfill the peerDependency
-101 warn peerDependencies in npm 3+. Your application will need to depend on it explicitly.
-102 verbose readDependencies loading dependencies from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/package.json
-103 silly cache add args [ 'eventemitter3@^1.1.1', null ]
-104 verbose cache add spec eventemitter3@^1.1.1
-105 silly cache add args [ 'reflux-core@^0.2.1', null ]
-106 verbose cache add spec reflux-core@^0.2.1
-107 silly cache add parsed spec Result {
-107 silly cache add   raw: 'eventemitter3@^1.1.1',
-107 silly cache add   scope: null,
-107 silly cache add   name: 'eventemitter3',
-107 silly cache add   rawSpec: '^1.1.1',
-107 silly cache add   spec: '>=1.1.1 <2.0.0',
-107 silly cache add   type: 'range' }
-108 silly addNamed eventemitter3@>=1.1.1 <2.0.0
-109 verbose addNamed ">=1.1.1 <2.0.0" is a valid semver range for eventemitter3
-110 silly addNameRange { name: 'eventemitter3',
-110 silly addNameRange   range: '>=1.1.1 <2.0.0',
-110 silly addNameRange   hasData: false }
-111 silly mapToRegistry name eventemitter3
-112 silly mapToRegistry using default registry
-113 silly mapToRegistry registry https://registry.npmjs.org/
-114 silly mapToRegistry uri https://registry.npmjs.org/eventemitter3
-115 verbose addNameRange registry:https://registry.npmjs.org/eventemitter3 not in flight; fetching
-116 silly cache add parsed spec Result {
-116 silly cache add   raw: 'reflux-core@^0.2.1',
-116 silly cache add   scope: null,
-116 silly cache add   name: 'reflux-core',
-116 silly cache add   rawSpec: '^0.2.1',
-116 silly cache add   spec: '>=0.2.1 <0.3.0',
-116 silly cache add   type: 'range' }
-117 silly addNamed reflux-core@>=0.2.1 <0.3.0
-118 verbose addNamed ">=0.2.1 <0.3.0" is a valid semver range for reflux-core
-119 silly addNameRange { name: 'reflux-core', range: '>=0.2.1 <0.3.0', hasData: false }
-120 silly mapToRegistry name reflux-core
-121 silly mapToRegistry using default registry
-122 silly mapToRegistry registry https://registry.npmjs.org/
-123 silly mapToRegistry uri https://registry.npmjs.org/reflux-core
-124 verbose addNameRange registry:https://registry.npmjs.org/reflux-core not in flight; fetching
-125 verbose request uri https://registry.npmjs.org/reflux-core
-126 verbose request no auth needed
-127 info attempt registry request try #1 at 3:48:18 PM
-128 verbose etag "7JSCJR4P69WT2YIO4PUTJY726"
-129 http request GET https://registry.npmjs.org/reflux-core
-130 verbose request uri https://registry.npmjs.org/eventemitter3
-131 verbose request no auth needed
-132 info attempt registry request try #1 at 3:48:18 PM
-133 verbose etag "2I8HG5IYEBBH2RD8MTP463YOI"
-134 http request GET https://registry.npmjs.org/eventemitter3
-135 http 304 https://registry.npmjs.org/reflux-core
-136 verbose headers { date: 'Fri, 22 Apr 2016 22:48:19 GMT',
-136 verbose headers   via: '1.1 varnish',
-136 verbose headers   'cache-control': 'max-age=300',
-136 verbose headers   etag: '"7JSCJR4P69WT2YIO4PUTJY726"',
-136 verbose headers   age: '0',
-136 verbose headers   connection: 'keep-alive',
-136 verbose headers   'x-served-by': 'cache-lax1424-LAX',
-136 verbose headers   'x-cache': 'HIT',
-136 verbose headers   'x-cache-hits': '1',
-136 verbose headers   'x-timer': 'S1461365299.017980,VS0,VE79',
-136 verbose headers   vary: 'Accept-Encoding' }
-137 silly get cb [ 304,
-137 silly get   { date: 'Fri, 22 Apr 2016 22:48:19 GMT',
-137 silly get     via: '1.1 varnish',
-137 silly get     'cache-control': 'max-age=300',
-137 silly get     etag: '"7JSCJR4P69WT2YIO4PUTJY726"',
-137 silly get     age: '0',
-137 silly get     connection: 'keep-alive',
-137 silly get     'x-served-by': 'cache-lax1424-LAX',
-137 silly get     'x-cache': 'HIT',
-137 silly get     'x-cache-hits': '1',
-137 silly get     'x-timer': 'S1461365299.017980,VS0,VE79',
-137 silly get     vary: 'Accept-Encoding' } ]
-138 verbose etag https://registry.npmjs.org/reflux-core from cache
-139 verbose get saving reflux-core to /Users/bphillips/.npm/registry.npmjs.org/reflux-core/.cache.json
-140 silly addNameRange number 2 { name: 'reflux-core', range: '>=0.2.1 <0.3.0', hasData: true }
-141 silly addNameRange versions [ 'reflux-core', [ '0.2.0-rc', '0.2.0', '0.2.1', '0.3.0' ] ]
-142 silly addNamed reflux-core@0.2.1
-143 verbose addNamed "0.2.1" is a plain semver version for reflux-core
-144 silly cache afterAdd reflux-core@0.2.1
-145 verbose afterAdd /Users/bphillips/.npm/reflux-core/0.2.1/package/package.json not in flight; writing
-146 verbose afterAdd /Users/bphillips/.npm/reflux-core/0.2.1/package/package.json written
-147 http 200 https://registry.npmjs.org/eventemitter3
-148 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
-148 verbose headers   etag: '"8DEZDGF5FLRRMDZOXBV7WJ1UX"',
-148 verbose headers   'content-type': 'application/json',
-148 verbose headers   'content-encoding': 'gzip',
-148 verbose headers   'cache-control': 'max-age=300',
-148 verbose headers   'content-length': '5047',
-148 verbose headers   'accept-ranges': 'bytes',
-148 verbose headers   date: 'Fri, 22 Apr 2016 22:48:19 GMT',
-148 verbose headers   via: '1.1 varnish',
-148 verbose headers   age: '0',
-148 verbose headers   connection: 'keep-alive',
-148 verbose headers   'x-served-by': 'cache-lax1426-LAX',
-148 verbose headers   'x-cache': 'HIT',
-148 verbose headers   'x-cache-hits': '1',
-148 verbose headers   'x-timer': 'S1461365299.026031,VS0,VE83',
-148 verbose headers   vary: 'Accept-Encoding' }
-149 silly get cb [ 200,
-149 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
-149 silly get     etag: '"8DEZDGF5FLRRMDZOXBV7WJ1UX"',
-149 silly get     'content-type': 'application/json',
-149 silly get     'content-encoding': 'gzip',
-149 silly get     'cache-control': 'max-age=300',
-149 silly get     'content-length': '5047',
-149 silly get     'accept-ranges': 'bytes',
-149 silly get     date: 'Fri, 22 Apr 2016 22:48:19 GMT',
-149 silly get     via: '1.1 varnish',
-149 silly get     age: '0',
-149 silly get     connection: 'keep-alive',
-149 silly get     'x-served-by': 'cache-lax1426-LAX',
-149 silly get     'x-cache': 'HIT',
-149 silly get     'x-cache-hits': '1',
-149 silly get     'x-timer': 'S1461365299.026031,VS0,VE83',
-149 silly get     vary: 'Accept-Encoding' } ]
-150 verbose get saving eventemitter3 to /Users/bphillips/.npm/registry.npmjs.org/eventemitter3/.cache.json
-151 silly addNameRange number 2 { name: 'eventemitter3', range: '>=1.1.1 <2.0.0', hasData: true }
-152 silly addNameRange versions [ 'eventemitter3',
-152 silly addNameRange   [ '0.0.0',
-152 silly addNameRange     '0.0.1',
-152 silly addNameRange     '0.1.0',
-152 silly addNameRange     '0.1.1',
-152 silly addNameRange     '0.1.2',
-152 silly addNameRange     '0.1.3',
-152 silly addNameRange     '0.1.4',
-152 silly addNameRange     '0.1.5',
-152 silly addNameRange     '0.1.6',
-152 silly addNameRange     '1.0.0',
-152 silly addNameRange     '1.0.1',
-152 silly addNameRange     '1.0.2',
-152 silly addNameRange     '1.0.3',
-152 silly addNameRange     '1.1.0',
-152 silly addNameRange     '1.1.1',
-152 silly addNameRange     '1.2.0' ] ]
-153 silly addNamed eventemitter3@1.2.0
-154 verbose addNamed "1.2.0" is a plain semver version for eventemitter3
-155 silly cache afterAdd eventemitter3@1.2.0
-156 verbose afterAdd /Users/bphillips/.npm/eventemitter3/1.2.0/package/package.json not in flight; writing
-157 verbose afterAdd /Users/bphillips/.npm/eventemitter3/1.2.0/package/package.json written
-158 silly install resolved [ { name: 'reflux-core',
-158 silly install resolved     version: '0.2.1',
-158 silly install resolved     description: 'A simple library for uni-directional dataflow application architecture inspired by ReactJS Flux',
-158 silly install resolved     main: 'lib/index.js',
-158 silly install resolved     scripts:
-158 silly install resolved      { clean: 'rimraf ./lib',
-158 silly install resolved        'test:mocha': 'mocha',
-158 silly install resolved        'test:karma': 'karma start test/config/karma.conf.js',
-158 silly install resolved        'test:travis': 'karma start test/config/karma-travis.conf.js',
-158 silly install resolved        test: 'npm run test:mocha && npm run test:karma',
-158 silly install resolved        'lint:test': 'jshint test/',
-158 silly install resolved        'lint:src': 'eslint src/',
-158 silly install resolved        lint: 'npm run lint:test && npm run lint:src',
-158 silly install resolved        compile: 'npm run clean && babel src --out-dir lib && ./scripts/version',
-158 silly install resolved        build: 'npm run lint && npm run compile && npm run test',
-158 silly install resolved        benchmark: 'node test/benchmarks',
-158 silly install resolved        'watch:test': 'watch \'npm run lint:test && npm run test\' test/',
-158 silly install resolved        'watch:src': 'watch \'npm run build\' src/',
-158 silly install resolved        watch: 'parallelshell \'npm run watch:src\' \'npm run watch:test\'',
-158 silly install resolved        prepublish: 'npm run lint && npm run compile && npm run test:mocha',
-158 silly install resolved        precommit: 'npm run prepublish',
-158 silly install resolved        prepush: 'npm run prepublish' },
-158 silly install resolved     author: { name: 'Mikael Brassman' },
-158 silly install resolved     license: 'BSD-3-Clause',
-158 silly install resolved     repository:
-158 silly install resolved      { type: 'git',
-158 silly install resolved        url: 'git+https://github.com/reflux/reflux-core.git' },
-158 silly install resolved     bugs: { url: 'http://github.com/reflux/reflux-core/issues' },
-158 silly install resolved     keywords:
-158 silly install resolved      [ 'reflux',
-158 silly install resolved        'flux',
-158 silly install resolved        'architecture',
-158 silly install resolved        'dataflow',
-158 silly install resolved        'action',
-158 silly install resolved        'events',
-158 silly install resolved        'data' ],
-158 silly install resolved     dependencies: { eventemitter3: '^1.1.1' },
-158 silly install resolved     devDependencies:
-158 silly install resolved      { babel: '^5.8.19',
-158 silly install resolved        'babel-eslint': '^4.0.5',
-158 silly install resolved        benchmark: '^1.0.0',
-158 silly install resolved        browserify: '~10.2.3',
-158 silly install resolved        chai: 'latest',
-158 silly install resolved        'chai-as-promised': 'latest',
-158 silly install resolved        'es6-promise': '^2.3.0',
-158 silly install resolved        eslint: '^0.24.1',
-158 silly install resolved        husky: '^0.9.2',
-158 silly install resolved        jshint: 'latest',
-158 silly install resolved        karma: 'latest',
-158 silly install resolved        'karma-browserify': 'latest',
-158 silly install resolved        'karma-commonjs': 'latest',
-158 silly install resolved        'karma-mocha': 'latest',
-158 silly install resolved        'karma-phantomjs-launcher': 'latest',
-158 silly install resolved        'karma-sauce-launcher': 'latest',
-158 silly install resolved        'karma-spec-reporter': 'latest',
-158 silly install resolved        mocha: 'latest',
-158 silly install resolved        parallelshell: 'latest',
-158 silly install resolved        q: '^1.0.1',
-158 silly install resolved        replace: '^0.3.0',
-158 silly install resolved        rimraf: '^2.4.2',
-158 silly install resolved        sinon: '^1.10.3',
-158 silly install resolved        watch: 'latest' },
-158 silly install resolved     gitHead: '2853d4879bd57a603b8b4f874ab10b785f6f9cf2',
-158 silly install resolved     homepage: 'https://github.com/reflux/reflux-core',
-158 silly install resolved     _id: 'reflux-core@0.2.1',
-158 silly install resolved     _shasum: 'ba18a130bf662408cd9021b058c3e5613dabf1c9',
-158 silly install resolved     _from: 'reflux-core@>=0.2.1 <0.3.0',
-158 silly install resolved     _npmVersion: '2.3.0',
-158 silly install resolved     _nodeVersion: '0.11.16',
-158 silly install resolved     _npmUser: { name: 'spoike', email: 'mishakun+npm@gmail.com' },
-158 silly install resolved     maintainers: [ [Object] ],
-158 silly install resolved     dist:
-158 silly install resolved      { shasum: 'ba18a130bf662408cd9021b058c3e5613dabf1c9',
-158 silly install resolved        tarball: 'http://registry.npmjs.org/reflux-core/-/reflux-core-0.2.1.tgz' },
-158 silly install resolved     directories: {},
-158 silly install resolved     _resolved: 'https://registry.npmjs.org/reflux-core/-/reflux-core-0.2.1.tgz',
-158 silly install resolved     readme: 'ERROR: No README data found!' },
-158 silly install resolved   { name: 'eventemitter3',
-158 silly install resolved     version: '1.2.0',
-158 silly install resolved     description: 'EventEmitter3 focuses on performance while maintaining a Node.js AND browser compatible interface.',
-158 silly install resolved     main: 'index.js',
-158 silly install resolved     scripts:
-158 silly install resolved      { 'test-node': 'istanbul cover _mocha --report lcovonly -- test.js',
-158 silly install resolved        coverage: 'istanbul cover _mocha -- test.js',
-158 silly install resolved        'test-browser': 'zuul -- test.js',
-158 silly install resolved        sync: 'node versions.js',
-158 silly install resolved        test: 'mocha test.js' },
-158 silly install resolved     repository:
-158 silly install resolved      { type: 'git',
-158 silly install resolved        url: 'git://github.com/primus/eventemitter3.git' },
-158 silly install resolved     keywords:
-158 silly install resolved      [ 'EventEmitter',
-158 silly install resolved        'EventEmitter2',
-158 silly install resolved        'EventEmitter3',
-158 silly install resolved        'Events',
-158 silly install resolved        'addEventListener',
-158 silly install resolved        'addListener',
-158 silly install resolved        'emit',
-158 silly install resolved        'emits',
-158 silly install resolved        'emitter',
-158 silly install resolved        'event',
-158 silly install resolved        'once',
-158 silly install resolved        'pub/sub',
-158 silly install resolved        'publish',
-158 silly install resolved        'reactor',
-158 silly install resolved        'subscribe' ],
-158 silly install resolved     author: { name: 'Arnout Kazemier' },
-158 silly install resolved     license: 'MIT',
-158 silly install resolved     bugs: { url: 'https://github.com/primus/eventemitter3/issues' },
-158 silly install resolved     'pre-commit': 'sync, test',
-158 silly install resolved     devDependencies:
-158 silly install resolved      { assume: '1.3.x',
-158 silly install resolved        istanbul: '0.4.x',
-158 silly install resolved        mocha: '2.4.x',
-158 silly install resolved        'pre-commit': '1.1.x',
-158 silly install resolved        zuul: '3.10.x' },
-158 silly install resolved     gitHead: 'c78d597fed80952c259b916c0a1f4dca91d940e4',
-158 silly install resolved     homepage: 'https://github.com/primus/eventemitter3#readme',
-158 silly install resolved     _id: 'eventemitter3@1.2.0',
-158 silly install resolved     _shasum: '1c86991d816ad1e504750e73874224ecf3bec508',
-158 silly install resolved     _from: 'eventemitter3@>=1.1.1 <2.0.0',
-158 silly install resolved     _npmVersion: '3.8.0',
-158 silly install resolved     _nodeVersion: '4.3.1',
-158 silly install resolved     _npmUser: { name: '3rdeden', email: 'npm@3rd-Eden.com' },
-158 silly install resolved     maintainers: [ [Object], [Object], [Object] ],
-158 silly install resolved     dist:
-158 silly install resolved      { shasum: '1c86991d816ad1e504750e73874224ecf3bec508',
-158 silly install resolved        tarball: 'https://registry.npmjs.org/eventemitter3/-/eventemitter3-1.2.0.tgz' },
-158 silly install resolved     _npmOperationalInternal:
-158 silly install resolved      { host: 'packages-12-west.internal.npmjs.com',
-158 silly install resolved        tmp: 'tmp/eventemitter3-1.2.0.tgz_1458148661717_0.1867425285745412' },
-158 silly install resolved     directories: {},
-158 silly install resolved     _resolved: 'https://registry.npmjs.org/eventemitter3/-/eventemitter3-1.2.0.tgz',
-158 silly install resolved     readme: 'ERROR: No README data found!' } ]
-159 info install reflux-core@0.2.1 into /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux
-160 info install eventemitter3@1.2.0 into /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux
-161 info installOne reflux-core@0.2.1
-162 verbose installOne of reflux-core to /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux not in flight; installing
-163 info installOne eventemitter3@1.2.0
-164 verbose installOne of eventemitter3 to /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux not in flight; installing
-165 verbose lock using /Users/bphillips/.npm/_locks/reflux-core-f4f2cbf9bbd0bc88.lock for /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/reflux-core
-166 verbose lock using /Users/bphillips/.npm/_locks/eventemitter3-d943d6b44a5ed029.lock for /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/eventemitter3
-167 silly install write writing reflux-core 0.2.1 to /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/reflux-core
-168 silly install write writing eventemitter3 1.2.0 to /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/eventemitter3
-169 verbose unbuild node_modules/reflux/node_modules/reflux-core
-170 verbose unbuild node_modules/reflux/node_modules/eventemitter3
-171 silly gentlyRm /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/reflux-core is being purged from base /Users/bphillips/Desktop/TahoeToYourDoor
-172 verbose gentlyRm don't care about contents; nuking /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/reflux-core
-173 verbose tar unpack /Users/bphillips/.npm/reflux-core/0.2.1/package.tgz
-174 verbose tar unpacking to /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/reflux-core
-175 silly gentlyRm /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/reflux-core is being purged
-176 verbose gentlyRm don't care about contents; nuking /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/reflux-core
-177 silly gentlyRm /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/eventemitter3 is being purged from base /Users/bphillips/Desktop/TahoeToYourDoor
-178 verbose gentlyRm don't care about contents; nuking /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/eventemitter3
-179 silly gunzTarPerm modes [ '755', '644' ]
-180 verbose tar unpack /Users/bphillips/.npm/eventemitter3/1.2.0/package.tgz
-181 verbose tar unpacking to /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/eventemitter3
-182 silly gentlyRm /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/eventemitter3 is being purged
-183 verbose gentlyRm don't care about contents; nuking /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/eventemitter3
-184 silly gunzTarPerm modes [ '755', '644' ]
-185 silly gunzTarPerm extractEntry package.json
-186 silly gunzTarPerm extractEntry package.json
-187 silly gunzTarPerm extractEntry .npmignore
-188 silly gunzTarPerm extractEntry README.md
-189 silly gunzTarPerm extractEntry README.md
-190 silly gunzTarPerm extractEntry LICENSE
-191 silly gunzTarPerm extractEntry .jshintrc
-192 silly gunzTarPerm extractEntry .editorconfig
-193 silly gunzTarPerm extractEntry index.js
-194 silly gunzTarPerm extractEntry .travis.yml
-195 silly gunzTarPerm extractEntry CHANGELOG.md
-196 silly gunzTarPerm extractEntry LICENSE.md
-197 silly gunzTarPerm extractEntry .eslintrc
-198 silly gunzTarPerm extractEntry lib/ActionMethods.js
-199 silly gunzTarPerm extractEntry lib/ListenerMethods.js
-200 silly gunzTarPerm extractEntry lib/PublisherMethods.js
-201 silly gunzTarPerm extractEntry lib/StoreMethods.js
-202 silly gunzTarPerm extractEntry lib/bindMethods.js
-203 silly gunzTarPerm extractEntry lib/Keep.js
-204 silly gunzTarPerm extractEntry lib/createStore.js
-205 silly gunzTarPerm extractEntry lib/index.js
-206 silly gunzTarPerm extractEntry lib/joins.js
-207 silly gunzTarPerm extractEntry lib/mixer.js
-208 silly gunzTarPerm extractEntry lib/utils.js
-209 silly gunzTarPerm extractEntry lib/createAction.js
-210 verbose write writing to /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/eventemitter3/package.json
-211 info preinstall eventemitter3@1.2.0
-212 verbose readDependencies loading dependencies from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/eventemitter3/package.json
-213 verbose readDependencies loading dependencies from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/eventemitter3/package.json
-214 silly install resolved []
-215 verbose about to build /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/eventemitter3
-216 info build /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/eventemitter3
-217 info linkStuff eventemitter3@1.2.0
-218 silly linkStuff eventemitter3@1.2.0 has /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules as its parent node_modules
-219 verbose linkBins eventemitter3@1.2.0
-220 verbose linkMans eventemitter3@1.2.0
-221 verbose rebuildBundles eventemitter3@1.2.0
-222 info install eventemitter3@1.2.0
-223 info postinstall eventemitter3@1.2.0
-224 verbose unlock done using /Users/bphillips/.npm/_locks/eventemitter3-d943d6b44a5ed029.lock for /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/eventemitter3
-225 verbose write writing to /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/reflux-core/package.json
-226 info preinstall reflux-core@0.2.1
-227 verbose readDependencies loading dependencies from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/reflux-core/package.json
-228 verbose readDependencies loading dependencies from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/reflux-core/package.json
-229 silly install resolved []
-230 verbose about to build /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/reflux-core
-231 info build /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/reflux-core
-232 info linkStuff reflux-core@0.2.1
-233 silly linkStuff reflux-core@0.2.1 has /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules as its parent node_modules
-234 verbose linkBins reflux-core@0.2.1
-235 verbose linkMans reflux-core@0.2.1
-236 verbose rebuildBundles reflux-core@0.2.1
-237 info install reflux-core@0.2.1
-238 info postinstall reflux-core@0.2.1
-239 verbose unlock done using /Users/bphillips/.npm/_locks/reflux-core-f4f2cbf9bbd0bc88.lock for /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/node_modules/reflux-core
-240 verbose about to build /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux
-241 info build /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux
-242 info linkStuff reflux@0.2.13
-243 silly linkStuff reflux@0.2.13 has /Users/bphillips/Desktop/TahoeToYourDoor/node_modules as its parent node_modules
-244 verbose linkBins reflux@0.2.13
-245 verbose linkMans reflux@0.2.13
-246 verbose rebuildBundles reflux@0.2.13
-247 verbose rebuildBundles [ 'eventemitter3', 'reflux-core' ]
-248 info install reflux@0.2.13
-249 info postinstall reflux@0.2.13
-250 verbose readDependencies loading dependencies from /Users/bphillips/Desktop/TahoeToYourDoor/package.json
-251 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/browserify/package.json
-252 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/browserify-incremental/package.json
-253 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/es6ify/package.json
-254 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/fbjs/package.json
-255 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp/package.json
-256 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp-concat/package.json
-257 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp-react/package.json
-258 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp-uglify/package.json
-259 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp-util/package.json
-260 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/history/package.json
-261 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/lodash/package.json
-262 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/material-ui/package.json
-263 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/radium/package.json
-264 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react/package.json
-265 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-addons-css-transition-group/package.json
-266 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-autocomplete/package.json
-267 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-dom/package.json
-268 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-modal/package.json
-269 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-router/package.json
-270 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-tap-event-plugin/package.json
-271 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-typeahead/package.json
-272 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reactify/package.json
-273 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/package.json
-274 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reqwest/package.json
-275 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/vinyl-buffer/package.json
-276 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/vinyl-source-stream/package.json
-277 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/watchify/package.json
-278 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/.bin/browserify/package.json
-279 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/.bin/browserifyinc/package.json
-280 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/.bin/gulp/package.json
-281 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/.bin/watchify/package.json
-282 verbose already installed skipping react@>=0.12.2 <0.15.0 /Users/bphillips/Desktop/TahoeToYourDoor
-283 silly install resolved []
-284 verbose unlock done using /Users/bphillips/.npm/_locks/reflux-a420b827b11d4ecd.lock for /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux
-285 verbose validateInstall loading /Users/bphillips/Desktop/TahoeToYourDoor/package.json for validation
-286 verbose stack Error: The package react@15.0.1 does not satisfy its siblings' peerDependencies requirements!
-286 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:125:32
-286 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:268:7
-286 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:142:5
-286 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
-286 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
-286 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
-286 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
-286 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
-286 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
-286 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
-287 verbose cwd /Users/bphillips/Desktop/TahoeToYourDoor
-288 error Darwin 14.5.0
-289 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "--save" "reflux"
-290 error node v4.3.2
-291 error npm  v2.14.12
-292 error code EPEERINVALID
-293 error peerinvalid The package react@15.0.1 does not satisfy its siblings' peerDependencies requirements!
-293 error peerinvalid Peer react-dom@15.0.1 wants react@^15.0.1
-293 error peerinvalid Peer react-tap-event-plugin@0.1.8 wants react@^0.14.0-0 || ~0.13.x || ~0.12.x
-293 error peerinvalid Peer reflux@0.2.13 wants react@>=0.12.2 <0.15.0
-293 error peerinvalid Peer react-addons-css-transition-group@15.0.1 wants react@^15.0.1
-293 error peerinvalid Peer react-typeahead@2.0.0-alpha.1 wants react@>= 0.14
-293 error peerinvalid Peer react-modal@1.2.0 wants react@^0.14.0 || ^15.0.0-0
-293 error peerinvalid Peer material-ui@0.14.4 wants react@^0.14.0
-294 verbose exit [ 1, true ]
+5 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/babel-preset-es2015/package.json
+6 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/babelify/package.json
+7 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/browserify/package.json
+8 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/browserify-incremental/package.json
+9 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/es6ify/package.json
+10 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/fbjs/package.json
+11 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp/package.json
+12 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp-concat/package.json
+13 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp-notify/package.json
+14 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp-react/package.json
+15 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp-uglify/package.json
+16 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp-util/package.json
+17 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/history/package.json
+18 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/lodash/package.json
+19 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/radium/package.json
+20 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react/package.json
+21 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-addons-css-transition-group/package.json
+22 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-autocomplete/package.json
+23 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-dom/package.json
+24 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-modal/package.json
+25 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-router/package.json
+26 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-typeahead/package.json
+27 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reactify/package.json
+28 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/package.json
+29 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reqwest/package.json
+30 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/vinyl-buffer/package.json
+31 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/vinyl-source-stream/package.json
+32 verbose installManyTop reading scoped package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/watchify/package.json
+33 info package.json gulp-notify@2.2.0 No license field.
+34 verbose readDependencies loading dependencies from /Users/bphillips/Desktop/TahoeToYourDoor/package.json
+35 silly cache add args [ 'react-tap-event-plugin@^0.1.8', null ]
+36 verbose cache add spec react-tap-event-plugin@^0.1.8
+37 silly cache add parsed spec Result {
+37 silly cache add   raw: 'react-tap-event-plugin@^0.1.8',
+37 silly cache add   scope: null,
+37 silly cache add   name: 'react-tap-event-plugin',
+37 silly cache add   rawSpec: '^0.1.8',
+37 silly cache add   spec: '>=0.1.8 <0.2.0',
+37 silly cache add   type: 'range' }
+38 silly addNamed react-tap-event-plugin@>=0.1.8 <0.2.0
+39 verbose addNamed ">=0.1.8 <0.2.0" is a valid semver range for react-tap-event-plugin
+40 silly addNameRange { name: 'react-tap-event-plugin',
+40 silly addNameRange   range: '>=0.1.8 <0.2.0',
+40 silly addNameRange   hasData: false }
+41 silly mapToRegistry name react-tap-event-plugin
+42 silly mapToRegistry using default registry
+43 silly mapToRegistry registry https://registry.npmjs.org/
+44 silly mapToRegistry uri https://registry.npmjs.org/react-tap-event-plugin
+45 verbose addNameRange registry:https://registry.npmjs.org/react-tap-event-plugin not in flight; fetching
+46 verbose request uri https://registry.npmjs.org/react-tap-event-plugin
+47 verbose request no auth needed
+48 info attempt registry request try #1 at 3:11:34 PM
+49 verbose request id 7ab7deb76b2ef7ab
+50 verbose etag "3PCHSPUAC6GO6AKVFEXYVZG8P"
+51 http request GET https://registry.npmjs.org/react-tap-event-plugin
+52 http 304 https://registry.npmjs.org/react-tap-event-plugin
+53 verbose headers { date: 'Sat, 23 Apr 2016 22:11:34 GMT',
+53 verbose headers   via: '1.1 varnish',
+53 verbose headers   'cache-control': 'max-age=300',
+53 verbose headers   etag: '"3PCHSPUAC6GO6AKVFEXYVZG8P"',
+53 verbose headers   age: '27',
+53 verbose headers   connection: 'keep-alive',
+53 verbose headers   'x-served-by': 'cache-dfw1829-DFW',
+53 verbose headers   'x-cache': 'HIT',
+53 verbose headers   'x-cache-hits': '1',
+53 verbose headers   'x-timer': 'S1461449494.853767,VS0,VE0',
+53 verbose headers   vary: 'Accept-Encoding' }
+54 silly get cb [ 304,
+54 silly get   { date: 'Sat, 23 Apr 2016 22:11:34 GMT',
+54 silly get     via: '1.1 varnish',
+54 silly get     'cache-control': 'max-age=300',
+54 silly get     etag: '"3PCHSPUAC6GO6AKVFEXYVZG8P"',
+54 silly get     age: '27',
+54 silly get     connection: 'keep-alive',
+54 silly get     'x-served-by': 'cache-dfw1829-DFW',
+54 silly get     'x-cache': 'HIT',
+54 silly get     'x-cache-hits': '1',
+54 silly get     'x-timer': 'S1461449494.853767,VS0,VE0',
+54 silly get     vary: 'Accept-Encoding' } ]
+55 verbose etag https://registry.npmjs.org/react-tap-event-plugin from cache
+56 verbose get saving react-tap-event-plugin to /Users/bphillips/.npm/registry.npmjs.org/react-tap-event-plugin/.cache.json
+57 silly addNameRange number 2 { name: 'react-tap-event-plugin',
+57 silly addNameRange   range: '>=0.1.8 <0.2.0',
+57 silly addNameRange   hasData: true }
+58 silly addNameRange versions [ 'react-tap-event-plugin',
+58 silly addNameRange   [ '0.1.0',
+58 silly addNameRange     '0.1.1',
+58 silly addNameRange     '0.1.2',
+58 silly addNameRange     '0.1.3',
+58 silly addNameRange     '0.1.4',
+58 silly addNameRange     '0.1.5',
+58 silly addNameRange     '0.1.6',
+58 silly addNameRange     '0.1.7',
+58 silly addNameRange     '0.1.8',
+58 silly addNameRange     '0.2.0',
+58 silly addNameRange     '0.2.1',
+58 silly addNameRange     '0.2.2',
+58 silly addNameRange     '1.0.0' ] ]
+59 silly addNamed react-tap-event-plugin@0.1.8
+60 verbose addNamed "0.1.8" is a plain semver version for react-tap-event-plugin
+61 silly cache afterAdd react-tap-event-plugin@0.1.8
+62 verbose afterAdd /Users/bphillips/.npm/react-tap-event-plugin/0.1.8/package/package.json not in flight; writing
+63 verbose afterAdd /Users/bphillips/.npm/react-tap-event-plugin/0.1.8/package/package.json written
+64 silly install resolved [ { name: 'react-tap-event-plugin',
+64 silly install resolved     version: '0.1.8',
+64 silly install resolved     description: 'Facebook\'s TapEventPlugin, temporarily available on npm until its made public in their repo',
+64 silly install resolved     main: 'src/injectTapEventPlugin.js',
+64 silly install resolved     files: [ 'src/' ],
+64 silly install resolved     scripts: { test: 'echo "Error: no test specified" && exit 1' },
+64 silly install resolved     repository:
+64 silly install resolved      { type: 'git',
+64 silly install resolved        url: 'git://github.com/zilverline/react-tap-event-plugin.git' },
+64 silly install resolved     keywords:
+64 silly install resolved      [ 'TapEventPlugin',
+64 silly install resolved        'react',
+64 silly install resolved        'touch',
+64 silly install resolved        'delay',
+64 silly install resolved        '300ms',
+64 silly install resolved        'react-tap-event-plugin' ],
+64 silly install resolved     peerDependencies:
+64 silly install resolved      { fbjs: '^0.2.1',
+64 silly install resolved        react: '^0.14.0-0 || ~0.13.x || ~0.12.x',
+64 silly install resolved        'react-dom': '^0.14.0-0' },
+64 silly install resolved     bugs: { url: 'https://github.com/zilverline/react-tap-event-plugin/issues' },
+64 silly install resolved     licenses: [ [Object] ],
+64 silly install resolved     homepage: 'http://facebook.github.io/react',
+64 silly install resolved     gitHead: '5ff662e9030b080e85780ca77f91a6ea3d4dd8f1',
+64 silly install resolved     _id: 'react-tap-event-plugin@0.1.8',
+64 silly install resolved     _shasum: '53ce78e4d2b0ea60653e1305f6f166351c5b7073',
+64 silly install resolved     _from: 'react-tap-event-plugin@>=0.1.8 <0.2.0',
+64 silly install resolved     _npmVersion: '2.1.8',
+64 silly install resolved     _nodeVersion: '0.10.33',
+64 silly install resolved     _npmUser: { name: 's0meone', email: 'daniel@danielvanhoesel.nl' },
+64 silly install resolved     maintainers: [ [Object] ],
+64 silly install resolved     dist:
+64 silly install resolved      { shasum: '53ce78e4d2b0ea60653e1305f6f166351c5b7073',
+64 silly install resolved        tarball: 'http://registry.npmjs.org/react-tap-event-plugin/-/react-tap-event-plugin-0.1.8.tgz' },
+64 silly install resolved     directories: {},
+64 silly install resolved     _resolved: 'https://registry.npmjs.org/react-tap-event-plugin/-/react-tap-event-plugin-0.1.8.tgz',
+64 silly install resolved     readme: 'ERROR: No README data found!' } ]
+65 info install react-tap-event-plugin@0.1.8 into /Users/bphillips/Desktop/TahoeToYourDoor
+66 info installOne react-tap-event-plugin@0.1.8
+67 verbose installOne of react-tap-event-plugin to /Users/bphillips/Desktop/TahoeToYourDoor not in flight; installing
+68 verbose lock using /Users/bphillips/.npm/_locks/react-tap-event-plugin-e60878bd29f1a900.lock for /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-tap-event-plugin
+69 silly install write writing react-tap-event-plugin 0.1.8 to /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-tap-event-plugin
+70 verbose unbuild node_modules/react-tap-event-plugin
+71 silly gentlyRm /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-tap-event-plugin is being purged from base /Users/bphillips/Desktop/TahoeToYourDoor
+72 verbose gentlyRm don't care about contents; nuking /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-tap-event-plugin
+73 verbose tar unpack /Users/bphillips/.npm/react-tap-event-plugin/0.1.8/package.tgz
+74 verbose tar unpacking to /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-tap-event-plugin
+75 silly gentlyRm /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-tap-event-plugin is being purged
+76 verbose gentlyRm don't care about contents; nuking /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-tap-event-plugin
+77 silly gunzTarPerm modes [ '755', '644' ]
+78 silly gunzTarPerm extractEntry package.json
+79 silly gunzTarPerm extractEntry README.md
+80 silly gunzTarPerm extractEntry LICENSE
+81 silly gunzTarPerm extractEntry src/TapEventPlugin.js
+82 silly gunzTarPerm extractEntry src/TouchEventUtils.js
+83 silly gunzTarPerm extractEntry src/injectTapEventPlugin.js
+84 verbose write writing to /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-tap-event-plugin/package.json
+85 info preinstall react-tap-event-plugin@0.1.8
+86 verbose readDependencies loading dependencies from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-tap-event-plugin/package.json
+87 silly prepareForInstallMany adding react@^0.14.0-0 || ~0.13.x || ~0.12.x from react-tap-event-plugin peerDependencies
+88 silly prepareForInstallMany adding react-dom@^0.14.0-0 from react-tap-event-plugin peerDependencies
+89 warn peerDependencies The peer dependency react@^0.14.0-0 || ~0.13.x || ~0.12.x included from react-tap-event-plugin will no
+90 warn peerDependencies longer be automatically installed to fulfill the peerDependency
+91 warn peerDependencies in npm 3+. Your application will need to depend on it explicitly.
+92 warn peerDependencies The peer dependency react-dom@^0.14.0-0 included from react-tap-event-plugin will no
+93 warn peerDependencies longer be automatically installed to fulfill the peerDependency
+94 warn peerDependencies in npm 3+. Your application will need to depend on it explicitly.
+95 verbose readDependencies loading dependencies from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-tap-event-plugin/package.json
+96 silly install resolved []
+97 verbose about to build /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-tap-event-plugin
+98 info build /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-tap-event-plugin
+99 info linkStuff react-tap-event-plugin@0.1.8
+100 silly linkStuff react-tap-event-plugin@0.1.8 has /Users/bphillips/Desktop/TahoeToYourDoor/node_modules as its parent node_modules
+101 verbose linkBins react-tap-event-plugin@0.1.8
+102 verbose linkMans react-tap-event-plugin@0.1.8
+103 verbose rebuildBundles react-tap-event-plugin@0.1.8
+104 info install react-tap-event-plugin@0.1.8
+105 info postinstall react-tap-event-plugin@0.1.8
+106 verbose readDependencies loading dependencies from /Users/bphillips/Desktop/TahoeToYourDoor/package.json
+107 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/babel-preset-es2015/package.json
+108 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/babelify/package.json
+109 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/browserify/package.json
+110 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/browserify-incremental/package.json
+111 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/es6ify/package.json
+112 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/fbjs/package.json
+113 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp/package.json
+114 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp-concat/package.json
+115 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp-notify/package.json
+116 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp-react/package.json
+117 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp-uglify/package.json
+118 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/gulp-util/package.json
+119 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/history/package.json
+120 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/lodash/package.json
+121 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/radium/package.json
+122 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react/package.json
+123 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-addons-css-transition-group/package.json
+124 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-autocomplete/package.json
+125 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-dom/package.json
+126 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-modal/package.json
+127 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-router/package.json
+128 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-tap-event-plugin/package.json
+129 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-typeahead/package.json
+130 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reactify/package.json
+131 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reflux/package.json
+132 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/reqwest/package.json
+133 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/vinyl-buffer/package.json
+134 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/vinyl-source-stream/package.json
+135 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/watchify/package.json
+136 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/.bin/browserify/package.json
+137 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/.bin/browserifyinc/package.json
+138 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/.bin/gulp/package.json
+139 verbose targetResolver reading package data from /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/.bin/watchify/package.json
+140 verbose already installed skipping react-dom@^0.14.0-0 /Users/bphillips/Desktop/TahoeToYourDoor
+141 verbose already installed skipping react@^0.14.0-0 || ~0.13.x || ~0.12.x /Users/bphillips/Desktop/TahoeToYourDoor
+142 silly install resolved []
+143 verbose unlock done using /Users/bphillips/.npm/_locks/react-tap-event-plugin-e60878bd29f1a900.lock for /Users/bphillips/Desktop/TahoeToYourDoor/node_modules/react-tap-event-plugin
+144 verbose validateInstall loading /Users/bphillips/Desktop/TahoeToYourDoor/package.json for validation
+145 verbose stack Error: The package react@15.0.1 does not satisfy its siblings' peerDependencies requirements!
+145 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:125:32
+145 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:268:7
+145 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:142:5
+145 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+145 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+145 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+145 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+145 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+145 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+145 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+146 verbose cwd /Users/bphillips/Desktop/TahoeToYourDoor
+147 error Darwin 14.5.0
+148 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "react-tap-event-plugin" "--save"
+149 error node v4.3.2
+150 error npm  v2.14.12
+151 error code EPEERINVALID
+152 error peerinvalid The package react@15.0.1 does not satisfy its siblings' peerDependencies requirements!
+152 error peerinvalid Peer react-dom@15.0.1 wants react@^15.0.1
+152 error peerinvalid Peer react-tap-event-plugin@0.1.8 wants react@^0.14.0-0 || ~0.13.x || ~0.12.x
+152 error peerinvalid Peer reflux@0.2.13 wants react@>=0.12.2 <0.15.0
+152 error peerinvalid Peer react-addons-css-transition-group@15.0.1 wants react@^15.0.1
+152 error peerinvalid Peer react-typeahead@2.0.0-alpha.1 wants react@>= 0.14
+152 error peerinvalid Peer react-modal@1.2.0 wants react@^0.14.0 || ^15.0.0-0
+153 verbose exit [ 1, true ]

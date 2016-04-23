@@ -7,6 +7,8 @@ var React = require('react'),
     Product = require('./Product.jsx'),
     CategoryList = require('./CategoryList.jsx'); 
 
+const Button = require('./Button.jsx');
+
 var Link = ReactRouter.Link;       
 
 var styles = {
@@ -57,10 +59,6 @@ var ProductList = React.createClass({
     Reflux.connect(ProductStore, 'categories'),
     Reflux.listenTo(ResizeStore, 'onResizeWindow')
   ],
-  
-  // init: function() {
-
-  // },
 
   // getStateFromStore: function(props) {
   //   var { id } = props ? props.params : this.props.params;
@@ -122,6 +120,7 @@ var ProductList = React.createClass({
               {index}
             </Link>
             <Link to={`/products/${index}`} style={styles.viewMoreButton}>View More &nbsp; &gt;</Link>
+            <Button label="test" />
           </h3>
 
           <div style={styles.listWrapper}>

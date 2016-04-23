@@ -3,8 +3,6 @@ var React = require('react'),
     AppActions = require('../actions/AppActions'),    
     ProductStore = require('../stores/ProductStore'),
     ResizeStore = require('../stores/ResizeStore'),
-    FlatButton = require('material-ui/lib/flat-button'),
-    AppBar = require('material-ui/lib/app-bar'),
     ReactTypeahead = require('react-typeahead');
 
 var Typeahead = ReactTypeahead.Typeahead;

@@ -61,7 +61,7 @@ gem 'pundit'
 gem 'annotate'
 
 gem 'browserify-rails'
-gem 'react-rails', '~> 1.0'
+gem 'react-rails', '~> 1.6.2'
 
 gem 'faker'
 

@@ -2,22 +2,10 @@ var React = require('react');
 var AppActions = require('../actions/AppActions');
 var Radium = require('radium');
 var ProductStore = require('../stores/ProductStore');
-var Dialog = require('material-ui/lib/dialog');
-// var Toggle = require('material-ui/lib/toggle');
-// var Colors = require('material-ui/lib/styles/colors');
-// var Paper = require('material-ui/lib/paper');
-// var FontIcon = require('material-ui/lib/font-icon');
-var FlatButton = require('material-ui/lib/flat-button');
-var RaisedButton = require('material-ui/lib/raised-button');
-// var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var ProductInfoDialog = require('./ProductInfoDialog.jsx');
 var Button = require('./Button.jsx');
 
 var ProductButtons = require('./ProductButtons.jsx')
-
-var ThemeManager = require('material-ui/lib/styles/theme-manager'); 
-
-var LightRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme');
 
 var styles = {
   container: {

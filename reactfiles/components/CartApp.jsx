@@ -7,14 +7,9 @@ var React = require('react'),
     CartSidebar = require('./CartSidebar.jsx'),
     WindowDimensions = require('./WindowDimensions.jsx');
 
-var FlatButton = require('material-ui/lib/flat-button');
-
 var ReactRouter = require('react-router');
 var RouteHandler = ReactRouter.RouteHandler;
 var History = ReactRouter.History;
-var ThemeManager = require('material-ui/lib/styles/theme-manager'); 
-
-var LightRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme');
 
 function getCartState() {
   return {
@@ -54,26 +49,9 @@ var styles = {
 var CartApp = React.createClass({
   mixins: [Reflux.listenTo(AppStore, 'onUpdateCartVisible'), History],
 
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-
-  // getInitialState: function() {
-  //   return {
-  //     muiTheme: ThemeManager.getMuiTheme(LightRawTheme)
-  //   }
-  // },
-
-  getChildContext: function() {
-    return {
-        muiTheme: this.state.muiTheme
-    };
-  },  
-
   getInitialState: function() {
     return {
       cartVisible: true,
-      muiTheme: ThemeManager.getMuiTheme(LightRawTheme)
     }
   },
 
