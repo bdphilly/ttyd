@@ -10,13 +10,13 @@ var styles = {
 };
 
 const Button = React.createClass({
-  _handleClick () {
-    console.log('the button is clicked!');
+  handleClick: function () {
+    this.props.clickHandler();    
   },
 
   render () {
     return (
-      <button style={this.props.style || styles.buttonDefault} onClick={this._handleClick}>
+      <button style={this.props.style || styles.buttonDefault} onClick={this.handleClick}>
         {this.props.label}
       </button>      
     )

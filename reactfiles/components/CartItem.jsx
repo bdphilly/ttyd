@@ -59,10 +59,10 @@ var CartItem = React.createClass({
 
     if (change == 'increase') {
       cartItem.quantity += 1;
-      AppActions.updateItemInCart(cartItem);
+      AppActions.addOrUpdateCart(cartItem);
     } else if (this.props.product.quantity > 1) {
       cartItem.quantity -= 1;
-      AppActions.updateItemInCart(cartItem);
+      AppActions.addOrUpdateCart(cartItem);
     } else {
       //AppActions.removeFromCart(this.props.product.id);
     }

@@ -1,33 +1,12 @@
-    // return (      
-    //   <Dialog ref="dialog" 
-    //           title={this.props.product.name}                  
-    //           actions={customActions}              
-    //           modal={true}>
-    //     The internals of the dialog!
-    //   </Dialog>        
-    // );
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 var Radium = require('radium');
 var ProductStore = require('../stores/ProductStore');
-var Dialog = require('material-ui/lib/dialog');
-var Toggle = require('material-ui/lib/toggle');
-var Colors = require('material-ui/lib/styles/colors');
-var Paper = require('material-ui/lib/paper');
-var FontIcon = require('material-ui/lib/font-icon');
-var FlatButton = require('material-ui/lib/flat-button');
-var RaisedButton = require('material-ui/lib/raised-button');
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
-
+var CartStore = require('../stores/CartStore');
 
 const Button = require('./Button.jsx');
 var Modal = require('react-modal');
-
-
-
-var ThemeManager = require('material-ui/lib/styles/theme-manager'); 
-
-var LightRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme');
 
 var styles = {
   container: {
@@ -107,80 +86,10 @@ const modalStyle = {
   }
 };
 
-// var ProductInfoDialog = React.createClass({
-//   _handleCustomDialogCancel: function() {
-//     this.refs.dialog.dismiss();
-//   },
-
-//   _handleCustomDialogSubmit: function(event) {
-//     AppActions.addToCart(this.props.product);    
-//     AppActions.updateCartVisible(true);
-//     this.refs.dialog.dismiss();
-//   },
-
-//   render: function() {
-//     var product = this.props.product;
-
-//     var customActions = [
-//       <FlatButton
-//         label="Cancel"
-//         secondary={true}
-//         key={product.id}
-//         onTouchTap={this._handleCustomDialogCancel} />,
-//       <FlatButton
-//         label="Submit"
-//         primary={true}
-//         key={product.id}
-//         onTouchTap={this._handleCustomDialogSubmit} />
-//     ];      
-
-//     return (      
-//       <Dialog ref="dialog" 
-//               title={this.props.product.name}                  
-//               actions={customActions}
-//               modal={true}>
-//         The internals of the dialog!
-//       </Dialog>        
-//     );
-//   }  
-
-// })
-
 var ProductInfoDialog = React.createClass({
-  _handleCustomDialogCancel: function() {
-    this.refs.dialog.dismiss();
-  },
-
-  _handleCustomDialogSubmit: function(event) {
-    AppActions.addToCart(this.props.product);
-    AppActions.updateCartVisible(true);
-    this.refs.dialog.dismiss();
-  },
-
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-
-  getChildContext: function() {
-    return {
-        muiTheme: this.state.muiTheme
-    };
-  },  
-
-  // getInitialState: function() {
-  //   return {
-  //     muiTheme: ThemeManager.getMuiTheme(LightRawTheme)
-  //   }
-  // },
-
-  // showDialog: function() {
-  //   this.refs.dialog.show();
-  // },
-
   componentWillMount() {
-    var el = document.getElementById('ttyd-app');
-    Modal.setAppElement(el);
-    // Modal.setAppElement('#ttyd-app');
+    // var el = document.getElementById('ttyd-app');
+    Modal.setAppElement('#ttyd-app');
   },
   
   getInitialState: function() {
@@ -192,7 +101,6 @@ var ProductInfoDialog = React.createClass({
   },
 
   afterOpenModal: function() {
-    // references are now sync'd and can be accessed.
     this.refs.subtitle.style.color = '#f00';
     this.refs.myModal.props.style.content.opacity = '100%';
     this.refs.myModal.props.style.content.top = '50%';
@@ -202,27 +110,27 @@ var ProductInfoDialog = React.createClass({
     this.refs.myModal.props.style.content.opacity = '0%';
     this.refs.myModal.props.style.content.top = '0px';
     this.setState({modalIsOpen: false});
-  },  
+  },
+
+  submitModal: function() {
+    AppActions.addOrUpdateCart(this.props.product);
+    AppActions.updateCartVisible(true);
+    this.closeModal();
+  },
 
   render: function() {
     var product = this.props.product;
 
-    var cancelButtonStyle = {
-      color: '#000',
-      background: '#ccc'
-    }
-
-    var customActions = [
-      <Button
-        label="Cancel"
-        key={product.id}
-        style={cancelButtonStyle} />,
-      <RaisedButton
-        label="Submit"
-        primary={true}
-        key={product.id + 1}
-        onTouchTap={this._handleCustomDialogSubmit} />
-    ];      
+    var modalButtonStyles = {
+      cancel: {
+        color: '#000',
+        background: '#ccc'
+      },
+      submit: {
+        color: '#fff',
+        background: '#000'
+      }
+    };  
 
     return (        
       <Modal
@@ -234,9 +142,18 @@ var ProductInfoDialog = React.createClass({
         ref="myModal" >
 
         <h2 ref="subtitle">Hello</h2>
-        <button onClick={this.closeModal}>close</button>
         <div>I am a modal</div>
         <div>Here is some stuff...</div>
+        
+        <Button
+          label="Cancel"
+          clickHandler={this.closeModal}
+          style={modalButtonStyles.cancel} />
+        
+        <Button
+          label="Submit"
+          clickHandler={this.submitModal}
+          style={modalButtonStyles.submit} />          
       </Modal>
     );
   }  
