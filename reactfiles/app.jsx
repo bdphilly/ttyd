@@ -19,13 +19,13 @@ var React = require('react'),
 
 injectTapEventPlugin();
 
-// var routes = (
-//   <Route path="/" component={CartApp}>
-//     <IndexRoute component={ProductList} />
-//     <Route path="/products" component={ProductList}/>
-//     <Route path="/products/:categoryId" component={AisleList}/>    
-//   </Route>
-// );
+var routes = (
+  <Route path="/" component={CartApp}>
+    <IndexRoute component={ProductList} />
+    <Route path="/products" component={ProductList}/>
+    <Route path="/products/:categoryId" component={AisleList}/>    
+  </Route>
+);
 
 // var routes = (
 //   <Route name="app" path="/" handler={CartApp}>
@@ -46,7 +46,7 @@ var ready = function () {
   // });
 
   ReactDOM.render(
-    // <Router history={createBrowserHistory()} routes={routes}/>, document.getElementById('ttyd-app')
+    <Router history={createBrowserHistory()} routes={routes}/>, document.getElementById('ttyd-app')
   );
 
 };

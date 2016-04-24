@@ -59,7 +59,7 @@ var watcher = watchify(bundler);
 function bundle() {
   return watcher.bundle()
     .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-    .pipe(source('reactApp.jsx'))
+    .pipe(source('reactApp.js'))
     // .pipe(buffer()) //put back in for production
     // .pipe(uglify()) //put back in for production
     .pipe(gulp.dest('./app/assets/javascripts/'));
