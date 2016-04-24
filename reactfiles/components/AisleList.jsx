@@ -18,6 +18,19 @@ var styles = {
 
   wrapper: {   
     margin: '0 auto'
+  },
+
+  backButton: {
+    background: '#B25DDE',
+    borderRadius: '5px',
+    border: 0,
+    fontSize: '16px',
+    color: '#fff',
+    padding: '10px',
+    marginLeft: '20px',
+    cursor: 'pointer',
+    fontWeight: '300',
+    float: 'left'
   }
 }
 
@@ -80,7 +93,7 @@ var AisleList = React.createClass({
     
     return (
       <div style={styles.wrapper} ref="aisleList">
-        <Link to="/products">...Back</Link>
+        <Link to="/products" style={styles.backButton}>&nbsp; &lt; Back</Link>
 
         <h2 style={styles.header}>{this.props.params.categoryId}</h2>
 

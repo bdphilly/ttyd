@@ -6,6 +6,7 @@ var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 var CartStore = require('../stores/CartStore');
 
 const Button = require('./Button.jsx');
+const ProductButtons = require('./ProductButtons.jsx');
 var Modal = require('react-modal');
 
 var styles = {
@@ -20,6 +21,12 @@ var styles = {
     ':hover': {},
 
     transition: 'all 500ms'
+  },
+
+  prodButtonsWrapper: {
+    top: '0px',
+    right: '0px',
+    position: 'absolute'
   },
 
   actionItems: {
@@ -82,7 +89,10 @@ const modalStyle = {
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
     opacity               : '0%',
-    transition            : 'all 500ms'
+    transition            : 'all 500ms',
+    width                 : '40%',
+    height                 : '40%'
+
   }
 };
 
@@ -132,7 +142,7 @@ var ProductInfoDialog = React.createClass({
       }
     };  
 
-    return (        
+    return (
       <Modal
         isOpen={this.state.modalIsOpen}
         onAfterOpen={this.afterOpenModal}
@@ -142,9 +152,13 @@ var ProductInfoDialog = React.createClass({
         ref="myModal" >
 
         <h2 ref="subtitle">Hello</h2>
-        <div>I am a modal</div>
-        <div>Here is some stuff...</div>
+        <div>Item Name: {product.name}</div>
         
+        <div style={styles.prodButtonsWrapper}>
+          <ProductButtons product={product} quantity={this.props.quantity} />
+        </div>
+        
+        <div>testtest</div>
         <Button
           label="Cancel"
           clickHandler={this.closeModal}
@@ -157,8 +171,6 @@ var ProductInfoDialog = React.createClass({
       </Modal>
     );
   }  
-
 })
-
 
 module.exports = ProductInfoDialog;            

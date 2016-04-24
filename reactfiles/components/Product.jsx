@@ -22,6 +22,14 @@ var styles = {
     transition: 'all 500ms'
   },
 
+  prodButtonsWrapper: {
+    top: '151px',
+    right: '0px',
+    position: 'absolute',
+    width: '100%',
+    borderTop: '1px solid #B25DDE'
+  },
+
   image: {
     width: '175px',
     height: '175px',
@@ -122,7 +130,9 @@ var Product = React.createClass({
             {Radium.getState(this.state, 'keyForProduct', ':hover') ? (              
               <div>
                 {productQuantity}
-                <ProductButtons product={product} quantity={this.props.quantity} />    
+                <div style={styles.prodButtonsWrapper}>
+                  <ProductButtons product={product} quantity={this.props.quantity} />    
+                </div>
               </div>
             ) : this.props.quantity ? 
               <div style={styles.quantityPill}>
@@ -137,7 +147,7 @@ var Product = React.createClass({
             <p className="product-details">{product.details}</p>            
           </div>          
 
-          <ProductInfoDialog product={product} key="product.id" showing={this.state.dialogShowing} ref="productInfoDialog"/>
+          <ProductInfoDialog product={product} key="product.id" showing={this.state.dialogShowing} quantity={ProductQuantity} ref="productInfoDialog"/>
         </li>
     );
   }

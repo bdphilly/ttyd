@@ -44190,7 +44190,19 @@ var styles = {
     fontSize: '42px',
     textAlign: 'center'
   },
-  wrapper: {margin: '0 auto'}
+  wrapper: {margin: '0 auto'},
+  backButton: {
+    background: '#B25DDE',
+    borderRadius: '5px',
+    border: 0,
+    fontSize: '16px',
+    color: '#fff',
+    padding: '10px',
+    marginLeft: '20px',
+    cursor: 'pointer',
+    fontWeight: '300',
+    float: 'left'
+  }
 };
 var resizeTimeout;
 var AisleList = React.createClass({
@@ -44231,7 +44243,10 @@ var AisleList = React.createClass({
     return (React.createElement("div", {
       style: styles.wrapper,
       ref: "aisleList"
-    }, React.createElement(Link, {to: "/products"}, "...Back"), React.createElement("h2", {style: styles.header}, this.props.params.categoryId), React.createElement(CategoryList, {
+    }, React.createElement(Link, {
+      to: "/products",
+      style: styles.backButton
+    }, "  < Back"), React.createElement("h2", {style: styles.header}, this.props.params.categoryId), React.createElement(CategoryList, {
       products: products,
       key: this.props.params.categoryId
     })));
@@ -44797,6 +44812,13 @@ var styles = {
     ':hover': {},
     transition: 'all 500ms'
   },
+  prodButtonsWrapper: {
+    top: '151px',
+    right: '0px',
+    position: 'absolute',
+    width: '100%',
+    borderTop: '1px solid #B25DDE'
+  },
   image: {
     width: '175px',
     height: '175px',
@@ -44884,16 +44906,17 @@ var Product = React.createClass({
     }, React.createElement("img", {
       src: 'https://s3-us-west-1.amazonaws.com/ttyd/photos/' + this.props.product.photo_file_name,
       style: styles.image
-    }), Radium.getState(this.state, 'keyForProduct', ':hover') ? (React.createElement("div", null, productQuantity, React.createElement(ProductButtons, {
+    }), Radium.getState(this.state, 'keyForProduct', ':hover') ? (React.createElement("div", null, productQuantity, React.createElement("div", {style: styles.prodButtonsWrapper}, React.createElement(ProductButtons, {
       product: product,
       quantity: this.props.quantity
-    }))) : this.props.quantity ? React.createElement("div", {style: styles.quantityPill}, this.props.quantity) : null), React.createElement("div", {
+    })))) : this.props.quantity ? React.createElement("div", {style: styles.quantityPill}, this.props.quantity) : null), React.createElement("div", {
       className: "product-detail-wrapper",
       style: styles.detailWrapper
     }, React.createElement("h3", {style: styles.productName}, product.name), React.createElement("p", {className: "product-details"}, product.details)), React.createElement(ProductInfoDialog, {
       product: product,
       key: "product.id",
       showing: this.state.dialogShowing,
+      quantity: ProductQuantity,
       ref: "productInfoDialog"
     })));
   }
@@ -44926,13 +44949,6 @@ var styles = {
     textAlign: 'right',
     padding: '10px'
   },
-  actionItemsWrapper: {
-    position: 'absolute',
-    width: '100%',
-    top: '150px',
-    borderTop: '1px solid #B25DDE',
-    backgroundImage: 'linear-gradient(rgba(255,255,255,0.75), #fff)'
-  },
   addText: {
     fontSize: '16px',
     lineHeight: '16px',
@@ -44957,7 +44973,7 @@ var ProductButtons = React.createClass({
       style: styles.productButton,
       key: "keyForMinusButton"
     }, React.createElement("i", {className: "fa fa-minus"})) : null;
-    return (React.createElement("div", {style: styles.actionItemsWrapper}, React.createElement("div", {
+    return (React.createElement("div", {
       className: "action-items",
       style: styles.actionItems
     }, minusButton, React.createElement("button", {
@@ -44965,7 +44981,7 @@ var ProductButtons = React.createClass({
       className: "plus",
       style: styles.productButton,
       key: "keyForPlusButton"
-    }, React.createElement("i", {className: "fa fa-plus"}), React.createElement("span", {style: styles.addText}, "ADD")))));
+    }, React.createElement("i", {className: "fa fa-plus"}), React.createElement("span", {style: styles.addText}, "ADD"))));
   }
 });
 module.exports = Radium(ProductButtons);
@@ -44980,6 +44996,7 @@ var ProductStore = require('../stores/ProductStore');
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 var CartStore = require('../stores/CartStore');
 var Button = require('./Button.jsx');
+var ProductButtons = require('./ProductButtons.jsx');
 var Modal = require('react-modal');
 var styles = {
   container: {
@@ -44991,6 +45008,11 @@ var styles = {
     boxShadow: '0 3px 10px rgba(0, 0, 0, 0.23',
     ':hover': {},
     transition: 'all 500ms'
+  },
+  prodButtonsWrapper: {
+    top: '0px',
+    right: '0px',
+    position: 'absolute'
   },
   actionItems: {
     position: 'absolute',
@@ -45042,7 +45064,9 @@ var modalStyle = {content: {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     opacity: '0%',
-    transition: 'all 500ms'
+    transition: 'all 500ms',
+    width: '40%',
+    height: '40%'
   }};
 var ProductInfoDialog = React.createClass({
   displayName: "ProductInfoDialog",
@@ -45089,7 +45113,10 @@ var ProductInfoDialog = React.createClass({
       style: modalStyle,
       closeTimeoutMS: 500,
       ref: "myModal"
-    }, React.createElement("h2", {ref: "subtitle"}, "Hello"), React.createElement("div", null, "I am a modal"), React.createElement("div", null, "Here is some stuff..."), React.createElement(Button, {
+    }, React.createElement("h2", {ref: "subtitle"}, "Hello"), React.createElement("div", null, "Item Name: ", product.name), React.createElement("div", {style: styles.prodButtonsWrapper}, React.createElement(ProductButtons, {
+      product: product,
+      quantity: this.props.quantity
+    })), React.createElement("div", null, "testtest"), React.createElement(Button, {
       label: "Cancel",
       clickHandler: this.closeModal,
       style: modalButtonStyles.cancel
@@ -45103,7 +45130,7 @@ var ProductInfoDialog = React.createClass({
 module.exports = ProductInfoDialog;
 
 //# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/ProductInfoDialog.jsx
-},{"../actions/AppActions":304,"../stores/CartStore":321,"../stores/ProductStore":322,"./Button.jsx":307,"radium":50,"react":283,"react-addons-css-transition-group":67,"react-modal":75}],318:[function(require,module,exports){
+},{"../actions/AppActions":304,"../stores/CartStore":321,"../stores/ProductStore":322,"./Button.jsx":307,"./ProductButtons.jsx":316,"radium":50,"react":283,"react-addons-css-transition-group":67,"react-modal":75}],318:[function(require,module,exports){
 "use strict";
 var React = require('react'),
     Reflux = require('reflux'),
@@ -45191,7 +45218,7 @@ var ProductList = React.createClass({
       }, index), React.createElement(Link, {
         to: ("/products/" + index),
         style: styles.viewMoreButton
-      }, "View More   >"), React.createElement(Button, {label: "test"})), React.createElement("div", {style: styles.listWrapper}, React.createElement(CategoryList, {
+      }, "View More   >")), React.createElement("div", {style: styles.listWrapper}, React.createElement(CategoryList, {
         products: products.slice(0, self.state.productsPerRow),
         key: index
       }))));

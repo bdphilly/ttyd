@@ -27,14 +27,6 @@ var styles = {
     padding: '10px'    
   },
 
-  actionItemsWrapper: {
-    position: 'absolute',
-    width: '100%',
-    top: '150px',
-    borderTop: '1px solid #B25DDE',
-    backgroundImage: 'linear-gradient(rgba(255,255,255,0.75), #fff)'    
-  },
-
   addText: {
     fontSize: '16px',
     lineHeight: '16px',
@@ -61,14 +53,12 @@ var ProductButtons = React.createClass({
       </button> : null;
 
     return (
-      <div style={styles.actionItemsWrapper}>  
-        <div className="action-items" style={styles.actionItems}>
-          {minusButton}          
-          <button onClick={this._handleDialogTouchTap} className="plus" style={styles.productButton} key="keyForPlusButton">
-            <i className="fa fa-plus"></i>            
-            <span style={styles.addText}>ADD</span>
-          </button>        
-        </div>
+      <div className="action-items" style={styles.actionItems}>
+        {minusButton}          
+        <button onClick={this._handleDialogTouchTap} className="plus" style={styles.productButton} key="keyForPlusButton">
+          <i className="fa fa-plus"></i>            
+          <span style={styles.addText}>ADD</span>
+        </button>        
       </div>
     )
   }

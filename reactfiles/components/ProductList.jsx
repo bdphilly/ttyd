@@ -120,7 +120,6 @@ var ProductList = React.createClass({
               {index}
             </Link>
             <Link to={`/products/${index}`} style={styles.viewMoreButton}>View More &nbsp; &gt;</Link>
-            <Button label="test" />
           </h3>
 
           <div style={styles.listWrapper}>
