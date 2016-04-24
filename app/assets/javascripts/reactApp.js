@@ -44797,7 +44797,7 @@ var React = require('react');
 var AppActions = require('../actions/AppActions');
 var Radium = require('radium');
 var ProductStore = require('../stores/ProductStore');
-var ProductInfoDialog = require('./ProductInfoDialog.jsx');
+var ProductInfoModal = require('./ProductInfoModal.jsx');
 var Button = require('./Button.jsx');
 var ProductButtons = require('./ProductButtons.jsx');
 var styles = {
@@ -44890,7 +44890,7 @@ var Product = React.createClass({
     return {dialogShowing: false};
   },
   _displayDialog: function(e) {
-    this.refs.productInfoDialog.openModal();
+    this.refs.productInfoModal.openModal();
   },
   render: function() {
     var product = this.props.product;
@@ -44912,19 +44912,19 @@ var Product = React.createClass({
     })))) : this.props.quantity ? React.createElement("div", {style: styles.quantityPill}, this.props.quantity) : null), React.createElement("div", {
       className: "product-detail-wrapper",
       style: styles.detailWrapper
-    }, React.createElement("h3", {style: styles.productName}, product.name), React.createElement("p", {className: "product-details"}, product.details)), React.createElement(ProductInfoDialog, {
+    }, React.createElement("h3", {style: styles.productName}, product.name), React.createElement("p", {className: "product-details"}, product.details)), React.createElement(ProductInfoModal, {
       product: product,
       key: "product.id",
       showing: this.state.dialogShowing,
       quantity: ProductQuantity,
-      ref: "productInfoDialog"
+      ref: "productInfoModal"
     })));
   }
 });
 module.exports = Radium(Product);
 
 //# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/Product.jsx
-},{"../actions/AppActions":304,"../stores/ProductStore":322,"./Button.jsx":307,"./ProductButtons.jsx":316,"./ProductInfoDialog.jsx":317,"radium":50,"react":283}],316:[function(require,module,exports){
+},{"../actions/AppActions":304,"../stores/ProductStore":322,"./Button.jsx":307,"./ProductButtons.jsx":316,"./ProductInfoModal.jsx":317,"radium":50,"react":283}],316:[function(require,module,exports){
 "use strict";
 var React = require('react');
 var AppActions = require('../actions/AppActions');
@@ -45068,8 +45068,8 @@ var modalStyle = {content: {
     width: '40%',
     height: '40%'
   }};
-var ProductInfoDialog = React.createClass({
-  displayName: "ProductInfoDialog",
+var ProductInfoModal = React.createClass({
+  displayName: "ProductInfoModal",
   componentWillMount: function() {
     Modal.setAppElement('#ttyd-app');
   },
@@ -45113,7 +45113,7 @@ var ProductInfoDialog = React.createClass({
       style: modalStyle,
       closeTimeoutMS: 500,
       ref: "myModal"
-    }, React.createElement("h2", {ref: "subtitle"}, "Hello"), React.createElement("div", null, "Item Name: ", product.name), React.createElement("div", {style: styles.prodButtonsWrapper}, React.createElement(ProductButtons, {
+    }, React.createElement("h2", {ref: "subtitle"}, product.name), React.createElement("div", null, "Item Id: ", product.id), React.createElement("div", {style: styles.prodButtonsWrapper}, React.createElement(ProductButtons, {
       product: product,
       quantity: this.props.quantity
     })), React.createElement("div", null, "testtest"), React.createElement(Button, {
@@ -45127,9 +45127,9 @@ var ProductInfoDialog = React.createClass({
     })));
   }
 });
-module.exports = ProductInfoDialog;
+module.exports = ProductInfoModal;
 
-//# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/ProductInfoDialog.jsx
+//# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/ProductInfoModal.jsx
 },{"../actions/AppActions":304,"../stores/CartStore":321,"../stores/ProductStore":322,"./Button.jsx":307,"./ProductButtons.jsx":316,"radium":50,"react":283,"react-addons-css-transition-group":67,"react-modal":75}],318:[function(require,module,exports){
 "use strict";
 var React = require('react'),

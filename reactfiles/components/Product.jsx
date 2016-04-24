@@ -2,7 +2,7 @@ var React = require('react');
 var AppActions = require('../actions/AppActions');
 var Radium = require('radium');
 var ProductStore = require('../stores/ProductStore');
-var ProductInfoDialog = require('./ProductInfoDialog.jsx');
+var ProductInfoModal = require('./ProductInfoModal.jsx');
 var Button = require('./Button.jsx');
 
 var ProductButtons = require('./ProductButtons.jsx')
@@ -111,9 +111,9 @@ var Product = React.createClass({
   }, 
 
   _displayDialog: function(e) {
-    // if (!this.state.dialogShowing) this.refs.productInfoDialog.showDialog();
+    // if (!this.state.dialogShowing) this.refs.productInfoModal.showDialog();
     // this.state.dialogShowing = !this.state.dialogShowing;
-    this.refs.productInfoDialog.openModal();
+    this.refs.productInfoModal.openModal();
   },
 
 
@@ -147,7 +147,7 @@ var Product = React.createClass({
             <p className="product-details">{product.details}</p>            
           </div>          
 
-          <ProductInfoDialog product={product} key="product.id" showing={this.state.dialogShowing} quantity={ProductQuantity} ref="productInfoDialog"/>
+          <ProductInfoModal product={product} key="product.id" showing={this.state.dialogShowing} quantity={ProductQuantity} ref="productInfoModal"/>
         </li>
     );
   }

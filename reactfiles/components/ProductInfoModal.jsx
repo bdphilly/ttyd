@@ -96,7 +96,7 @@ const modalStyle = {
   }
 };
 
-var ProductInfoDialog = React.createClass({
+var ProductInfoModal = React.createClass({
   componentWillMount() {
     // var el = document.getElementById('ttyd-app');
     Modal.setAppElement('#ttyd-app');
@@ -151,8 +151,8 @@ var ProductInfoDialog = React.createClass({
         closeTimeoutMS={500}
         ref="myModal" >
 
-        <h2 ref="subtitle">Hello</h2>
-        <div>Item Name: {product.name}</div>
+        <h2 ref="subtitle">{product.name}</h2>
+        <div>Item Id: {product.id}</div>
         
         <div style={styles.prodButtonsWrapper}>
           <ProductButtons product={product} quantity={this.props.quantity} />
@@ -173,4 +173,4 @@ var ProductInfoDialog = React.createClass({
   }  
 })
 
-module.exports = ProductInfoDialog;            
+module.exports = ProductInfoModal;
