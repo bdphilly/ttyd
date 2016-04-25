@@ -124,7 +124,7 @@ var Product = React.createClass({
         <li className={"product" + (this.props.quantity ? " in-cart" : "") } key="keyForProduct" style={styles.container} onClick={this._displayDialog}>
           <div className="media" style={styles.media}>
 
-            <img src={'https://s3-us-west-1.amazonaws.com/ttyd/photos/' + this.props.product.photo_file_name}
+            <img src={this.props.product.photo_url}
               style={styles.image} />
 
             {Radium.getState(this.state, 'keyForProduct', ':hover') ? (              

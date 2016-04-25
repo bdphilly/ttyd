@@ -49,6 +49,7 @@ Rails.application.configure do
     s3_host_name: 's3-us-west-1.amazonaws.com',
     bucket: 'ttyd',
     s3_credentials: "#{Rails.root}/config/aws.yml",
-    path: "photos/:filename"
+    url: "/images/:class/:id/:style/:filename",
+    path: "/images/:class/:id/:style/:filename"
   }
 end

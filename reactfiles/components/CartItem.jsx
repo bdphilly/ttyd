@@ -83,7 +83,7 @@ var CartItem = React.createClass({
           </a>
         </td>
         <td style={styles.columnWrapper}>
-          <img src={'https://s3-us-west-1.amazonaws.com/ttyd/photos/' + product.product.photo_file_name} style={styles.image} />
+          <img src={product.product.photo_url} style={styles.image} />
         </td>        
         <td style={styles.columnWrapper}>
           <span style={styles.productName}>{product.product.name}</span>

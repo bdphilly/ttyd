@@ -44549,7 +44549,7 @@ var CartItem = React.createClass({
       href: "#",
       style: [product.quantity == 1 && styles.minusButtonDisabled]
     }, React.createElement("i", {className: "fa fa-caret-down"}))), React.createElement("td", {style: styles.columnWrapper}, React.createElement("img", {
-      src: 'https://s3-us-west-1.amazonaws.com/ttyd/photos/' + product.product.photo_file_name,
+      src: product.product.photo_url,
       style: styles.image
     })), React.createElement("td", {style: styles.columnWrapper}, React.createElement("span", {style: styles.productName}, product.product.name)), React.createElement("td", {style: styles.columnWrapper}, React.createElement("i", {
       className: "fa fa-times",
@@ -44904,7 +44904,7 @@ var Product = React.createClass({
       className: "media",
       style: styles.media
     }, React.createElement("img", {
-      src: 'https://s3-us-west-1.amazonaws.com/ttyd/photos/' + this.props.product.photo_file_name,
+      src: this.props.product.photo_url,
       style: styles.image
     }), Radium.getState(this.state, 'keyForProduct', ':hover') ? (React.createElement("div", null, productQuantity, React.createElement("div", {style: styles.prodButtonsWrapper}, React.createElement(ProductButtons, {
       product: product,

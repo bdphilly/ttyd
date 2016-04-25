@@ -8,7 +8,7 @@ class API::OrderItemsController < ApplicationController
       render json: {
         :status => :ok,
         :message => "Success!",
-        :data => @order_items.as_json(include: :product)       
+        :data => @order_items.as_json({ :include => { :product => { :methods => :photo_url }}})          
           # orderItems: @current_order.order_items.map do |order_item| 
           #   {
           #     orderItem: order_item,

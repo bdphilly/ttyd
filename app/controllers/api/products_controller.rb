@@ -2,11 +2,10 @@ class API::ProductsController < ApplicationController
   def index
     @aisles = Aisle.all
     # @products = Product.all    
-
     render json: {
       :status => :ok,
       :message => "Success!",
-      :data => @aisles.as_json(include: :products)    
+      :data => @aisles.as_json({ :include => { :products => { :methods => :photo_url }}})
     }
   end
 
