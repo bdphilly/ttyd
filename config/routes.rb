@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
   namespace :api, defaults: { format: :json} do
-    resources :products, only: [:index]
+    resources :products, only: [:index, :search] do
+      # :index
+      get 'search', :on => :collection
+    end
     resources :order_items, only: [:index, :show, :create, :update, :destroy]
     resource :orders, only: [:show, :destroy]
   end
@@ -13,6 +16,8 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
+  get '*path' => redirect('/')
 
   # get '*path' => redirect('/')
   # The priority is based upon order of creation: first created -> highest priority.

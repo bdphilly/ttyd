@@ -44161,6 +44161,9 @@ var routes = (React.createElement(Route, {
 }), React.createElement(Route, {
   path: "/products/:categoryId",
   component: AisleList
+}), React.createElement(Route, {
+  path: "/products/search/:searchTerm",
+  component: AisleList
 })));
 var ready = function() {
   ReactDOM.render(React.createElement(Router, {

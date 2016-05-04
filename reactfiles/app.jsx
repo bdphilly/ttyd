@@ -23,7 +23,7 @@ var routes = (
   <Route path="/" component={CartApp}>
     <IndexRoute component={ProductList} />
     <Route path="/products" component={ProductList}/>
-    <Route path="/products/:categoryId" component={AisleList}/>    
+    <Route path="/products/:categoryId" component={AisleList}/>
   </Route>
 );
 

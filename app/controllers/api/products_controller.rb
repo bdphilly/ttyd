@@ -9,6 +9,16 @@ class API::ProductsController < ApplicationController
     }
   end
 
+  def search
+    @products = Product.where(name: params[:name])
+
+    render json: {
+      :status => :ok,
+      :message => "Success!",
+      :data => @products.as_json
+    }
+  end
+
   private
 
     def categorize      
