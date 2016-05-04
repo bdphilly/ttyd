@@ -3,7 +3,9 @@ var React = require('react'),
     AppActions = require('../actions/AppActions'),    
     ProductStore = require('../stores/ProductStore'),
     ResizeStore = require('../stores/ResizeStore'),
-    ReactTypeahead = require('react-typeahead');
+    ReactTypeahead = require('react-typeahead'),
+    ReactRouter = require('react-router'),
+    History = ReactRouter.History;
 
 var Typeahead = ReactTypeahead.Typeahead;
 var blurTimer;
@@ -84,6 +86,7 @@ var Header = React.createClass({
   mixins: [
     Reflux.listenTo(ProductStore, 'onFetchProducts'),
     Reflux.listenTo(ResizeStore, 'onResizeWindow'),
+    History
   ],
 
   onFetchProducts: function(categories) {
@@ -144,19 +147,10 @@ var Header = React.createClass({
 
   },
 
-  _hideDropdownList: function(event) {
-    blurTimer = setTimeout(function() {
-      ReactDOM.findDOMNode(this.refs.typeahead.refs.entry.nextSibling).style.display = "none";
-    }.bind(this), 100);
-  },
-
-  _showDropdownList: function() {
-    ReactDOM.findDOMNode(this.refs.typeahead.refs.entry.nextSibling).style.display = "";
-  },
-
   _handleOptionSelected: function(option) {
     clearTimeout(blurTimer);
-    console.log('option selected', option);    
+    console.log('option selected', option);
+    this.history.pushState(null, '/');    
   },
 
   render: function() {
@@ -184,8 +178,6 @@ var Header = React.createClass({
             options={this.state.products.map(function (product) {return product.name})}
             className="topcoat-typeahead"
             onOptionSelected={this._handleOptionSelected}                        
-            onKeyDown={this._showDropdownList}
-            onBlur={this._hideDropdownList}
             placeholder="Search for an item..."
             ref="typeahead"
             customClasses={{

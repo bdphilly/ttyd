@@ -44161,9 +44161,6 @@ var routes = (React.createElement(Route, {
 }), React.createElement(Route, {
   path: "/products/:categoryId",
   component: AisleList
-}), React.createElement(Route, {
-  path: "/products/search/:searchTerm",
-  component: AisleList
 })));
 var ready = function() {
   ReactDOM.render(React.createElement(Router, {
@@ -44644,7 +44641,9 @@ var React = require('react'),
     AppActions = require('../actions/AppActions'),
     ProductStore = require('../stores/ProductStore'),
     ResizeStore = require('../stores/ResizeStore'),
-    ReactTypeahead = require('react-typeahead');
+    ReactTypeahead = require('react-typeahead'),
+    ReactRouter = require('react-router'),
+    History = ReactRouter.History;
 var Typeahead = ReactTypeahead.Typeahead;
 var blurTimer;
 var styles = {
@@ -44701,7 +44700,7 @@ var styles = {
 };
 var Header = React.createClass({
   displayName: "Header",
-  mixins: [Reflux.listenTo(ProductStore, 'onFetchProducts'), Reflux.listenTo(ResizeStore, 'onResizeWindow')],
+  mixins: [Reflux.listenTo(ProductStore, 'onFetchProducts'), Reflux.listenTo(ResizeStore, 'onResizeWindow'), History],
   onFetchProducts: function(categories) {
     this.setState({
       categories: categories,
@@ -44748,17 +44747,10 @@ var Header = React.createClass({
       cb(items);
     }, 500);
   },
-  _hideDropdownList: function(event) {
-    blurTimer = setTimeout(function() {
-      ReactDOM.findDOMNode(this.refs.typeahead.refs.entry.nextSibling).style.display = "none";
-    }.bind(this), 100);
-  },
-  _showDropdownList: function() {
-    ReactDOM.findDOMNode(this.refs.typeahead.refs.entry.nextSibling).style.display = "";
-  },
   _handleOptionSelected: function(option) {
     clearTimeout(blurTimer);
     console.log('option selected', option);
+    this.history.pushState(null, '/');
   },
   render: function() {
     var cartToggleButtonText = this.props.cartVisible ? 'Hide Cart' : 'Show Cart';
@@ -44778,8 +44770,6 @@ var Header = React.createClass({
       }),
       className: "topcoat-typeahead",
       onOptionSelected: this._handleOptionSelected,
-      onKeyDown: this._showDropdownList,
-      onBlur: this._hideDropdownList,
       placeholder: "Search for an item...",
       ref: "typeahead",
       customClasses: {
@@ -44794,7 +44784,7 @@ var Header = React.createClass({
 module.exports = Radium(Header);
 
 //# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/Header.jsx
-},{"../actions/AppActions":304,"../stores/ProductStore":322,"../stores/ResizeStore":323,"radium":53,"react":282,"react-typeahead":108}],315:[function(require,module,exports){
+},{"../actions/AppActions":304,"../stores/ProductStore":322,"../stores/ResizeStore":323,"radium":53,"react":282,"react-router":98,"react-typeahead":108}],315:[function(require,module,exports){
 "use strict";
 var React = require('react');
 var AppActions = require('../actions/AppActions');
