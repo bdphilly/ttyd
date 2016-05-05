@@ -15,7 +15,7 @@ class API::ProductsController < ApplicationController
     render json: {
       :status => :ok,
       :message => "Success!",
-      :data => @products.as_json
+      :data => @products.as_json({ :methods => :photo_url })
     }
   end
 

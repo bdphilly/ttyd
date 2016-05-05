@@ -44123,7 +44123,8 @@ var AppActions = Reflux.createActions([
   "addToCart",
   "updateItemInCart",  
   "removeFromCart",
-  "emptyCart",  
+  "emptyCart",
+  "searchForItems",
   "updateCartVisible",
   "getCartItems",
   "getCartVisible",
@@ -44132,7 +44133,7 @@ var AppActions = Reflux.createActions([
 
 module.exports = AppActions;
 
-},{"../utils/cartAPI":324,"../utils/productAPI":325,"reflux":299}],305:[function(require,module,exports){
+},{"../utils/cartAPI":325,"../utils/productAPI":326,"reflux":299}],305:[function(require,module,exports){
 "use strict";
 window._ = require('lodash');
 var React = require('react'),
@@ -44161,6 +44162,9 @@ var routes = (React.createElement(Route, {
 }), React.createElement(Route, {
   path: "/products/:categoryId",
   component: AisleList
+}), React.createElement(Route, {
+  path: "/products/search",
+  component: AisleList
 })));
 var ready = function() {
   ReactDOM.render(React.createElement(Router, {
@@ -44180,9 +44184,11 @@ var React = require('react'),
     ReactRouter = require('react-router'),
     AppActions = require('../actions/AppActions'),
     ProductStore = require('../stores/ProductStore'),
+    SearchStore = require('../stores/SearchStore'),
     ResizeStore = require('../stores/ResizeStore'),
     Product = require('./Product.jsx'),
-    CategoryList = require('./CategoryList.jsx');
+    CategoryList = require('./CategoryList.jsx'),
+    Router = require('react-router');
 var Link = ReactRouter.Link;
 var styles = {
   header: {
@@ -44207,12 +44213,18 @@ var styles = {
 var resizeTimeout;
 var AisleList = React.createClass({
   displayName: "AisleList",
-  mixins: [Reflux.connect(ProductStore, 'categories'), Reflux.listenTo(ResizeStore, 'onResizeWindow')],
+  mixins: [Reflux.connect(ProductStore, 'categories'), Reflux.listenTo(SearchStore, 'onSearchForItems'), Reflux.listenTo(ResizeStore, 'onResizeWindow')],
   getStateFromStore: function(props) {},
   getInitialState: function() {
-    var categories = ProductStore.filterAisle(this.props.params.categoryId);
+    var categories;
+    if (this.props.params.categoryId == 'search') {
+      AppActions.searchForItems(this.props.location.query.query);
+    } else {
+      categories = ProductStore.filterAisle(this.props.params.categoryId);
+    }
     return {
       categories: categories,
+      searchResults: [],
       productWidth: 200,
       productMargin: 4
     };
@@ -44222,6 +44234,9 @@ var AisleList = React.createClass({
   },
   componentWillReceiveProps: function(nextProps) {
     this.setState({});
+  },
+  onSearchForItems: function(results) {
+    this.setState({categories: results});
   },
   onResizeWindow: function(width) {
     clearTimeout(resizeTimeout);
@@ -44239,7 +44254,7 @@ var AisleList = React.createClass({
     this.refs.aisleList.style.width = parseInt(this.props.getProductListWidth() / productWidth) * productWidth + 'px';
   },
   render: function() {
-    var products = this.state.categories;
+    var products = this.state.categories || [];
     return (React.createElement("div", {
       style: styles.wrapper,
       ref: "aisleList"
@@ -44255,7 +44270,7 @@ var AisleList = React.createClass({
 module.exports = AisleList;
 
 //# sourceURL=/Users/bphillips/Desktop/TahoeToYourDoor/reactfiles/components/AisleList.jsx
-},{"../actions/AppActions":304,"../stores/ProductStore":322,"../stores/ResizeStore":323,"./CategoryList.jsx":313,"./Product.jsx":315,"react":282,"react-router":98,"reflux":299}],307:[function(require,module,exports){
+},{"../actions/AppActions":304,"../stores/ProductStore":322,"../stores/ResizeStore":323,"../stores/SearchStore":324,"./CategoryList.jsx":313,"./Product.jsx":315,"react":282,"react-router":98,"reflux":299}],307:[function(require,module,exports){
 "use strict";
 var React = require('react');
 var Reflux = require('reflux');
@@ -44733,24 +44748,10 @@ var Header = React.createClass({
   _matchProductToSearch: function(product, value) {
     return (product.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 || product.category.toLowerCase().indexOf(value.toLowerCase()) !== -1);
   },
-  _searchForProduct: function(value, cb) {
-    if (value == '')
-      return this.state.products;
-    console.log('searching...');
-    var items = this.state.products.filter((function(product) {
-      return product.name.toLowerCase().indexOf(value.toLowerCase()) !== -1;
-    }));
-    var categories = _.keys(this.state.categories).filter(function(category) {
-      return category.toLowerCase().indexOf(value.toLowerCase()) !== -1;
-    });
-    setTimeout(function() {
-      cb(items);
-    }, 500);
-  },
   _handleOptionSelected: function(option) {
     clearTimeout(blurTimer);
     console.log('option selected', option);
-    this.history.pushState(null, '/');
+    this.history.pushState(null, '/products/search', {query: option});
   },
   render: function() {
     var cartToggleButtonText = this.props.cartVisible ? 'Hide Cart' : 'Show Cart';
@@ -45180,6 +45181,7 @@ var ProductList = React.createClass({
   },
   onResizeWindow: function(width) {
     clearTimeout(resizeTimeout);
+    console.log('asdfasdfasdfsafd');
     resizeTimeout = setTimeout(function() {
       this.props.resize();
       this.recalculateWidth();
@@ -45241,7 +45243,6 @@ var WindowDimensions = React.createClass({
     window.removeEventListener('resize', this.updateDimensions);
   },
   updateDimensions: function() {
-    console.log('resize window');
     AppActions.resizeWindow();
   },
   render: function() {
@@ -45266,7 +45267,7 @@ var AppStore = Reflux.createStore({
     };
   },
 
-  onUpdateCartVisible: function(visible) {
+  updateCartVisible: function(visible) {
     this.state.cartVisible = visible;
     this.trigger(this.state.cartVisible);
   }
@@ -45274,7 +45275,7 @@ var AppStore = Reflux.createStore({
 
 module.exports = AppStore;
 
-},{"../actions/AppActions":304,"../utils/cartAPI":324,"../utils/productAPI":325,"reflux":299}],321:[function(require,module,exports){
+},{"../actions/AppActions":304,"../utils/cartAPI":325,"../utils/productAPI":326,"reflux":299}],321:[function(require,module,exports){
 var Reflux = require('reflux'),
     AppActions = require('../actions/AppActions'),
     CartAPI = require('../utils/cartAPI');
@@ -45410,7 +45411,7 @@ var Store = Reflux.createStore({
 
 module.exports = Store;
 
-},{"../actions/AppActions":304,"../utils/cartAPI":324,"reflux":299}],322:[function(require,module,exports){
+},{"../actions/AppActions":304,"../utils/cartAPI":325,"reflux":299}],322:[function(require,module,exports){
 var Reflux = require('reflux'),
     AppActions = require('../actions/AppActions'),
     CartStore = require('./CartStore'),
@@ -45425,7 +45426,8 @@ var ProductStore = Reflux.createStore({
 
     this.state = {
       categories: [],
-      cart: []
+      cart: [],
+      searchResults: []
     };
   },
 
@@ -45433,7 +45435,7 @@ var ProductStore = Reflux.createStore({
     this.state.cart = updatedCart;
   },
 
-  onFetchProducts: function() {
+  fetchProducts: function() {
     ProductAPI.fetchProducts()
       .then(function (result) {
         var categories = {};
@@ -45446,21 +45448,22 @@ var ProductStore = Reflux.createStore({
       }.bind(this))
       .catch(function (error) {
         console.error(error);
-      }.bind(this))
+      }.bind(this));
   },
 
   filterAisle: function(aisle) {
     return this.state.categories[aisle];
   }
+
 });
 
 module.exports = ProductStore;
 
-},{"../actions/AppActions":304,"../utils/cartAPI":324,"../utils/productAPI":325,"./CartStore":321,"reflux":299}],323:[function(require,module,exports){
+},{"../actions/AppActions":304,"../utils/cartAPI":325,"../utils/productAPI":326,"./CartStore":321,"reflux":299}],323:[function(require,module,exports){
 var Reflux = require('reflux'),
     AppActions = require('../actions/AppActions');
 
-var AppStore = Reflux.createStore({  
+var ResizeStore = Reflux.createStore({  
   listenables: [AppActions],  
 
   init: function () {
@@ -45469,8 +45472,7 @@ var AppStore = Reflux.createStore({
     };
   },
 
-  onResizeWindow: function() {
-    console.log('in the resize store!');
+  resizeWindow: function() {
     this.state.windowWidth = window.innerWidth;
     this.trigger(this.state.windowWidth);
   },
@@ -45480,9 +45482,40 @@ var AppStore = Reflux.createStore({
   },
 });
 
-module.exports = AppStore;
+module.exports = ResizeStore;
 
 },{"../actions/AppActions":304,"reflux":299}],324:[function(require,module,exports){
+var Reflux = require('reflux'),
+    AppActions = require('../actions/AppActions'),
+    ProductAPI = require('../utils/productAPI');
+
+var SearchStore = Reflux.createStore({  
+  listenables: [AppActions],  
+
+  init: function () {
+
+    this.state = {
+      searchResults: []
+    };
+  },
+
+  searchForItems: function(query) {
+    ProductAPI.searchForItems(query)
+      .then(function(result) {
+        console.log('result', result);
+        this.state.searchResults = result.data;
+        this.trigger(this.state.searchResults);
+      }.bind(this))
+      .catch(function(error) {
+        console.log('error', error);
+      }.bind(this));
+  },
+
+});
+
+module.exports = SearchStore;
+
+},{"../actions/AppActions":304,"../utils/productAPI":326,"reflux":299}],325:[function(require,module,exports){
 var reqwest = require('reqwest');
 
 module.exports = {
@@ -45598,7 +45631,7 @@ function csrfToken() {
   }).content;
 }
 
-},{"reqwest":302}],325:[function(require,module,exports){
+},{"reqwest":302}],326:[function(require,module,exports){
 var reqwest = require('reqwest');
 
 module.exports = {
@@ -45618,6 +45651,24 @@ module.exports = {
       error: function (error) {
         return error;
       }
+    });
+  },
+
+  searchForItems: function(query) {
+    return reqwest({
+      url: '/api/products/search?name=' + query,
+      method: 'GET',
+      type: 'json',
+      contentType: 'application/json',
+      headers: {
+        'X-CSRF-TOKEN': csrfToken()
+      },
+      success: function (result) {
+        return result;
+      },
+      error: function (error) {
+        return error;
+      }      
     });
   }
 }

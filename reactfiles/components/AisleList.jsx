@@ -3,9 +3,11 @@ var React = require('react'),
     ReactRouter = require('react-router'),
     AppActions = require('../actions/AppActions'),
     ProductStore = require('../stores/ProductStore'),
+    SearchStore = require('../stores/SearchStore'),
     ResizeStore = require('../stores/ResizeStore'),    
     Product = require('./Product.jsx'),
-    CategoryList = require('./CategoryList.jsx'); 
+    CategoryList = require('./CategoryList.jsx'),
+    Router = require('react-router'); 
 
 var Link = ReactRouter.Link;       
 
@@ -39,6 +41,8 @@ var resizeTimeout;
 var AisleList = React.createClass({
   mixins: [
     Reflux.connect(ProductStore, 'categories'),
+    // Reflux.connect(ProductStore, 'searchResults'),
+    Reflux.listenTo(SearchStore, 'onSearchForItems'),
     Reflux.listenTo(ResizeStore, 'onResizeWindow')
     // React.addons.LinkedStateMixin
   ],
@@ -48,11 +52,18 @@ var AisleList = React.createClass({
   },
 
   getInitialState: function() {
-    var categories = ProductStore.filterAisle(this.props.params.categoryId);
+    var categories;
+    if (this.props.params.categoryId == 'search') {
+      AppActions.searchForItems(this.props.location.query.query);
+    } else {
+      categories = ProductStore.filterAisle(this.props.params.categoryId);
+    }
+    
 
     //needs to be subcategories instead
     return {
       categories: categories,
+      searchResults: [],
       productWidth: 200,
       productMargin: 4      
     }
@@ -66,6 +77,12 @@ var AisleList = React.createClass({
   componentWillReceiveProps: function(nextProps) {
     this.setState({
 
+    })
+  },
+
+  onSearchForItems: function(results) {
+    this.setState({
+      categories: results
     })
   },
 
@@ -89,7 +106,7 @@ var AisleList = React.createClass({
   },    
 
   render: function () {
-    var products = this.state.categories;
+    var products = this.state.categories || [];
     
     return (
       <div style={styles.wrapper} ref="aisleList">
@@ -100,7 +117,7 @@ var AisleList = React.createClass({
         <CategoryList products={products} key={this.props.params.categoryId} />
 
       </div>
-    );
+    );    
   }
 });
 

@@ -4,10 +4,13 @@ var CartAPI = require('../utils/cartAPI');
 
 var ProductActions = Reflux.createActions([
   {"fetchAllProducts": {children: ["completed", "failed"]}},
+  {"searchForItems": {children: ["completed", "failed"]}},
   {"addToCart": {children: ["completed", "failed"]}},
 ]);
 
 ProductActions.fetchAllProducts.listenAndPromise(ProductAPI.fetchProducts);
+
+ProductActions.searchForItems.listenAndPromise(ProductAPI.searchForItems);
 
 ProductActions.addToCart.listenAndPromise(CartAPI.addToCart);
 

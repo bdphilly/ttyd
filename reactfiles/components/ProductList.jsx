@@ -85,7 +85,7 @@ var ProductList = React.createClass({
 
   onResizeWindow: function(width) {
     clearTimeout(resizeTimeout);
-    
+    console.log('asdfasdfasdfsafd');
     resizeTimeout = setTimeout(function() {      
       this.props.resize();
       this.recalculateWidth();

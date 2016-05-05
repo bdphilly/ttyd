@@ -1,7 +1,7 @@
 var Reflux = require('reflux'),
     AppActions = require('../actions/AppActions');
 
-var AppStore = Reflux.createStore({  
+var ResizeStore = Reflux.createStore({  
   listenables: [AppActions],  
 
   init: function () {
@@ -10,8 +10,7 @@ var AppStore = Reflux.createStore({
     };
   },
 
-  onResizeWindow: function() {
-    console.log('in the resize store!');
+  resizeWindow: function() {
     this.state.windowWidth = window.innerWidth;
     this.trigger(this.state.windowWidth);
   },
@@ -21,4 +20,4 @@ var AppStore = Reflux.createStore({
   },
 });
 
-module.exports = AppStore;
+module.exports = ResizeStore;

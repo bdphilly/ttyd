@@ -47,7 +47,10 @@ var styles = {
 };
 
 var CartApp = React.createClass({
-  mixins: [Reflux.listenTo(AppStore, 'onUpdateCartVisible'), History],
+  mixins: [
+    Reflux.listenTo(AppStore, 'onUpdateCartVisible'), 
+    History
+  ],
 
   getInitialState: function() {
     return {

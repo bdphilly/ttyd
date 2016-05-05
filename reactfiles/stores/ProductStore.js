@@ -12,7 +12,8 @@ var ProductStore = Reflux.createStore({
 
     this.state = {
       categories: [],
-      cart: []
+      cart: [],
+      searchResults: []
     };
   },
 
@@ -20,7 +21,7 @@ var ProductStore = Reflux.createStore({
     this.state.cart = updatedCart;
   },
 
-  onFetchProducts: function() {
+  fetchProducts: function() {
     ProductAPI.fetchProducts()
       .then(function (result) {
         var categories = {};
@@ -33,12 +34,13 @@ var ProductStore = Reflux.createStore({
       }.bind(this))
       .catch(function (error) {
         console.error(error);
-      }.bind(this))
+      }.bind(this));
   },
 
   filterAisle: function(aisle) {
     return this.state.categories[aisle];
   }
+
 });
 
 module.exports = ProductStore;

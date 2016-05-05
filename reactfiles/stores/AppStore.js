@@ -12,7 +12,7 @@ var AppStore = Reflux.createStore({
     };
   },
 
-  onUpdateCartVisible: function(visible) {
+  updateCartVisible: function(visible) {
     this.state.cartVisible = visible;
     this.trigger(this.state.cartVisible);
   }

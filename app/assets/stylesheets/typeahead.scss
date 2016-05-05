@@ -49,7 +49,8 @@
   border-bottom: 1px #CCC solid;
   padding-left: 25px;
 
-  &:hover {
+  &:hover,
+  &.hover {
     background: #5DDE9D;
   }
 

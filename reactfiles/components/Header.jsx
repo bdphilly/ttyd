@@ -84,6 +84,7 @@ var styles = {
 var Header = React.createClass({
   // mixins: [Reflux.connect(ProductStore, 'categories')],  
   mixins: [
+    // Reflux.listenTo(ProductStore, 'onFetchProducts'),
     Reflux.listenTo(ProductStore, 'onFetchProducts'),
     Reflux.listenTo(ResizeStore, 'onResizeWindow'),
     History
@@ -93,7 +94,7 @@ var Header = React.createClass({
     this.setState({
       categories: categories,
       products: this._getProducts(categories)      
-    })
+    });
   },
 
   onResizeWindow: function(data) {
@@ -130,27 +131,27 @@ var Header = React.createClass({
             product.category.toLowerCase().indexOf(value.toLowerCase()) !== -1);
   },
 
-  _searchForProduct: function(value, cb) {
-    if (value == '') return this.state.products;      
-    console.log('searching...');
-    var items = this.state.products.filter((product) => {
-      return product.name.toLowerCase().indexOf(value.toLowerCase()) !== -1
-    });
+  // _searchForProduct: function(value, cb) {
+  //   if (value == '') return this.state.products;      
+  //   console.log('searching...');
+  //   var items = this.state.products.filter((product) => {
+  //     return product.name.toLowerCase().indexOf(value.toLowerCase()) !== -1
+  //   });
 
-    var categories = _.keys(this.state.categories).filter(function (category){
-      return category.toLowerCase().indexOf(value.toLowerCase()) !== -1
-    });
+  //   var categories = _.keys(this.state.categories).filter(function (category){
+  //     return category.toLowerCase().indexOf(value.toLowerCase()) !== -1
+  //   });
 
-    setTimeout(function () {
-      cb(items);  
-    }, 500);    
+  //   setTimeout(function () {
+  //     cb(items);  
+  //   }, 500);    
 
-  },
+  // },
 
   _handleOptionSelected: function(option) {
     clearTimeout(blurTimer);
     console.log('option selected', option);
-    this.history.pushState(null, '/');    
+    this.history.pushState(null, '/products/search', {query: option});
   },
 
   render: function() {
